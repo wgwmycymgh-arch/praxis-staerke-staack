@@ -708,6 +708,15 @@
       .hero-video--desktop { opacity: 0; }
       .hero-video--mobile { opacity: 1; }
     }
+
+    /* ── LANDSCAPE MOBILE ────────────────────────── */
+    @media(max-width:1024px) and (orientation:landscape) {
+      .hero { align-items: center; }
+      .hero-content { padding-top: calc(var(--nav-h) + 16px); padding-bottom: 32px; }
+      .hero-title { font-size: clamp(26px,5vw,48px); margin-bottom: 14px; }
+      .hero-sub { font-size: 14px; margin-bottom: 20px; max-width: 360px; }
+      .hero-actions { gap: 12px; }
+    }
     @media(max-width:768px) {
       section { padding: 64px 0; }
       .nav-mobile a { padding: 10px 0; min-height: 44px; display: flex; align-items: center; }
@@ -1148,6 +1157,25 @@
     }, {threshold: 0.3});
     roomObs.observe(roomTextEl);
 
+
+    // VIDEO SYNC — nur das sichtbare Video spielt (iOS erlaubt nur 1 autoplay)
+    (function() {
+      const mq = window.matchMedia('(max-width:768px) and (orientation:portrait)');
+      const vDesktop = document.querySelector('.hero-video--desktop');
+      const vMobile  = document.querySelector('.hero-video--mobile');
+      function syncVideos() {
+        if (mq.matches) {
+          vDesktop.pause();
+          vMobile.play().catch(function(){});
+        } else {
+          vMobile.pause();
+          vDesktop.play().catch(function(){});
+        }
+      }
+      syncVideos();
+      mq.addEventListener('change', syncVideos);
+      window.addEventListener('orientationchange', function(){ setTimeout(syncVideos, 150); });
+    })();
 
     // 3D CARD TILT
     document.querySelectorAll('.service-card').forEach(card => {
