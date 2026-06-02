@@ -201,6 +201,7 @@
     .hero-video {
       position: fixed; inset: 0; width: 100vw; height: 100vh;
       object-fit: cover; object-position: center; z-index: -2;
+      transition: opacity 0.35s ease;
     }
     .video-overlay {
       position: fixed; inset: 0; z-index: -1; pointer-events: none;
@@ -1147,17 +1148,42 @@
       const src = document.getElementById('heroVideoSrc');
       if (!video || !src) return;
       const mq = window.matchMedia('(max-width: 768px) and (orientation: portrait)');
-      function swap(e) {
-        const newSrc = e.matches ? 'praxis1-mobile.mp4' : 'praxis1.mp4';
-        if (src.getAttribute('src') !== newSrc) {
-          src.setAttribute('src', newSrc);
-          video.load();
-          video.play().catch(() => {});
-        }
-        video.style.objectPosition = e.matches ? 'center top' : 'center';
+
+      function applySwap(portrait) {
+        const newSrc = portrait ? 'praxis1-mobile.mp4' : 'praxis1.mp4';
+        src.setAttribute('src', newSrc);
+        video.style.objectPosition = portrait ? 'center top' : 'center';
+        video.load();
+        video.play().catch(() => {});
       }
-      mq.addEventListener('change', swap);
-      swap(mq);
+
+      function swap(e, animate) {
+        const portrait = e.matches;
+        const newSrc = portrait ? 'praxis1-mobile.mp4' : 'praxis1.mp4';
+        if (src.getAttribute('src') === newSrc) return;
+        if (!animate) { applySwap(portrait); return; }
+
+        video.style.opacity = '0';
+        setTimeout(function() {
+          src.setAttribute('src', newSrc);
+          video.style.objectPosition = portrait ? 'center top' : 'center';
+          video.load();
+          var fallback = setTimeout(function() {
+            video.style.opacity = '1';
+            video.removeEventListener('canplay', onReady);
+          }, 900);
+          function onReady() {
+            clearTimeout(fallback);
+            video.play().catch(function(){});
+            video.style.opacity = '1';
+            video.removeEventListener('canplay', onReady);
+          }
+          video.addEventListener('canplay', onReady);
+        }, 350);
+      }
+
+      mq.addEventListener('change', function(e) { swap(e, true); });
+      swap(mq, false);
     })();
 
     // 3D CARD TILT
