@@ -2,11 +2,17 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
-const Airtable = require('airtable');
+const { createClient } = require('@supabase/supabase-js');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_ROLE_KEY
+);
+
+app.set('trust proxy', 1);
 app.use(helmet());
 app.use(express.json());
 
@@ -24,9 +30,6 @@ const contactLimiter = rateLimit({
   legacyHeaders: false,
 });
 
-const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY })
-  .base(process.env.AIRTABLE_BASE_ID);
-
 app.post('/api/contact', contactLimiter, async (req, res) => {
   const { vorname, nachname, email, telefon, anliegen, nachricht } = req.body;
 
@@ -38,27 +41,25 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
     return res.status(400).json({ error: 'Ungültige E-Mail-Adresse' });
   }
 
-  try {
-    await base(process.env.AIRTABLE_TABLE_NAME || 'Anfragen').create([
-      {
-        fields: {
-          Vorname: vorname.trim(),
-          Nachname: nachname.trim(),
-          Email: email.trim(),
-          Telefon: telefon ? telefon.trim() : '',
-          Anliegen: anliegen ? anliegen.trim() : '',
-          Nachricht: nachricht.trim(),
-          Datum: new Date().toISOString(),
-          Status: 'Neu',
-        },
-      },
-    ]);
+  const { error } = await supabase
+    .from(process.env.SUPABASE_TABLE || 'anfragen')
+    .insert([{
+      vorname: vorname.trim(),
+      nachname: nachname.trim(),
+      email: email.trim(),
+      telefon: telefon ? telefon.trim() : null,
+      anliegen: anliegen ? anliegen.trim() : null,
+      nachricht: nachricht.trim(),
+      status: 'Neu',
+    }]);
 
-    res.json({ success: true });
-  } catch (err) {
-    console.error('Airtable error:', err.message);
-    res.status(500).json({ error: 'Interner Fehler. Bitte versuche es später erneut.' });
+  if (error) {
+    console.error('Supabase insert error:', JSON.stringify(error));
+    return res.status(500).json({ error: 'Interner Fehler. Bitte versuche es später erneut.' });
   }
+
+  console.log('Contact form submitted:', email.trim());
+  res.json({ success: true });
 });
 
 app.get('/health', (req, res) => res.json({ status: 'ok' }));
