@@ -189,7 +189,7 @@
     .nav-mobile a { color: var(--text); text-decoration: none; font-size: 16px; font-weight: 500; }
     @media(max-width:768px) {
       .nav-links,.nav-cta { display: none; }
-      .nav-toggle { display: block; }
+      .nav-toggle { display: block; align-self: flex-start; margin-top: 14px; }
       .nav-inner { padding: 0 20px; }
     }
 
@@ -701,12 +701,9 @@
       font-size: 12px; color: var(--accent); display: inline-block; margin-top: 8px;
     }
 
-    /* ── MOBILE VIDEO SWITCH ─────────────────────── */
-    .hero-video--mobile { opacity: 0; pointer-events: none; }
+    /* ── MOBILE VIDEO ────────────────────────────── */
     @media(max-width:768px) and (orientation:portrait) {
       .hero-video { object-position: center top; }
-      .hero-video--desktop { opacity: 0; pointer-events: none; }
-      .hero-video--mobile { opacity: 1; }
     }
 
     @media(max-width:768px) {
@@ -796,12 +793,16 @@
   <div class="scroll-progress" id="scrollProgress"></div>
 
   <!-- VIDEO BACKGROUND -->
-  <video class="hero-video hero-video--desktop" autoplay muted loop playsinline preload="auto">
-    <source src="praxis1.mp4" type="video/mp4">
+  <video id="heroVideo" class="hero-video" autoplay muted loop playsinline preload="auto">
+    <source id="heroSrc" src="" type="video/mp4">
   </video>
-  <video class="hero-video hero-video--mobile" autoplay muted loop playsinline preload="auto">
-    <source src="praxis1-mobile.mp4" type="video/mp4">
-  </video>
+  <script>
+    (function(){
+      var isPortrait = window.innerWidth <= 768 && window.innerHeight > window.innerWidth;
+      document.getElementById('heroSrc').src = isPortrait ? 'praxis1-mobile.mp4' : 'praxis1.mp4';
+      document.getElementById('heroVideo').load();
+    })();
+  </script>
   <div class="video-overlay"></div>
 
   <!-- NAV -->
@@ -1164,18 +1165,21 @@
     roomObs.observe(roomTextEl);
 
 
-    // VIDEO — portrait fallback + orientation switch
-    function playCorrectVideo() {
-      var isPortrait = window.innerWidth < window.innerHeight && window.innerWidth <= 768;
-      var vMobile  = document.querySelector('.hero-video--mobile');
-      var vDesktop = document.querySelector('.hero-video--desktop');
-      var target   = isPortrait ? vMobile : vDesktop;
-      if (target && target.paused) target.play().catch(function(){});
-    }
-    // iOS kann opacity:0 Video nicht autoplayen → nach load prüfen
-    window.addEventListener('load', playCorrectVideo);
+    // VIDEO ORIENTATION SWITCH
+    window.addEventListener('load', function() {
+      var v = document.getElementById('heroVideo');
+      if (v && v.paused) v.play().catch(function(){});
+    });
     window.addEventListener('orientationchange', function() {
-      setTimeout(playCorrectVideo, 300);
+      setTimeout(function() {
+        var v = document.getElementById('heroVideo');
+        var s = document.getElementById('heroSrc');
+        if (!v || !s) return;
+        var isPortrait = window.innerWidth < window.innerHeight;
+        s.src = isPortrait ? 'praxis1-mobile.mp4' : 'praxis1.mp4';
+        v.load();
+        v.play().catch(function(){});
+      }, 300);
     });
 
     // 3D CARD TILT
