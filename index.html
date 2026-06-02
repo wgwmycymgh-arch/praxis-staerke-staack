@@ -709,15 +709,6 @@
       .hero-video--mobile { opacity: 1; }
     }
 
-    /* ── LANDSCAPE MOBILE ────────────────────────── */
-    @media(max-width:1024px) and (orientation:landscape) {
-      .hero { align-items: flex-start; }
-      .hero-content { padding-top: calc(var(--nav-h) + 60px); padding-bottom: 24px; padding-left: 20px; padding-right: 20px; }
-      .hero-title { font-size: clamp(22px,5vw,40px); margin-bottom: 8px; }
-      .hero-sub { font-size: 13px; margin-bottom: 14px; max-width: 360px; }
-      .hero-actions { flex-direction: row; width: auto; gap: 10px; }
-      .btn-primary, .btn-ghost { width: auto; min-height: auto; padding: 10px 20px; font-size: 13px; }
-    }
     @media(max-width:768px) {
       section { padding: 64px 0; }
       .nav-mobile a { padding: 10px 0; min-height: 44px; display: flex; align-items: center; }
@@ -771,6 +762,21 @@
       .hero-badge { font-size: 9px; letter-spacing: 0.12em; padding: 5px 12px; }
       .welcome-quote { font-size: 22px; }
       .team-banner { height: 200px; }
+    }
+
+    /* ── MOBILE LANDSCAPE — kommt zuletzt, überschreibt 768px-Block ── */
+    @media(orientation:landscape) and (max-height:500px) {
+      .hero { align-items: flex-start; overflow: hidden; }
+      .hero-content { padding: calc(var(--nav-h) + 56px) 20px 20px !important; }
+      .hero-title { font-size: clamp(20px,4.5vw,36px) !important; margin-bottom: 6px; }
+      .hero-sub { font-size: 12px !important; margin-bottom: 12px; max-width: 380px; }
+      .hero-actions { flex-direction: row !important; width: auto !important; gap: 10px; }
+      .btn-primary, .btn-ghost {
+        width: auto !important; min-height: auto !important;
+        padding: 9px 18px !important; font-size: 13px !important;
+        display: inline-flex !important;
+      }
+      .hero-scroll { display: none; }
     }
   </style>
 </head>
@@ -1158,15 +1164,18 @@
     roomObs.observe(roomTextEl);
 
 
-    // VIDEO ORIENTATION SWITCH — nur play() wenn Video pausiert nach Rotation
+    // VIDEO — portrait fallback + orientation switch
+    function playCorrectVideo() {
+      var isPortrait = window.innerWidth < window.innerHeight && window.innerWidth <= 768;
+      var vMobile  = document.querySelector('.hero-video--mobile');
+      var vDesktop = document.querySelector('.hero-video--desktop');
+      var target   = isPortrait ? vMobile : vDesktop;
+      if (target && target.paused) target.play().catch(function(){});
+    }
+    // iOS kann opacity:0 Video nicht autoplayen → nach load prüfen
+    window.addEventListener('load', playCorrectVideo);
     window.addEventListener('orientationchange', function() {
-      setTimeout(function() {
-        var isPortrait = window.innerWidth < window.innerHeight;
-        var target = isPortrait
-          ? document.querySelector('.hero-video--mobile')
-          : document.querySelector('.hero-video--desktop');
-        if (target && target.paused) target.play().catch(function(){});
-      }, 300);
+      setTimeout(playCorrectVideo, 300);
     });
 
     // 3D CARD TILT
