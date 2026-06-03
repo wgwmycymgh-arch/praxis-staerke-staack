@@ -39,7 +39,7 @@ const adminLimiter = rateLimit({
   legacyHeaders: false,
 });
 
-const ALLOWED_POST_TYPES = ['neuigkeit', 'termin', 'info'];
+const ALLOWED_POST_TYPES = ['neuigkeit', 'urlaub', 'info'];
 
 function isValidAdminKey(key) {
   const expected = process.env.ADMIN_KEY;

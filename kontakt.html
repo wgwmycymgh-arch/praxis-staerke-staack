@@ -226,19 +226,19 @@
   </style>
 </head>
 <body>
-  <nav class="nav">
+  <nav class="nav" aria-label="Hauptnavigation">
     <div class="nav-inner">
       <a href="index.html" class="nav-logo">
         <div class="logo-mark" style="font-size:20px;">+</div>
         <div class="logo-text"><span>Hausarztpraxis</span><strong>Stärke &amp; Staack</strong></div>
       </a>
-      <nav class="nav-links">
+      <div class="nav-links">
         <a href="index.html">Start</a>
         <a href="leistungen.html">Leistungen</a>
         <a href="team.html">Team</a>
         <a href="aktuelles.html">Aktuelles</a>
         <a href="kontakt.html" class="active">Kontakt</a>
-      </nav>
+      </div>
       <a href="kontakt.html" class="nav-cta">Termin vereinbaren</a>
       <button class="nav-toggle" id="navToggle">&#9776;</button>
     </div>
@@ -250,6 +250,8 @@
     <a href="kontakt.html">Kontakt &amp; Termin</a>
     <a href="impressum.html">Impressum</a>
   </div>
+
+  <main id="main-content">
 
   <div class="page-hero">
     <div class="container">
@@ -387,10 +389,11 @@
       <div class="map-placeholder reveal delay-2">
         <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
         <p>Gr. Diesdorfer Straße 186, 39110 Magdeburg</p>
-        <small>Google Maps einbetten: src="https://maps.google.com/maps?q=Gr.+Diesdorfer+Str.+186+Magdeburg&output=embed"</small>
       </div>
     </div>
   </section>
+
+  </main>
 
   <footer class="footer" style="margin-top:80px;">
     <div class="container">
@@ -406,8 +409,8 @@
             <li><a href="index.html">Start</a></li>
             <li><a href="leistungen.html">Leistungen</a></li>
             <li><a href="team.html">Team</a></li>
-            <li><a href="aktuelles.html">Aktuelles</a>
-        <a href="kontakt.html">Kontakt</a></li>
+            <li><a href="aktuelles.html">Aktuelles</a></li>
+            <li><a href="kontakt.html">Kontakt</a></li>
           </ul>
         </div>
         <div class="footer-col">
