@@ -93,8 +93,10 @@
       transition: transform 0.6s cubic-bezier(0.22,1,0.36,1);
     }
     .team-overview-photo {
-      width: 100%; height: 420px; object-fit: cover; object-position: center 20%;
-      border-radius: var(--radius); display: block;
+      display: block; height: auto;
+      max-width: 720px; width: 100%;
+      margin: 0 auto;
+      border-radius: var(--radius);
       box-shadow: var(--shadow-lg);
     }
     .doctor-card:hover .doctor-photo-img { transform: scale(1.04); }
@@ -149,27 +151,34 @@
     /* MFA TEAM */
     .mfa-section { background: var(--surface-2); }
     .mfa-header { margin-bottom: 56px; }
-    .mfa-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 24px; }
+    .mfa-grid { display: grid; grid-template-columns: 1fr; gap: 20px; max-width: 680px; }
     .mfa-card {
       background: var(--surface); border-radius: var(--radius);
-      border: 1px solid var(--border);
-      overflow: hidden;
+      border: 1px solid var(--border); overflow: hidden;
+      display: grid; grid-template-columns: 200px 1fr;
       transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s;
     }
-    .mfa-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+    .mfa-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
     .mfa-avatar {
-      aspect-ratio: 3/4; display: flex; align-items: center; justify-content: center;
+      aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center;
       font-family: 'Cormorant Garamond', serif; font-size: 56px; font-weight: 300;
       color: rgba(255,255,255,0.85); position: relative; overflow: hidden;
+      flex-shrink: 0;
     }
     .mfa-avatar-bg { position: absolute; inset: 0; }
     .mfa-avatar-init { position: relative; z-index: 1; }
-    .mfa-body { padding: 20px 24px; }
-    .mfa-body h3 { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: var(--primary); }
-    .mfa-body span { font-size: 12px; color: var(--text-dim); letter-spacing: 0.05em; }
-    .mfa-body p { font-size: 13px; color: var(--text-dim); line-height: 1.6; margin-top: 10px; }
-    @media(max-width:960px){ .mfa-grid{grid-template-columns:repeat(2,1fr);} }
-    @media(max-width:480px){ .mfa-grid{grid-template-columns:1fr;} }
+    .mfa-body {
+      padding: 24px 28px;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .mfa-body h3 { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; color: var(--primary); overflow-wrap: break-word; }
+    .mfa-body span { font-size: 12px; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600; margin-top: 4px; display: block; }
+    .mfa-body p { font-size: 14px; color: var(--text-mid); line-height: 1.6; margin-top: 8px; }
+    @media(max-width:600px){
+      .mfa-grid { max-width: 100%; }
+      .mfa-card { grid-template-columns: 1fr; }
+      .mfa-avatar { aspect-ratio: 16/9; }
+    }
 
     /* VALUES */
     .values-section { background: var(--primary); }
@@ -239,19 +248,19 @@
   </style>
 </head>
 <body>
-  <nav class="nav">
+  <nav class="nav" aria-label="Hauptnavigation">
     <div class="nav-inner">
       <a href="index.html" class="nav-logo">
         <div class="logo-mark" style="font-size:20px;">+</div>
         <div class="logo-text"><span>Hausarztpraxis</span><strong>Stärke &amp; Staack</strong></div>
       </a>
-      <nav class="nav-links">
+      <div class="nav-links">
         <a href="index.html">Start</a>
         <a href="leistungen.html">Leistungen</a>
         <a href="team.html" class="active">Team</a>
         <a href="aktuelles.html">Aktuelles</a>
         <a href="kontakt.html">Kontakt</a>
-      </nav>
+      </div>
       <a href="kontakt.html" class="nav-cta">Termin vereinbaren</a>
       <button class="nav-toggle" id="navToggle">&#9776;</button>
     </div>
@@ -263,6 +272,8 @@
     <a href="kontakt.html">Kontakt &amp; Termin</a>
     <a href="impressum.html">Impressum</a>
   </div>
+
+  <main id="main-content">
 
   <div class="page-hero">
     <div class="container">
@@ -350,7 +361,7 @@
         <h2 class="section-title">Unsere <em>Fachkräfte</em></h2>
         <p style="font-size:16px; color:var(--text-dim); margin-top:16px; max-width:560px;">Unser MFA-Team sorgt dafür, dass Sie sich von Anfang an gut aufgehoben fühlen — vom Empfang bis zur Behandlung.</p>
       </div>
-      <div class="mfa-grid" style="grid-template-columns:repeat(3,1fr);">
+      <div class="mfa-grid">
         <div class="mfa-card reveal delay-1">
           <div class="mfa-avatar">
             <img src="images/team-4.jpg" alt="Schwester Manuela" class="doctor-photo-img" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover; object-position:center top;">
@@ -420,6 +431,8 @@
     </div>
   </section>
 
+  </main>
+
   <footer class="footer">
     <div class="container">
       <div class="footer-grid">
@@ -434,8 +447,8 @@
             <li><a href="index.html">Start</a></li>
             <li><a href="leistungen.html">Leistungen</a></li>
             <li><a href="team.html">Team</a></li>
-            <li><a href="aktuelles.html">Aktuelles</a>
-        <a href="kontakt.html">Kontakt</a></li>
+            <li><a href="aktuelles.html">Aktuelles</a></li>
+            <li><a href="kontakt.html">Kontakt</a></li>
           </ul>
         </div>
         <div class="footer-col">
