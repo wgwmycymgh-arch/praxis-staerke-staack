@@ -160,10 +160,15 @@
     }
     .mfa-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
     .mfa-avatar {
-      aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center;
+      display: flex; align-items: center; justify-content: center;
       font-family: 'Cormorant Garamond', serif; font-size: 56px; font-weight: 300;
       color: rgba(255,255,255,0.85); position: relative; overflow: hidden;
       flex-shrink: 0;
+    }
+    .mfa-avatar img.doctor-photo-img {
+      position: static !important; inset: auto !important;
+      width: 100% !important; height: auto !important;
+      object-fit: initial !important; display: block;
     }
     .mfa-avatar-bg { position: absolute; inset: 0; }
     .mfa-avatar-init { position: relative; z-index: 1; }
