@@ -157,7 +157,7 @@
       border: none; border-radius: var(--radius-sm);
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 15px; font-weight: 600; letter-spacing: 0.05em;
-      cursor: pointer; transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s, background 0.25s;
+      cursor: pointer; transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s, background 0.25s;
       position: relative; overflow: hidden;
     }
     .btn-submit:hover { background: var(--primary-mid); transform: translateY(-3px); box-shadow: 0 14px 40px rgba(15,45,28,0.28); }
@@ -323,17 +323,17 @@
               <div class="form-row">
                 <div class="form-group">
                   <label for="vorname">Vorname *</label>
-                  <input type="text" id="vorname" name="vorname" class="form-control" placeholder="Max" required>
+                  <input type="text" id="vorname" name="vorname" class="form-control" placeholder="Max" required maxlength="100">
                 </div>
                 <div class="form-group">
                   <label for="nachname">Nachname *</label>
-                  <input type="text" id="nachname" name="nachname" class="form-control" placeholder="Mustermann" required>
+                  <input type="text" id="nachname" name="nachname" class="form-control" placeholder="Mustermann" required maxlength="100">
                 </div>
               </div>
               <div class="form-row">
                 <div class="form-group">
                   <label for="telefon">Telefon</label>
-                  <input type="tel" id="telefon" name="telefon" class="form-control" placeholder="0123 456789">
+                  <input type="tel" id="telefon" name="telefon" class="form-control" placeholder="0123 456789" maxlength="30">
                 </div>
                 <div class="form-group">
                   <label for="email">E-Mail *</label>
@@ -355,7 +355,7 @@
               </div>
               <div class="form-group">
                 <label for="nachricht">Nachricht *</label>
-                <textarea id="nachricht" name="nachricht" class="form-control" placeholder="Beschreiben Sie Ihr Anliegen kurz..." required></textarea>
+                <textarea id="nachricht" name="nachricht" class="form-control" placeholder="Beschreiben Sie Ihr Anliegen kurz..." required maxlength="2000"></textarea>
               </div>
               <div class="form-group">
                 <div class="form-checkbox">
@@ -455,18 +455,19 @@
       btn.textContent = 'Wird gesendet...';
       btn.disabled = true;
 
-      const vorname   = document.getElementById('vorname').value;
-      const nachname  = document.getElementById('nachname').value;
-      const email     = document.getElementById('email').value;
-      const telefon   = document.getElementById('telefon').value;
-      const anliegen  = document.getElementById('anliegen').value;
-      const nachricht = document.getElementById('nachricht').value;
+      const vorname    = document.getElementById('vorname').value;
+      const nachname   = document.getElementById('nachname').value;
+      const email      = document.getElementById('email').value;
+      const telefon    = document.getElementById('telefon').value;
+      const anliegen   = document.getElementById('anliegen').value;
+      const nachricht  = document.getElementById('nachricht').value;
+      const datenschutz = document.getElementById('datenschutz').checked;
 
       try {
         const res = await fetch(`${BACKEND_URL}/api/contact`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ vorname, nachname, email, telefon, anliegen, nachricht }),
+          body: JSON.stringify({ vorname, nachname, email, telefon, anliegen, nachricht, datenschutz }),
         });
 
         const data = await res.json();

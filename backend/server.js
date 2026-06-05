@@ -104,7 +104,11 @@ app.delete('/api/posts/:id', adminLimiter, async (req, res) => {
 });
 
 app.post('/api/contact', contactLimiter, async (req, res) => {
-  const { vorname, nachname, email, telefon, anliegen, nachricht } = req.body;
+  const { vorname, nachname, email, telefon, anliegen, nachricht, datenschutz } = req.body;
+
+  if (!datenschutz) {
+    return res.status(400).json({ error: 'Datenschutzzustimmung ist erforderlich.' });
+  }
 
   if (!vorname || !nachname || !email || !nachricht) {
     return res.status(400).json({ error: 'Pflichtfelder fehlen: vorname, nachname, email, nachricht' });
@@ -114,15 +118,33 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
     return res.status(400).json({ error: 'Ungültige E-Mail-Adresse' });
   }
 
+  if (vorname.length > 100 || nachname.length > 100) {
+    return res.status(400).json({ error: 'Name zu lang (max. 100 Zeichen).' });
+  }
+  if (email.length > 254) {
+    return res.status(400).json({ error: 'E-Mail-Adresse zu lang.' });
+  }
+  if (telefon && telefon.length > 30) {
+    return res.status(400).json({ error: 'Telefonnummer zu lang (max. 30 Zeichen).' });
+  }
+  if (anliegen && anliegen.length > 100) {
+    return res.status(400).json({ error: 'Anliegen zu lang (max. 100 Zeichen).' });
+  }
+  if (nachricht.length > 2000) {
+    return res.status(400).json({ error: 'Nachricht zu lang (max. 2000 Zeichen).' });
+  }
+
+  const strip = s => s.replace(/<[^>]*>/g, '').trim();
+
   const { error } = await supabase
     .from(process.env.SUPABASE_TABLE || 'anfragen')
     .insert([{
-      vorname: vorname.trim(),
-      nachname: nachname.trim(),
-      email: email.trim(),
-      telefon: telefon ? telefon.trim() : null,
-      anliegen: anliegen ? anliegen.trim() : null,
-      nachricht: nachricht.trim(),
+      vorname: strip(vorname),
+      nachname: strip(nachname),
+      email: email.trim().toLowerCase(),
+      telefon: telefon ? strip(telefon) : null,
+      anliegen: anliegen ? strip(anliegen) : null,
+      nachricht: strip(nachricht),
       status: 'Neu',
     }]);
 
