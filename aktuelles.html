@@ -30,11 +30,16 @@
     .logo-mark { width: 42px; height: 42px; border-radius: 10px; background: var(--primary); display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: #f4f0e5; }
     .logo-text span { display: block; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-dim); font-weight: 500; }
     .logo-text strong { display: block; font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 600; color: var(--primary); }
-    .nav-links { display: flex; gap: 28px; flex: 1; }
+    .nav-links { display: none; gap: 28px; flex: 1; }
     .nav-links a { color: var(--text-mid); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.25s; }
     .nav-links a:hover, .nav-links a.active { color: var(--primary); }
-    .nav-cta { padding: 10px 22px; background: var(--primary); color: #f4f0e5; font-weight: 600; font-size: 13px; text-decoration: none; border-radius: var(--radius-sm); }
-    @media(max-width:768px){ .nav-links,.nav-cta{display:none;} .nav-inner{padding:0 20px;} }
+    .nav-cta { display: none; padding: 10px 22px; background: var(--primary); color: #f4f0e5; font-weight: 600; font-size: 13px; text-decoration: none; border-radius: var(--radius-sm); }
+    .nav-toggle { display: flex; align-items: center; justify-content: center; margin-left: auto; background: none; border: none; font-size: 22px; cursor: pointer; color: var(--primary); padding: 4px; }
+    .nav-mobile { display: none; position: fixed; top: var(--nav-h); left: 0; right: 0; background: rgba(244,240,229,0.97); backdrop-filter: blur(20px); padding: 24px 32px; flex-direction: column; gap: 20px; border-bottom: 1px solid var(--border); z-index: 399; }
+    .nav-mobile.open { display: flex; }
+    .nav-mobile a { color: var(--text); text-decoration: none; font-size: 16px; font-weight: 500; padding: 10px 0; border-bottom: 1px solid var(--border); }
+    .nav-mobile a:last-child { border-bottom: none; }
+    @media(max-width:768px){ .nav-inner{padding:0 20px;} }
 
     .page-hero { padding: 80px 0 64px; background: linear-gradient(160deg, var(--primary) 0%, #1e5c36 100%); position: relative; overflow: hidden; }
     .page-hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 80% 60% at 90% 50%, rgba(184,132,58,0.18), transparent); }
@@ -101,8 +106,17 @@
         <a href="kontakt.html">Kontakt</a>
       </div>
       <a href="kontakt.html" class="nav-cta">Termin vereinbaren</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menü öffnen">&#9776;</button>
     </div>
   </nav>
+  <div class="nav-mobile" id="navMobile">
+    <a href="index.html">Start</a>
+    <a href="leistungen.html">Leistungen</a>
+    <a href="team.html">Team</a>
+    <a href="aktuelles.html" class="active">Aktuelles</a>
+    <a href="kontakt.html">Kontakt &amp; Termin</a>
+    <a href="impressum.html">Impressum</a>
+  </div>
 
   <main id="main-content">
 
@@ -136,6 +150,10 @@
   </div>
 
   <script>
+    document.getElementById('navToggle').addEventListener('click', () => {
+      document.getElementById('navMobile').classList.toggle('open');
+    });
+
     const BACKEND_URL = 'https://praxis-staerke-backend-production.up.railway.app';
     const TYPE_LABELS = { urlaub: 'Urlaub / Schließung', info: 'Info', neuigkeit: 'Neuigkeit' };
 
