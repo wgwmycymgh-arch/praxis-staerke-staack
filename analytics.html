@@ -492,6 +492,17 @@
       border: none;
     }
 
+    /* ── FORMS SECTION ──────────────────────────────── */
+    .forms-stats { display: flex; align-items: stretch; }
+    .form-stat { flex: 1; padding: 28px 32px; }
+    .form-stat-sep { width: 1px; background: var(--border); margin: 16px 0; }
+    .form-stat-label { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 8px; }
+    .form-stat-value { font-family: 'Cormorant Garamond', serif; font-size: 52px; font-weight: 300; color: var(--text); line-height: 1; }
+    .form-stat-total { color: var(--accent-light); }
+    .form-conversion { padding: 12px 32px 20px; border-top: 1px solid var(--border); font-size: 13px; color: var(--text-dim); display: flex; align-items: center; gap: 8px; }
+    .form-conversion strong { color: var(--accent-light); font-weight: 600; }
+    @media(max-width: 480px) { .form-stat { padding: 20px; } .form-stat-value { font-size: 40px; } .form-conversion { padding: 10px 20px 16px; } }
+
     /* ── SKELETON ────────────────────────────────────── */
     @keyframes shimmer {
       0% { background-position: -400px 0; }
@@ -601,6 +612,29 @@
         </div>
       </div>
 
+      <!-- CONTACT FORMS -->
+      <div class="section-head">
+        <h2 class="section-title">Kontaktanfragen</h2>
+        <span class="section-sub">via Formular</span>
+      </div>
+      <div class="card" style="margin-bottom:32px;">
+        <div class="forms-stats">
+          <div class="form-stat">
+            <div class="form-stat-label">Heute</div>
+            <div class="form-stat-value" id="statFormsToday">—</div>
+          </div>
+          <div class="form-stat-sep"></div>
+          <div class="form-stat">
+            <div class="form-stat-label">Gesamt</div>
+            <div class="form-stat-value form-stat-total" id="statFormsTotal">—</div>
+          </div>
+        </div>
+        <div class="form-conversion" id="formConversion" style="display:none;">
+          <svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><polyline points="1 12 5 7 9 9 15 3"/><polyline points="11 3 15 3 15 7"/></svg>
+          Conversion: <strong id="formRate">—</strong> &nbsp;·&nbsp; <span id="formRatio">—</span>
+        </div>
+      </div>
+
       <!-- TOP PAGES -->
       <div class="section-head">
         <h2 class="section-title">Top Seiten</h2>
@@ -676,6 +710,15 @@
       document.getElementById('statWeek').textContent = d.week;
       document.getElementById('statMonth').textContent = d.month;
       document.getElementById('statTotal').textContent = d.total;
+      document.getElementById('statFormsToday').textContent = d.formsToday ?? '—';
+      document.getElementById('statFormsTotal').textContent = d.formsTotal ?? '—';
+      if (d.total > 0 && d.formsTotal >= 0) {
+        const rate = (d.formsTotal / d.total * 100).toFixed(1);
+        const ratio = d.formsTotal > 0 ? Math.round(d.total / d.formsTotal) : '∞';
+        document.getElementById('formRate').textContent = rate + '%';
+        document.getElementById('formRatio').textContent = '1 Anfrage pro ' + ratio + ' Besuche';
+        document.getElementById('formConversion').style.display = 'flex';
+      }
 
       const maxCount = d.topPages.length ? d.topPages[0].count : 1;
       const topBody = document.getElementById('topPagesBody');
@@ -724,7 +767,11 @@
         loadStats();
         refreshTimer = setInterval(loadStats, 30000);
       } else {
-        document.getElementById('loginErr').style.display = 'block';
+        const errEl = document.getElementById('loginErr');
+        errEl.textContent = res.status === 429
+          ? 'Zu viele Versuche. Bitte 15 Minuten warten.'
+          : 'Falscher Schlüssel. Bitte erneut versuchen.';
+        errEl.style.display = 'block';
         btn.disabled = false;
         btn.textContent = 'Anmelden';
       }

@@ -45,6 +45,13 @@ const adminLimiter = rateLimit({
   legacyHeaders: false,
 });
 
+const statsLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 200,
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
 const trackLimiter = rateLimit({
   windowMs: 60 * 1000,
   max: 60,
@@ -178,7 +185,7 @@ app.post('/api/track', trackLimiter, async (req, res) => {
   res.json({ ok: true });
 });
 
-app.get('/api/stats', adminLimiter, async (req, res) => {
+app.get('/api/stats', statsLimiter, async (req, res) => {
   if (!isValidAdminKey(req.headers['x-admin-key'])) {
     return res.status(401).json({ success: false });
   }
@@ -187,13 +194,15 @@ app.get('/api/stats', adminLimiter, async (req, res) => {
   const weekStart = new Date(now); weekStart.setDate(now.getDate() - 7);
   const monthStart = new Date(now); monthStart.setDate(now.getDate() - 30);
 
-  const [totalRes, todayRes, weekRes, monthRes, pagesData, recentRes] = await Promise.all([
+  const [totalRes, todayRes, weekRes, monthRes, pagesData, recentRes, formsTotalRes, formsTodayRes] = await Promise.all([
     supabase.from('pageviews').select('*', { count: 'exact', head: true }),
     supabase.from('pageviews').select('*', { count: 'exact', head: true }).gte('created_at', todayStart.toISOString()),
     supabase.from('pageviews').select('*', { count: 'exact', head: true }).gte('created_at', weekStart.toISOString()),
     supabase.from('pageviews').select('*', { count: 'exact', head: true }).gte('created_at', monthStart.toISOString()),
     supabase.from('pageviews').select('page').gte('created_at', monthStart.toISOString()),
     supabase.from('pageviews').select('page, referrer, created_at').order('created_at', { ascending: false }).limit(20),
+    supabase.from('anfragen').select('*', { count: 'exact', head: true }),
+    supabase.from('anfragen').select('*', { count: 'exact', head: true }).gte('created_at', todayStart.toISOString()),
   ]);
 
   const pageMap = {};
@@ -208,6 +217,8 @@ app.get('/api/stats', adminLimiter, async (req, res) => {
     total: totalRes.count || 0,
     topPages,
     recent: recentRes.data || [],
+    formsTotal: formsTotalRes.count || 0,
+    formsToday: formsTodayRes.count || 0,
   });
 });
 
