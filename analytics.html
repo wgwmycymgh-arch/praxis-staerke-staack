@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Analytics — Hausarztpraxis Stärke &amp; Staack</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #f4f0e5; --surface: #ffffff; --surface-2: #f9f7f2;
+      --primary: #0f2d1c; --primary-mid: #1a4d2e;
+      --accent: #b8843a;
+      --text: #1a1710; --text-mid: #4a4840; --text-dim: #877f73;
+      --border: rgba(15,45,28,0.10);
+      --radius: 18px; --radius-sm: 10px;
+      --shadow-sm: 0 2px 16px rgba(15,45,28,0.07);
+      --danger: #c0392b;
+    }
+    body { background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; line-height: 1.6; min-height: 100vh; }
+
+    /* LOGIN */
+    .login-screen { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(160deg, var(--primary) 0%, #1e5c36 100%); padding: 40px 20px; }
+    .login-card { background: var(--surface); border-radius: var(--radius); padding: 48px; width: 100%; max-width: 420px; box-shadow: 0 32px 80px rgba(15,45,28,0.25); }
+    .login-logo { display: flex; align-items: center; gap: 12px; margin-bottom: 32px; }
+    .logo-mark { width: 42px; height: 42px; border-radius: 10px; background: var(--primary); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .login-logo-text span { display: block; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-dim); font-weight: 500; }
+    .login-logo-text strong { display: block; font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 600; color: var(--primary); }
+    .login-card h1 { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 600; color: var(--primary); margin-bottom: 8px; }
+    .login-card p { font-size: 14px; color: var(--text-dim); margin-bottom: 28px; }
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; font-size: 12px; font-weight: 600; color: var(--primary); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; }
+    .form-group input { width: 100%; padding: 12px 16px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-family: 'Plus Jakarta Sans', sans-serif; font-size: 15px; color: var(--text); background: var(--bg); outline: none; transition: border-color 0.2s; }
+    .form-group input:focus { border-color: var(--primary-mid); }
+    .btn-primary { width: 100%; padding: 13px; background: var(--primary); color: #f4f0e5; border: none; border-radius: var(--radius-sm); font-size: 14px; font-weight: 600; cursor: pointer; transition: opacity 0.2s; }
+    .btn-primary:hover { opacity: 0.88; }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+    .login-error { color: var(--danger); font-size: 13px; margin-top: 12px; display: none; }
+
+    /* LAYOUT */
+    .dash { display: none; min-height: 100vh; flex-direction: column; }
+    .dash.visible { display: flex; }
+    .topbar { background: var(--primary); color: #f4f0e5; padding: 0 40px; height: 60px; display: flex; align-items: center; gap: 16px; position: sticky; top: 0; z-index: 100; }
+    .topbar-title { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 600; flex: 1; }
+    .topbar-badge { font-size: 11px; background: var(--accent); color: #fff; padding: 3px 10px; border-radius: 100px; font-weight: 600; }
+    .btn-logout { background: rgba(255,255,255,0.1); color: rgba(244,240,229,0.8); border: 1px solid rgba(255,255,255,0.15); border-radius: var(--radius-sm); padding: 7px 16px; font-size: 12px; cursor: pointer; }
+    .btn-logout:hover { background: rgba(255,255,255,0.18); }
+    @media(max-width:600px){ .topbar{padding:0 20px;} }
+
+    .main { flex: 1; padding: 40px; max-width: 1100px; margin: 0 auto; width: 100%; }
+    @media(max-width:600px){ .main{padding:24px 16px;} }
+
+    /* STAT CARDS */
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 32px; }
+    @media(max-width:900px){ .stats-grid{grid-template-columns:repeat(2,1fr);} }
+    @media(max-width:480px){ .stats-grid{grid-template-columns:1fr;} }
+    .stat-card { background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); padding: 24px 28px; box-shadow: var(--shadow-sm); }
+    .stat-label { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 10px; }
+    .stat-value { font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 300; color: var(--primary); line-height: 1; }
+    .stat-card.accent .stat-value { color: var(--accent); }
+
+    /* TABLES */
+    .section-title { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; color: var(--primary); margin-bottom: 16px; }
+    .card { background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); padding: 24px 28px; box-shadow: var(--shadow-sm); margin-bottom: 24px; }
+    table { width: 100%; border-collapse: collapse; }
+    th { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim); text-align: left; padding: 0 0 12px; border-bottom: 1px solid var(--border); }
+    td { font-size: 14px; color: var(--text-mid); padding: 12px 0; border-bottom: 1px solid var(--border); }
+    tr:last-child td { border-bottom: none; }
+    td.page { color: var(--primary); font-weight: 500; font-family: monospace; font-size: 13px; }
+    td.count { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: var(--accent); text-align: right; }
+    td.time { font-size: 12px; color: var(--text-dim); white-space: nowrap; }
+
+    .refresh-info { font-size: 12px; color: var(--text-dim); margin-bottom: 24px; }
+    .loading { text-align: center; padding: 60px 0; color: var(--text-dim); }
+    .empty { font-size: 14px; color: var(--text-dim); padding: 20px 0; }
+  </style>
+</head>
+<body>
+
+  <!-- LOGIN -->
+  <div class="login-screen" id="loginScreen">
+    <div class="login-card">
+      <div class="login-logo">
+        <div class="logo-mark">
+          <svg viewBox="0 0 28 28" width="22" height="22" fill="none"><rect x="11.5" y="3.5" width="5" height="21" rx="2" fill="#f4f0e5"/><rect x="3.5" y="11.5" width="21" height="5" rx="2" fill="#f4f0e5"/></svg>
+        </div>
+        <div class="login-logo-text">
+          <span>Hausarztpraxis</span>
+          <strong>Stärke &amp; Staack</strong>
+        </div>
+      </div>
+      <h1>Analytics</h1>
+      <p>Besucherstatistiken — nur für interne Nutzung.</p>
+      <div class="form-group">
+        <label>Admin-Schlüssel</label>
+        <input type="password" id="adminKey" placeholder="••••••••••••" autocomplete="current-password">
+      </div>
+      <button class="btn-primary" id="loginBtn">Anmelden</button>
+      <p class="login-error" id="loginError">Falscher Schlüssel.</p>
+    </div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div class="dash" id="dash">
+    <div class="topbar">
+      <span class="topbar-title">Analytics</span>
+      <span class="topbar-badge">Live</span>
+      <button class="btn-logout" id="logoutBtn">Abmelden</button>
+    </div>
+    <div class="main">
+      <div id="loadingState" class="loading">Daten werden geladen …</div>
+      <div id="content" style="display:none;">
+        <p class="refresh-info" id="refreshInfo"></p>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-label">Heute</div>
+            <div class="stat-value" id="statToday">—</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">7 Tage</div>
+            <div class="stat-value" id="statWeek">—</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">30 Tage</div>
+            <div class="stat-value" id="statMonth">—</div>
+          </div>
+          <div class="stat-card accent">
+            <div class="stat-label">Gesamt</div>
+            <div class="stat-value" id="statTotal">—</div>
+          </div>
+        </div>
+
+        <h2 class="section-title">Top Seiten <small style="font-size:14px;font-weight:400;color:var(--text-dim);">(letzte 30 Tage)</small></h2>
+        <div class="card">
+          <table>
+            <thead><tr><th>Seite</th><th style="text-align:right;">Aufrufe</th></tr></thead>
+            <tbody id="topPagesBody"></tbody>
+          </table>
+        </div>
+
+        <h2 class="section-title">Letzte Besuche</h2>
+        <div class="card">
+          <table>
+            <thead><tr><th>Seite</th><th>Herkunft</th><th>Zeit</th></tr></thead>
+            <tbody id="recentBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const BACKEND = 'https://praxis-staerke-backend-production.up.railway.app';
+    let adminKey = '';
+    let refreshTimer = null;
+
+    function pageLabel(p) {
+      const map = {'/':'Startseite','/index.html':'Startseite','/leistungen.html':'Leistungen','/team.html':'Team','/aktuelles.html':'Aktuelles','/kontakt.html':'Kontakt','/impressum.html':'Impressum','/datenschutz.html':'Datenschutz'};
+      return map[p] || p;
+    }
+
+    function formatTime(iso) {
+      const d = new Date(iso);
+      return d.toLocaleDateString('de-DE', {day:'2-digit',month:'2-digit'}) + ' ' + d.toLocaleTimeString('de-DE', {hour:'2-digit',minute:'2-digit'});
+    }
+
+    function formatReferrer(ref) {
+      if (!ref) return '—';
+      try { return new URL(ref).hostname; } catch { return ref.slice(0, 40); }
+    }
+
+    async function loadStats() {
+      try {
+        const res = await fetch(BACKEND + '/api/stats', { headers: { 'X-Admin-Key': adminKey } });
+        if (res.status === 401) { logout(); return; }
+        const data = await res.json();
+
+        document.getElementById('statToday').textContent = data.today;
+        document.getElementById('statWeek').textContent = data.week;
+        document.getElementById('statMonth').textContent = data.month;
+        document.getElementById('statTotal').textContent = data.total;
+
+        const tbody = document.getElementById('topPagesBody');
+        tbody.innerHTML = data.topPages.length === 0
+          ? '<tr><td colspan="2" class="empty">Noch keine Daten.</td></tr>'
+          : data.topPages.map(r => `<tr><td class="page">${pageLabel(r.page)}</td><td class="count">${r.count}</td></tr>`).join('');
+
+        const rbody = document.getElementById('recentBody');
+        rbody.innerHTML = data.recent.length === 0
+          ? '<tr><td colspan="3" class="empty">Noch keine Daten.</td></tr>'
+          : data.recent.map(r => `<tr><td class="page">${pageLabel(r.page)}</td><td>${formatReferrer(r.referrer)}</td><td class="time">${formatTime(r.created_at)}</td></tr>`).join('');
+
+        document.getElementById('refreshInfo').textContent = 'Letzte Aktualisierung: ' + new Date().toLocaleTimeString('de-DE') + ' — aktualisiert alle 30 Sek.';
+        document.getElementById('loadingState').style.display = 'none';
+        document.getElementById('content').style.display = 'block';
+      } catch (e) {
+        document.getElementById('loadingState').textContent = 'Fehler beim Laden. Seite neu laden.';
+      }
+    }
+
+    async function login() {
+      const key = document.getElementById('adminKey').value.trim();
+      if (!key) return;
+      document.getElementById('loginBtn').disabled = true;
+      const res = await fetch(BACKEND + '/api/auth', { method: 'POST', headers: { 'X-Admin-Key': key } });
+      document.getElementById('loginBtn').disabled = false;
+      if (res.ok) {
+        adminKey = key;
+        sessionStorage.setItem('ak', key);
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('dash').classList.add('visible');
+        loadStats();
+        refreshTimer = setInterval(loadStats, 30000);
+      } else {
+        document.getElementById('loginError').style.display = 'block';
+      }
+    }
+
+    function logout() {
+      sessionStorage.removeItem('ak');
+      clearInterval(refreshTimer);
+      location.reload();
+    }
+
+    document.getElementById('loginBtn').addEventListener('click', login);
+    document.getElementById('adminKey').addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
+    document.getElementById('logoutBtn').addEventListener('click', logout);
+
+    // Auto-login if session still active
+    const saved = sessionStorage.getItem('ak');
+    if (saved) {
+      adminKey = saved;
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('dash').classList.add('visible');
+      loadStats();
+      refreshTimer = setInterval(loadStats, 30000);
+    }
+  </script>
+</body>
+</html>

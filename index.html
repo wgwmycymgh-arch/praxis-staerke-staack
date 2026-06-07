@@ -852,8 +852,6 @@
       .hero { background: var(--primary); }
     }
   </style>
-  <!-- TODO: Umami URL + UUID eintragen nach Railway-Setup -->
-  <script defer src="https://UMAMI_URL/script.js" data-website-id="WEBSITE_UUID"></script>
   <meta property="og:type" content="website">
   <meta property="og:locale" content="de_DE">
   <meta property="og:site_name" content="Hausarztpraxis Stärke &amp; Staack">
@@ -1321,5 +1319,11 @@
     });
   })();
 </script>
+  <script>
+    (function(){
+      var p=location.pathname+(location.search||'');
+      fetch('https://praxis-staerke-backend-production.up.railway.app/api/track',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:p,referrer:document.referrer||''}),keepalive:true}).catch(function(){});
+    })();
+  </script>
 </body>
 </html>

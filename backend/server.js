@@ -39,6 +39,13 @@ const adminLimiter = rateLimit({
   legacyHeaders: false,
 });
 
+const trackLimiter = rateLimit({
+  windowMs: 60 * 1000,
+  max: 60,
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
 const ALLOWED_POST_TYPES = ['neuigkeit', 'urlaub', 'info'];
 
 function isValidAdminKey(key) {
@@ -155,6 +162,47 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
 
   console.log('Contact form submitted');
   res.json({ success: true });
+});
+
+app.post('/api/track', trackLimiter, async (req, res) => {
+  const page = String(req.body.page || '').slice(0, 500);
+  const referrer = String(req.body.referrer || '').slice(0, 500);
+  if (!page) return res.status(400).json({ error: 'page required' });
+  await supabase.from('pageviews').insert({ page, referrer });
+  res.json({ ok: true });
+});
+
+app.get('/api/stats', adminLimiter, async (req, res) => {
+  if (!isValidAdminKey(req.headers['x-admin-key'])) {
+    return res.status(401).json({ success: false });
+  }
+  const now = new Date();
+  const todayStart = new Date(now); todayStart.setHours(0, 0, 0, 0);
+  const weekStart = new Date(now); weekStart.setDate(now.getDate() - 7);
+  const monthStart = new Date(now); monthStart.setDate(now.getDate() - 30);
+
+  const [totalRes, todayRes, weekRes, monthRes, pagesData, recentRes] = await Promise.all([
+    supabase.from('pageviews').select('*', { count: 'exact', head: true }),
+    supabase.from('pageviews').select('*', { count: 'exact', head: true }).gte('created_at', todayStart.toISOString()),
+    supabase.from('pageviews').select('*', { count: 'exact', head: true }).gte('created_at', weekStart.toISOString()),
+    supabase.from('pageviews').select('*', { count: 'exact', head: true }).gte('created_at', monthStart.toISOString()),
+    supabase.from('pageviews').select('page').gte('created_at', monthStart.toISOString()),
+    supabase.from('pageviews').select('page, referrer, created_at').order('created_at', { ascending: false }).limit(20),
+  ]);
+
+  const pageMap = {};
+  (pagesData.data || []).forEach(r => { pageMap[r.page] = (pageMap[r.page] || 0) + 1; });
+  const topPages = Object.entries(pageMap).sort((a, b) => b[1] - a[1]).slice(0, 10).map(([page, count]) => ({ page, count }));
+
+  res.json({
+    success: true,
+    today: todayRes.count || 0,
+    week: weekRes.count || 0,
+    month: monthRes.count || 0,
+    total: totalRes.count || 0,
+    topPages,
+    recent: recentRes.data || [],
+  });
 });
 
 app.get('/health', (req, res) => res.json({ status: 'ok' }));
