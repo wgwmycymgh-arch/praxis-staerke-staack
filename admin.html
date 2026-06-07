@@ -254,11 +254,16 @@
           document.getElementById('adminLayout').classList.add('visible');
           loadPosts();
         } else {
-          document.getElementById('loginError').style.display = 'block';
+          const errEl = document.getElementById('loginError');
+          errEl.textContent = res.status === 429
+            ? 'Zu viele Versuche. Bitte 15 Minuten warten.'
+            : 'Falscher Schlüssel. Bitte erneut versuchen.';
+          errEl.style.display = 'block';
           document.getElementById('keyInput').value = '';
           document.getElementById('keyInput').focus();
         }
       } catch {
+        document.getElementById('loginError').textContent = 'Verbindungsfehler.';
         document.getElementById('loginError').style.display = 'block';
       } finally {
         btn.disabled = false;
