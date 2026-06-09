@@ -63,26 +63,33 @@
       position: fixed; inset: 0; z-index: 9999;
       background: var(--primary);
       display: flex; flex-direction: column;
-      align-items: center; justify-content: center; gap: 28px;
+      align-items: center; justify-content: center; gap: 0;
       transition: opacity 0.6s ease, visibility 0.6s ease;
     }
     .loader.out { opacity: 0; visibility: hidden; }
-    .loader-logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 52px; font-weight: 300; color: #f4f0e5;
-      letter-spacing: 0.12em;
-      opacity: 0; transform: translateY(20px);
-      animation: loaderIn 0.7s cubic-bezier(0.22,1,0.36,1) 0.2s forwards;
+    .loader-icon-wrap {
+      width: min(72vw, 300px); height: min(72vw, 300px);
+      margin-bottom: -28px; position: relative; z-index: 2;
     }
-    .loader-logo em {
-      font-style: normal; color: var(--accent);
+    .loader-icon-wrap object {
+      width: 100%; height: 100%; display: block;
+      border-radius: 16px;
+      overflow: hidden;
     }
-    .loader-sub {
+    .loader-sub-top {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
-      color: rgba(244,240,229,0.5);
-      opacity: 0;
+      font-size: 13px; letter-spacing: 0.28em; text-transform: uppercase;
+      color: rgba(244,240,229,0.45);
+      opacity: 0; position: relative; z-index: 3;
       animation: loaderIn 0.7s ease 0.4s forwards;
+    }
+    .loader-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 32px; font-weight: 300; color: #f4f0e5;
+      letter-spacing: 0.1em;
+      margin-top: 6px; margin-bottom: 22px;
+      opacity: 0; transform: translateY(10px);
+      animation: loaderIn 0.7s cubic-bezier(0.22,1,0.36,1) 0.5s forwards;
     }
     .loader-bar-wrap {
       width: 160px; height: 2px; background: rgba(255,255,255,0.1);
@@ -90,7 +97,7 @@
     }
     .loader-bar {
       height: 100%; background: var(--accent);
-      animation: loaderBar 1.2s cubic-bezier(0.22,1,0.36,1) 0.3s forwards;
+      animation: loaderBar 4s cubic-bezier(0.22,1,0.36,1) 0.3s forwards;
       transform-origin: left; transform: scaleX(0);
     }
     @keyframes loaderIn { to { opacity:1; transform:translateY(0); } }
@@ -851,6 +858,55 @@
       body { background: var(--bg); }
       .hero { background: var(--primary); }
     }
+
+    /* ── HERO LOGO DISPLAY ───────────────────────── */
+    .hero-logo-display {
+      position: absolute;
+      top: 50%; right: 5%;
+      transform: translateY(-60%);
+      z-index: 6;
+      width: clamp(280px, 34vw, 480px);
+      opacity: 0;
+      animation: heroFade 1.1s var(--ease-expo) 1.3s forwards;
+      pointer-events: none;
+    }
+    .hero-logo-display img {
+      width: 100%; height: auto; object-fit: contain;
+      filter: drop-shadow(0 0 40px rgba(26,77,46,0.5));
+    }
+    @media(max-width:1100px) {
+      .hero-logo-display {
+        width: clamp(220px, 36vw, 360px);
+        right: 3%;
+      }
+    }
+    @media(max-width:768px) {
+      .hero-logo-display {
+        top: calc(var(--nav-h) + 20px);
+        right: 50%;
+        transform: translateX(50%);
+        width: clamp(160px, 50vw, 260px);
+      }
+    }
+    @media(max-width:480px) {
+      .hero-logo-display {
+        width: clamp(140px, 55vw, 220px);
+      }
+    }
+
+    /* ── LOGO-MARK IMG ───────────────────────────── */
+    .logo-mark { overflow: hidden; }
+    .logo-mark img {
+      object-fit: contain; display: block;
+      filter: invert(1);
+      mix-blend-mode: screen;
+    }
+
+    /* ── SERVICE ICON IMG ────────────────────────── */
+    .service-icon img {
+      object-fit: contain; display: block;
+      mix-blend-mode: multiply;
+    }
   </style>
   <meta property="og:type" content="website">
   <meta property="og:locale" content="de_DE">
@@ -865,8 +921,11 @@
 
   <!-- LOADING SCREEN -->
   <div class="loader" id="loader">
-    <div class="loader-logo" style="font-size:34px; letter-spacing:0.08em;">Hausarztpraxis</div>
-    <div class="loader-sub">Hausarztpraxis Stärke &amp; Staack</div>
+    <div class="loader-icon-wrap">
+      <object type="image/svg+xml" data="ekg_pulse_logo.svg" aria-label="Praxis Logo Animation"></object>
+    </div>
+    <div class="loader-sub-top">Hausarztpraxis</div>
+    <div class="loader-name">Stärke &amp; Staack</div>
     <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
   </div>
 
@@ -916,7 +975,9 @@
   <nav class="nav" id="nav" aria-label="Hauptnavigation">
     <div class="nav-inner">
       <a href="index.html" class="nav-logo">
-        <div class="logo-mark"><svg viewBox="0 0 28 28" width="22" height="22" fill="none" aria-hidden="true"><circle cx="14" cy="14" r="12.5" stroke="#f4f0e5" stroke-width="0.8" opacity="0.45"/><rect x="11.5" y="3.5" width="5" height="21" rx="2" fill="#f4f0e5"/><rect x="3.5" y="11.5" width="21" height="5" rx="2" fill="#f4f0e5"/><circle cx="14" cy="14" r="2.5" fill="#0f2d1c"/></svg></div>
+        <div class="logo-mark">
+          <img src="bilder-higgsfield/logo-icon-schwarz.png" width="30" height="30" alt="" aria-hidden="true" style="filter:invert(1);mix-blend-mode:screen;">
+        </div>
         <div class="logo-text">
           <span>Hausarztpraxis</span>
           <strong>Stärke &amp; Staack</strong>
@@ -957,7 +1018,6 @@
       <p class="hero-sub">Ihre Hausarztpraxis in Magdeburg — mit Schwerpunkten in Ernährungsmedizin und Sportmedizin. Hier nimmt man sich Zeit für Sie.</p>
       <div class="hero-actions">
         <a href="kontakt.html" class="btn-primary">Termin vereinbaren</a>
-        <a href="leistungen.html" class="btn-ghost">Unsere Leistungen</a>
       </div>
     </div>
     <div class="hero-scroll">
@@ -1005,6 +1065,7 @@
     </div>
   </section>
 
+
   <!-- SERVICES PREVIEW -->
   <section class="services-preview" style="background:rgba(249,247,242,0.68);">
     <div class="container">
@@ -1013,18 +1074,14 @@
           <div class="section-label reveal">Leistungen</div>
           <h2 class="section-title reveal delay-1">Was wir für <em>Sie tun</em></h2>
         </div>
-        <a href="leistungen.html" class="service-link reveal" style="font-size:14px; color:var(--primary-mid);">
-          Alle Leistungen ansehen →
-        </a>
       </div>
-      <div class="services-grid">
+      <div class="services-grid" style="grid-template-columns:repeat(2,1fr);">
         <div class="service-card reveal delay-1">
           <div class="service-icon">
-            <svg viewBox="0 0 24 24"><path d="M4.5 6h15M4.5 12h15M4.5 18h15"/><circle cx="12" cy="12" r="10" stroke-width="1.5"/><path d="M9 12h6M12 9v6"/></svg>
+            <img src="bilder-higgsfield/logo-icon-gruen.png" width="30" height="30" alt="" aria-hidden="true">
           </div>
           <h3>Vorsorge & Prävention</h3>
           <p>Regelmäßige Check-ups und Krebsvorsorge — wir erkennen Risiken frühzeitig und halten Sie gesund.</p>
-          <a href="leistungen.html" class="service-link">Mehr erfahren →</a>
         </div>
         <div class="service-card reveal delay-2">
           <div class="service-icon">
@@ -1032,7 +1089,6 @@
           </div>
           <h3>Diagnostik & Labor</h3>
           <p>Modernes EKG, Ultraschall und eigenes Labor — schnelle Ergebnisse für schnelle Entscheidungen.</p>
-          <a href="leistungen.html" class="service-link">Mehr erfahren →</a>
         </div>
         <div class="service-card reveal delay-3">
           <div class="service-icon">
@@ -1040,7 +1096,6 @@
           </div>
           <h3>Chronische Erkrankungen</h3>
           <p>Langfristige Begleitung bei Diabetes, Bluthochdruck und anderen chronischen Erkrankungen.</p>
-          <a href="leistungen.html" class="service-link">Mehr erfahren →</a>
         </div>
         <div class="service-card reveal delay-2">
           <div class="service-icon">
@@ -1048,24 +1103,10 @@
           </div>
           <h3>Akutsprechstunde</h3>
           <p>Plötzlich krank? Wir bieten täglich Kapazitäten für akute Beschwerden — ohne lange Wartezeit.</p>
-          <a href="leistungen.html" class="service-link">Mehr erfahren →</a>
         </div>
-        <div class="service-card reveal delay-3">
-          <div class="service-icon">
-            <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-          </div>
-          <h3>Hausbesuche</h3>
-          <p>Für Patienten, die nicht mobil sind — wir kommen zu Ihnen. Medizin, die zu Ihnen kommt.</p>
-          <a href="leistungen.html" class="service-link">Mehr erfahren →</a>
-        </div>
-        <div class="service-card reveal delay-4">
-          <div class="service-icon">
-            <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-          </div>
-          <h3>Impfungen & Reisemedizin</h3>
-          <p>Alle Standardimpfungen sowie individuelle Reiseberatung für Ihren nächsten Trip.</p>
-          <a href="leistungen.html" class="service-link">Mehr erfahren →</a>
-        </div>
+      </div>
+      <div style="text-align:center; margin-top:48px;">
+        <a href="leistungen.html" class="btn-primary" style="font-size:16px; padding:16px 48px;">Alle Leistungen</a>
       </div>
     </div>
   </section>
@@ -1170,7 +1211,9 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <div class="logo-mark"><svg viewBox="0 0 28 28" width="22" height="22" fill="none" aria-hidden="true"><circle cx="14" cy="14" r="12.5" stroke="#f4f0e5" stroke-width="0.8" opacity="0.45"/><rect x="11.5" y="3.5" width="5" height="21" rx="2" fill="#f4f0e5"/><rect x="3.5" y="11.5" width="21" height="5" rx="2" fill="#f4f0e5"/><circle cx="14" cy="14" r="2.5" fill="#0f2d1c"/></svg></div>
+          <div class="logo-mark">
+            <img src="bilder-higgsfield/logo-icon-schwarz.png" width="30" height="30" alt="" aria-hidden="true" style="filter:invert(1);mix-blend-mode:screen;">
+          </div>
           <div class="logo-text">
             <span>Hausarztpraxis</span>
             <strong>Stärke &amp; Staack</strong>
@@ -1226,7 +1269,7 @@
     window.addEventListener('load', () => {
       setTimeout(() => {
         document.getElementById('loader').classList.add('out');
-      }, 1600);
+      }, 4500);
     });
 
     // NAV SCROLL
