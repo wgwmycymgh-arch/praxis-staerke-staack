@@ -72,6 +72,13 @@
     .doctors-section { background: var(--surface); }
     .doctors-header { text-align: center; margin-bottom: 80px; }
     .doctors-header p { font-size: 17px; color: var(--text-dim); margin-top: 16px; max-width: 560px; margin-left: auto; margin-right: auto; }
+    .doctors-pair {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
+    }
+    @media(max-width: 768px) {
+      .doctors-pair { grid-template-columns: 1fr; }
+    }
+    .doctors-pair .doctor-card { grid-template-columns: 1fr; }
     .doctor-card {
       display: grid; grid-template-columns: 300px 1fr; gap: 0;
       border-radius: var(--radius); overflow: hidden;
@@ -83,6 +90,7 @@
     .doctor-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); }
     .doctor-card.reverse { direction: rtl; }
     .doctor-card.reverse > * { direction: ltr; }
+    .doctors-pair .doctor-card.reverse { direction: ltr; }
     .doctor-photo {
       display: flex; align-items: flex-start; justify-content: center;
       position: relative; flex-shrink: 0;
@@ -310,35 +318,37 @@
         <p>Erfahren, einfühlsam und immer für Sie da — Ihre Hausärzte des Vertrauens.</p>
       </div>
 
-      <div class="doctor-card reveal delay-1">
-        <div class="doctor-photo">
-          <img src="images/team-2.jpg" alt="Franka Stärke" class="doctor-photo-img">
-        </div>
-        <div class="doctor-body">
-          <div class="doctor-role">Praxisinhaberin seit Januar 2021 · Fachärztin für Allgemeinmedizin</div>
-          <h2 class="doctor-name">
-            <em>Franka Stärke</em>
-          </h2>
-          <div class="doctor-tags">
-            <span class="doctor-tag">Allgemeinmedizin</span>
-            <span class="doctor-tag">Ernährungsmedizin</span>
-            <span class="doctor-tag">Sportmedizin</span>
+      <div class="doctors-pair">
+        <div class="doctor-card reveal delay-1">
+          <div class="doctor-photo">
+            <img src="images/team-2.jpg" alt="Franka Stärke" class="doctor-photo-img">
+          </div>
+          <div class="doctor-body">
+            <div class="doctor-role">Praxisinhaberin seit Januar 2021 · Fachärztin für Allgemeinmedizin</div>
+            <h2 class="doctor-name">
+              <em>Franka Stärke</em>
+            </h2>
+            <div class="doctor-tags">
+              <span class="doctor-tag">Allgemeinmedizin</span>
+              <span class="doctor-tag">Ernährungsmedizin</span>
+              <span class="doctor-tag">Sportmedizin</span>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="doctor-card reverse reveal delay-2">
-        <div class="doctor-photo">
-          <img src="images/team-3.jpg" alt="Thorsten Staack" class="doctor-photo-img">
-        </div>
-        <div class="doctor-body">
-          <div class="doctor-role">Praxisinhaber seit April 2025 · Facharzt für Allgemeinmedizin &amp; Notfallmedizin</div>
-          <h2 class="doctor-name">
-            <em>Thorsten Staack</em>
-          </h2>
-          <div class="doctor-tags">
-            <span class="doctor-tag">Allgemeinmedizin</span>
-            <span class="doctor-tag">Notfallmedizin</span>
+        <div class="doctor-card reveal delay-2">
+          <div class="doctor-photo">
+            <img src="images/team-3.jpg" alt="Thorsten Staack" class="doctor-photo-img">
+          </div>
+          <div class="doctor-body">
+            <div class="doctor-role">Praxisinhaber seit April 2025 · Facharzt für Allgemeinmedizin &amp; Notfallmedizin</div>
+            <h2 class="doctor-name">
+              <em>Thorsten Staack</em>
+            </h2>
+            <div class="doctor-tags">
+              <span class="doctor-tag">Allgemeinmedizin</span>
+              <span class="doctor-tag">Notfallmedizin</span>
+            </div>
           </div>
         </div>
       </div>

@@ -16,7 +16,7 @@
       --bg: #f4f0e5; --surface: #ffffff; --surface-2: #f9f7f2;
       --primary: #0f2d1c; --primary-mid: #1a4d2e; --primary-lite: rgba(15,45,28,0.07);
       --accent: #b8843a; --accent-lite: rgba(184,132,58,0.12);
-      --text: #1a1710; --text-mid: #4a4840; --text-dim: #877f73;
+      --text: #0f0e0b; --text-mid: #2a2825; --text-dim: #4a4440;
       --border: rgba(15,45,28,0.10); --nav-h: 76px;
       --radius: 18px; --radius-sm: 10px;
       --shadow-sm: 0 2px 16px rgba(15,45,28,0.07);
@@ -83,22 +83,43 @@
     .delay-1{transition-delay:.1s;} .delay-2{transition-delay:.2s;} .delay-3{transition-delay:.3s;} .delay-4{transition-delay:.4s;}
 
     /* LEISTUNGEN GRID */
-    .leistungen-section { background: var(--surface); }
-    .leistungen-intro { max-width: 640px; margin-bottom: 72px; }
+    .leistungen-section {
+      background:
+        linear-gradient(rgba(8,18,12,0.18), rgba(8,18,12,0.18)),
+        url('bilder-higgsfield/Flurboden.png') center / cover no-repeat fixed;
+      background-color: #0d1a10;
+    }
+    .leistungen-intro {
+      max-width: 640px; margin-bottom: 72px;
+      background: rgba(244,240,229,0.65);
+      border-radius: var(--radius);
+      padding: 40px;
+    }
     .leistungen-intro p { font-size: 17px; color: var(--text-mid); line-height: 1.8; margin-top: 20px; }
-    .leistungen-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 2px; background: var(--border); border-radius: var(--radius); overflow: hidden; }
+    .leistungen-grid {
+      display: grid; grid-template-columns: repeat(2,1fr);
+      gap: 14px; background: transparent;
+      border-radius: 0; overflow: visible;
+    }
     .leistung-item {
-      background: var(--surface); padding: 40px;
+      background: rgba(244,240,229,0.65);
+      border-radius: var(--radius-sm);
+      padding: 40px;
       display: flex; gap: 24px; align-items: flex-start;
-      transition: background 0.3s;
+      transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
       position: relative; overflow: hidden;
+      box-shadow: 0 2px 18px rgba(8,18,12,0.14);
     }
     .leistung-item::before {
       content: ''; position: absolute; inset: 0;
       background: linear-gradient(135deg, var(--primary-lite), var(--accent-lite));
       opacity: 0; transition: opacity 0.4s;
     }
-    .leistung-item:hover { background: var(--surface-2); }
+    .leistung-item:hover {
+      background: rgba(244,240,229,0.80);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(8,18,12,0.20);
+    }
     .leistung-item:hover::before { opacity: 1; }
     .leistung-num {
       font-family: 'Cormorant Garamond', serif;
@@ -121,8 +142,9 @@
       font-size: 11px; font-weight: 600; letter-spacing: 0.06em;
     }
     @media(max-width:768px){
-      .leistungen-grid{grid-template-columns:1fr;}
+      .leistungen-grid{grid-template-columns:1fr; gap:10px;}
       .leistung-item{padding:28px;}
+      .leistungen-intro{padding:28px;}
       .leistung-item--flip { min-height: 440px; }
       .flip-inner { min-height: 440px; }
       .flip-front { padding: 28px; }
@@ -155,7 +177,7 @@
       backface-visibility: hidden;
     }
     .flip-front {
-      background: var(--surface);
+      background: rgba(244,240,229,0.65);
       display: flex; gap: 24px; align-items: flex-start; padding: 40px;
       -webkit-transform: translateZ(2px);
       transform: translateZ(2px);
