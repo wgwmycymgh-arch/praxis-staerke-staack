@@ -71,10 +71,9 @@
       width: min(72vw, 300px); height: min(72vw, 300px);
       margin-bottom: -28px; position: relative; z-index: 2;
     }
-    .loader-icon-wrap object {
+    .loader-icon-wrap iframe {
       width: 100%; height: 100%; display: block;
-      border-radius: 16px;
-      overflow: hidden;
+      border: none; border-radius: 16px;
     }
     .loader-sub-top {
       font-family: 'Plus Jakarta Sans', sans-serif;
@@ -922,7 +921,7 @@
   <!-- LOADING SCREEN -->
   <div class="loader" id="loader">
     <div class="loader-icon-wrap">
-      <object type="image/svg+xml" data="ekg_pulse_logo.svg" aria-label="Praxis Logo Animation"></object>
+      <iframe src="ekg_pulse_logo.html" scrolling="no" title="Praxis Logo Animation"></iframe>
     </div>
     <div class="loader-sub-top">Hausarztpraxis</div>
     <div class="loader-name">Stärke &amp; Staack</div>
