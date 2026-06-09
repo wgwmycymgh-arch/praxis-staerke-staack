@@ -571,5 +571,20 @@
       fetch('https://praxis-staerke-backend-production.up.railway.app/api/track',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:p,referrer:document.referrer||''}),keepalive:true}).catch(function(){});
     })();
   </script>
+  <script>
+    document.querySelectorAll('.leistung-item--flip').forEach(function(card) {
+      var front = card.querySelector('.flip-front');
+      var inner = card.querySelector('.flip-inner');
+      if (!front || !inner) return;
+      front.style.position = 'static';
+      front.style.transform = 'none';
+      var h = front.scrollHeight;
+      front.style.position = '';
+      front.style.transform = '';
+      var min = Math.max(h + 16, 340);
+      inner.style.minHeight = min + 'px';
+      card.style.minHeight = min + 'px';
+    });
+  </script>
 </body>
 </html>
