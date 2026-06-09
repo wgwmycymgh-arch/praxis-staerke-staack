@@ -222,8 +222,12 @@
       transition: transform 0.25s var(--ease-out);
     }
     .nav-mobile a:hover::after { transform: scaleX(1); }
+    @media(min-width:769px) {
+      .nav-links { display: flex; }
+      .nav-cta { display: inline-block; }
+      .nav-toggle { display: none; }
+    }
     @media(max-width:768px) {
-      
       .nav-inner { padding: 0 20px; }
     }
 
@@ -1296,7 +1300,7 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; 2025 Hausarztpraxis Stärke &amp; Staack. Alle Rechte vorbehalten.</p>
+        <p>&copy; 2026 Hausarztpraxis Stärke &amp; Staack. Alle Rechte vorbehalten.</p>
         <div class="footer-legal">
           <a href="impressum.html">Impressum</a>
           <a href="datenschutz.html">Datenschutz</a>

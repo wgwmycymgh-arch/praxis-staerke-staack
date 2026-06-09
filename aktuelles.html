@@ -24,7 +24,7 @@
     html { scroll-behavior: smooth; }
     body { background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; line-height: 1.6; overflow-x: hidden; }
 
-    .nav { position: sticky; top: 0; height: var(--nav-h); background: rgba(244,240,229,0.95); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); z-index: 100; }
+    .nav { position: fixed; top: 0; left: 0; right: 0; height: var(--nav-h); background: rgba(244,240,229,0.92); backdrop-filter: blur(20px) saturate(1.5); box-shadow: 0 1px 0 rgba(15,45,28,0.08); border-bottom: 1px solid var(--border); z-index: 400; }
     .nav-inner { max-width: 1280px; margin: 0 auto; padding: 0 40px; height: 100%; display: flex; align-items: center; gap: 32px; }
     .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
     .logo-mark { width: 42px; height: 42px; border-radius: 10px; background: var(--primary); display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: #f4f0e5; }
@@ -35,13 +35,14 @@
     .nav-links a:hover, .nav-links a.active { color: var(--primary); }
     .nav-cta { display: none; padding: 10px 22px; background: var(--primary); color: #f4f0e5; font-weight: 600; font-size: 13px; text-decoration: none; border-radius: var(--radius-sm); }
     .nav-toggle { display: flex; align-items: center; justify-content: center; margin-left: auto; background: none; border: none; font-size: 22px; cursor: pointer; color: var(--primary); padding: 4px; }
-    .nav-mobile { display: none; position: fixed; top: var(--nav-h); left: 0; right: 0; background: rgba(244,240,229,0.97); backdrop-filter: blur(20px); padding: 24px 32px; flex-direction: column; gap: 20px; border-bottom: 1px solid var(--border); z-index: 399; }
-    .nav-mobile.open { display: flex; }
+    .nav-mobile { display: flex; position: fixed; top: var(--nav-h); left: 0; right: 0; background: rgba(244,240,229,0.97); backdrop-filter: blur(20px); padding: 24px 32px; flex-direction: column; gap: 20px; border-bottom: 1px solid var(--border); z-index: 399; visibility: hidden; opacity: 0; transform: translateY(-8px); transition: opacity 0.22s cubic-bezier(0.22,1,0.36,1), transform 0.22s cubic-bezier(0.22,1,0.36,1), visibility 0s 0.22s; }
+    .nav-mobile.open { visibility: visible; opacity: 1; transform: translateY(0); transition: opacity 0.22s cubic-bezier(0.22,1,0.36,1), transform 0.22s cubic-bezier(0.22,1,0.36,1), visibility 0s; }
     .nav-mobile a { color: var(--text); text-decoration: none; font-size: 16px; font-weight: 500; padding: 10px 0; border-bottom: 1px solid var(--border); }
     .nav-mobile a:last-child { border-bottom: none; }
+    @media(min-width:769px){.nav-links{display:flex;}.nav-cta{display:inline-block;}.nav-toggle{display:none;}}
     @media(max-width:768px){ .nav-inner{padding:0 20px;} }
 
-    .page-hero { padding: 80px 0 64px; background: linear-gradient(160deg, var(--primary) 0%, #1e5c36 100%); position: relative; overflow: hidden; }
+    .page-hero { padding: calc(var(--nav-h) + 64px) 0 64px; background: linear-gradient(160deg, var(--primary) 0%, #1e5c36 100%); position: relative; overflow: hidden; }
     .page-hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 80% 60% at 90% 50%, rgba(184,132,58,0.18), transparent); }
     .page-hero .container { position: relative; z-index: 1; }
     .page-hero .section-label { color: rgba(184,132,58,0.9); }
@@ -101,7 +102,7 @@
   <nav class="nav" aria-label="Hauptnavigation">
     <div class="nav-inner">
       <a href="index.html" class="nav-logo">
-        <div class="logo-mark"><svg viewBox="0 0 28 28" width="22" height="22" fill="none" aria-hidden="true"><circle cx="14" cy="14" r="12.5" stroke="#f4f0e5" stroke-width="0.8" opacity="0.45"/><rect x="11.5" y="3.5" width="5" height="21" rx="2" fill="#f4f0e5"/><rect x="3.5" y="11.5" width="21" height="5" rx="2" fill="#f4f0e5"/><circle cx="14" cy="14" r="2.5" fill="#0f2d1c"/></svg></div>
+        <div class="logo-mark"><img src="bilder-higgsfield/logo-icon-schwarz.png" width="30" height="30" alt="" aria-hidden="true" style="filter:invert(1);mix-blend-mode:screen;object-fit:contain;display:block;"></div>
         <div class="logo-text"><span>Hausarztpraxis</span><strong>Stärke &amp; Staack</strong></div>
       </a>
       <div class="nav-links">
@@ -147,7 +148,7 @@
   </main>
 
   <div class="footer-mini">
-    <p>&copy; 2025 Hausarztpraxis Stärke &amp; Staack</p>
+    <p>&copy; 2026 Hausarztpraxis Stärke &amp; Staack</p>
     <div>
       <a href="impressum.html">Impressum</a>
       <a href="datenschutz.html">Datenschutz</a>
