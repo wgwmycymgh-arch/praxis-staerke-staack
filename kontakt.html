@@ -68,6 +68,9 @@
     .reveal { opacity: 0; transform: translateY(28px) scale(0.99); transition: opacity 0.75s cubic-bezier(0.16,1,0.3,1), transform 0.75s cubic-bezier(0.16,1,0.3,1); }
     .reveal.visible { opacity:1; transform:translateY(0) scale(1); }
     .delay-1{transition-delay:.1s;} .delay-2{transition-delay:.2s;} .delay-3{transition-delay:.3s;}
+    @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none;}}
+    .skip-nav{position:absolute;top:-100%;left:0;padding:12px 20px;background:var(--primary);color:#f4f0e5;font-size:14px;font-weight:600;z-index:9999;text-decoration:none;transition:top 0.2s;}
+    .skip-nav:focus{top:0;}
 
     /* CONTACT LAYOUT */
     .contact-grid {
@@ -231,8 +234,19 @@
   <meta property="og:url" content="https://praxis-staerke-staack.vercel.app/kontakt.html">
   <meta property="og:title" content="Kontakt — Hausarztpraxis Stärke &amp; Staack">
   <meta property="og:description" content="Kontakt &amp; Termin — Hausarztpraxis Stärke &amp; Staack. Schreiben Sie uns oder rufen Sie an.">
+  <style>
+    #privacy-bar{position:fixed;bottom:0;left:0;right:0;background:var(--primary,#0f2d1c);color:rgba(244,240,229,0.85);padding:14px 32px;display:flex;align-items:center;justify-content:space-between;gap:16px;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;z-index:9999;transform:translateY(100%);opacity:0;transition:transform 0.4s cubic-bezier(0.16,1,0.3,1),opacity 0.4s;}
+    #privacy-bar.pb-visible{transform:translateY(0);opacity:1;}
+    @media(prefers-reduced-motion:reduce){#privacy-bar{transition:opacity 0.2s;transform:translateY(0);}}
+    #privacy-bar a{color:rgba(184,132,58,0.9);text-decoration:none;}
+    #privacy-bar a:hover{text-decoration:underline;}
+    #pb-dismiss{background:rgba(244,240,229,0.15);border:1px solid rgba(244,240,229,0.25);color:rgba(244,240,229,0.9);padding:6px 16px;border-radius:6px;cursor:pointer;font-size:13px;font-family:inherit;white-space:nowrap;flex-shrink:0;}
+    #pb-dismiss:hover{background:rgba(244,240,229,0.25);}
+    @media(max-width:600px){#privacy-bar{flex-direction:column;align-items:flex-start;padding:14px 20px;gap:12px;}}
+  </style>
 </head>
 <body>
+<a href="#main-content" class="skip-nav">Zum Inhalt springen</a>
   <nav class="nav" aria-label="Hauptnavigation">
     <div class="nav-inner">
       <a href="index.html" class="nav-logo">
@@ -247,10 +261,10 @@
         <a href="kontakt.html" class="active">Kontakt</a>
       </div>
       <a href="kontakt.html" class="nav-cta">Termin vereinbaren</a>
-      <button class="nav-toggle" id="navToggle">&#9776;</button>
+      <button class="nav-toggle" id="navToggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="navMobile">&#9776;</button>
     </div>
   </nav>
-  <div class="nav-mobile" id="navMobile">
+  <div class="nav-mobile" id="navMobile" role="navigation" aria-label="Mobile-Navigation">
     <a href="index.html">Start</a>
     <a href="leistungen.html">Leistungen</a>
     <a href="team.html">Team</a>
@@ -347,7 +361,7 @@
                 </div>
                 <div class="form-group">
                   <label for="email">E-Mail *</label>
-                  <input type="email" id="email" name="email" class="form-control" placeholder="max@beispiel.de" required>
+                  <input type="email" id="email" name="email" class="form-control" placeholder="max@beispiel.de" required maxlength="254">
                 </div>
               </div>
               <div class="form-group">
@@ -446,8 +460,11 @@
   </footer>
 
   <script>
-    document.getElementById('navToggle').addEventListener('click', () => {
-      document.getElementById('navMobile').classList.toggle('open');
+    const navToggle = document.getElementById('navToggle');
+    const navMobile = document.getElementById('navMobile');
+    navToggle.addEventListener('click', () => {
+      const open = navMobile.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', open);
     });
     const obs = new IntersectionObserver(entries => {
       entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
@@ -490,10 +507,13 @@
         btn.textContent = 'Nachricht senden';
         btn.disabled = false;
 
+        document.getElementById('email').setAttribute('aria-invalid', 'true');
+
         let errorEl = document.getElementById('formError');
         if (!errorEl) {
           errorEl = document.createElement('p');
           errorEl.id = 'formError';
+          errorEl.setAttribute('role', 'alert');
           errorEl.style.cssText = 'color:#c0392b;margin-top:12px;font-size:14px;';
           btn.parentElement.appendChild(errorEl);
         }
@@ -514,35 +534,22 @@
     });
   </script>
 <div id="privacy-bar">
-  <style>
-    #privacy-bar{position:fixed;bottom:0;left:0;right:0;background:var(--primary,#0f2d1c);color:rgba(244,240,229,0.85);padding:14px 32px;display:flex;align-items:center;justify-content:space-between;gap:16px;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;z-index:9999;transform:translateY(100%);opacity:0;transition:transform 0.4s cubic-bezier(0.16,1,0.3,1),opacity 0.4s;}
-    #privacy-bar.pb-visible{transform:translateY(0);opacity:1;}
-    @media(prefers-reduced-motion:reduce){#privacy-bar{transition:opacity 0.2s;transform:translateY(0);}}
-    #privacy-bar a{color:rgba(184,132,58,0.9);text-decoration:none;}
-    #privacy-bar a:hover{text-decoration:underline;}
-    #pb-dismiss{background:rgba(244,240,229,0.15);border:1px solid rgba(244,240,229,0.25);color:rgba(244,240,229,0.9);padding:6px 16px;border-radius:6px;cursor:pointer;font-size:13px;font-family:inherit;white-space:nowrap;flex-shrink:0;}
-    #pb-dismiss:hover{background:rgba(244,240,229,0.25);}
-    @media(max-width:600px){#privacy-bar{flex-direction:column;align-items:flex-start;padding:14px 20px;gap:12px;}}
-  </style>
   <span>Diese Website erhebt anonyme Besucherstatistiken — cookiefrei &amp; DSGVO-konform. <a href="datenschutz.html">Mehr erfahren</a></span>
   <button id="pb-dismiss">Verstanden</button>
 </div>
 <script>
-  (function(){
-    if(localStorage.getItem('privacy-ack'))return;
-    var b=document.getElementById('privacy-bar');
-    requestAnimationFrame(function(){requestAnimationFrame(function(){b.classList.add('pb-visible');});});
-    document.getElementById('pb-dismiss').addEventListener('click',function(){
-      b.classList.remove('pb-visible');
-      localStorage.setItem('privacy-ack','1');
-    });
-  })();
+(function(){
+  var p=location.pathname+(location.search||'');
+  function track(){fetch('https://praxis-staerke-backend-production.up.railway.app/api/track',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:p,referrer:document.referrer||''}),keepalive:true}).catch(function(){});}
+  if(localStorage.getItem('privacy-ack')){track();return;}
+  var b=document.getElementById('privacy-bar');
+  requestAnimationFrame(function(){requestAnimationFrame(function(){b.classList.add('pb-visible');});});
+  document.getElementById('pb-dismiss').addEventListener('click',function(){
+    b.classList.remove('pb-visible');
+    localStorage.setItem('privacy-ack','1');
+    track();
+  });
+})();
 </script>
-  <script>
-    (function(){
-      var p=location.pathname+(location.search||'');
-      fetch('https://praxis-staerke-backend-production.up.railway.app/api/track',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:p,referrer:document.referrer||''}),keepalive:true}).catch(function(){});
-    })();
-  </script>
 </body>
 </html>

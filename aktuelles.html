@@ -96,8 +96,21 @@
   <meta property="og:url" content="https://praxis-staerke-staack.vercel.app/aktuelles.html">
   <meta property="og:title" content="Aktuelles — Hausarztpraxis Stärke &amp; Staack">
   <meta property="og:description" content="Aktuelle Nachrichten und Hinweise der Hausarztpraxis Stärke &amp; Staack.">
+  <style>
+    #privacy-bar{position:fixed;bottom:0;left:0;right:0;background:var(--primary,#0f2d1c);color:rgba(244,240,229,0.85);padding:14px 32px;display:flex;align-items:center;justify-content:space-between;gap:16px;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;z-index:9999;transform:translateY(100%);opacity:0;transition:transform 0.4s cubic-bezier(0.16,1,0.3,1),opacity 0.4s;}
+    #privacy-bar.pb-visible{transform:translateY(0);opacity:1;}
+    @media(prefers-reduced-motion:reduce){#privacy-bar{transition:opacity 0.2s;transform:translateY(0);}}
+    #privacy-bar a{color:rgba(184,132,58,0.9);text-decoration:none;}
+    #privacy-bar a:hover{text-decoration:underline;}
+    #pb-dismiss{background:rgba(244,240,229,0.15);border:1px solid rgba(244,240,229,0.25);color:rgba(244,240,229,0.9);padding:6px 16px;border-radius:6px;cursor:pointer;font-size:13px;font-family:inherit;white-space:nowrap;flex-shrink:0;}
+    #pb-dismiss:hover{background:rgba(244,240,229,0.25);}
+    @media(max-width:600px){#privacy-bar{flex-direction:column;align-items:flex-start;padding:14px 20px;gap:12px;}}
+    .skip-nav{position:absolute;top:-100%;left:0;padding:12px 20px;background:var(--primary,#0f2d1c);color:#f4f0e5;font-size:14px;font-weight:600;z-index:9999;text-decoration:none;transition:top 0.2s;}
+    .skip-nav:focus{top:0;}
+  </style>
 </head>
 <body>
+<a href="#main-content" class="skip-nav">Zum Inhalt springen</a>
 
   <nav class="nav" aria-label="Hauptnavigation">
     <div class="nav-inner">
@@ -113,10 +126,10 @@
         <a href="kontakt.html">Kontakt</a>
       </div>
       <a href="kontakt.html" class="nav-cta">Termin vereinbaren</a>
-      <button class="nav-toggle" id="navToggle" aria-label="Menü öffnen">&#9776;</button>
+      <button class="nav-toggle" id="navToggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="navMobile">&#9776;</button>
     </div>
   </nav>
-  <div class="nav-mobile" id="navMobile">
+  <div class="nav-mobile" id="navMobile" role="navigation" aria-label="Mobile-Navigation">
     <a href="index.html">Start</a>
     <a href="leistungen.html">Leistungen</a>
     <a href="team.html">Team</a>
@@ -138,6 +151,7 @@
     <section class="posts-section">
       <div class="container">
         <div id="loadingState" class="loading-state">Beiträge werden geladen …</div>
+        <noscript><p style="padding:24px;font-size:16px;">Für aktuelle Nachrichten JavaScript aktivieren oder uns direkt kontaktieren: <a href="tel:03917348410">0391 7348410</a></p></noscript>
         <div id="postsList" class="posts-list" style="display:none;"></div>
         <div class="empty-state" id="emptyState" style="display:none;">
           <p>Derzeit keine Nachrichten. Schauen Sie bald wieder vorbei.</p>
@@ -157,8 +171,11 @@
   </div>
 
   <script>
-    document.getElementById('navToggle').addEventListener('click', () => {
-      document.getElementById('navMobile').classList.toggle('open');
+    const navToggle = document.getElementById('navToggle');
+    const navMobile = document.getElementById('navMobile');
+    navToggle.addEventListener('click', () => {
+      const open = navMobile.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', open);
     });
 
     const BACKEND_URL = 'https://praxis-staerke-backend-production.up.railway.app';
@@ -197,7 +214,7 @@
         badge.textContent = TYPE_LABELS[safeType];
         card.appendChild(badge);
 
-        const titleEl = document.createElement('h2');
+        const titleEl = document.createElement('h3');
         titleEl.textContent = post.title;
         card.appendChild(titleEl);
 
@@ -221,35 +238,22 @@
     document.addEventListener('DOMContentLoaded', loadPosts);
   </script>
 <div id="privacy-bar">
-  <style>
-    #privacy-bar{position:fixed;bottom:0;left:0;right:0;background:var(--primary,#0f2d1c);color:rgba(244,240,229,0.85);padding:14px 32px;display:flex;align-items:center;justify-content:space-between;gap:16px;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;z-index:9999;transform:translateY(100%);opacity:0;transition:transform 0.4s cubic-bezier(0.16,1,0.3,1),opacity 0.4s;}
-    #privacy-bar.pb-visible{transform:translateY(0);opacity:1;}
-    @media(prefers-reduced-motion:reduce){#privacy-bar{transition:opacity 0.2s;transform:translateY(0);}}
-    #privacy-bar a{color:rgba(184,132,58,0.9);text-decoration:none;}
-    #privacy-bar a:hover{text-decoration:underline;}
-    #pb-dismiss{background:rgba(244,240,229,0.15);border:1px solid rgba(244,240,229,0.25);color:rgba(244,240,229,0.9);padding:6px 16px;border-radius:6px;cursor:pointer;font-size:13px;font-family:inherit;white-space:nowrap;flex-shrink:0;}
-    #pb-dismiss:hover{background:rgba(244,240,229,0.25);}
-    @media(max-width:600px){#privacy-bar{flex-direction:column;align-items:flex-start;padding:14px 20px;gap:12px;}}
-  </style>
   <span>Diese Website erhebt anonyme Besucherstatistiken — cookiefrei &amp; DSGVO-konform. <a href="datenschutz.html">Mehr erfahren</a></span>
   <button id="pb-dismiss">Verstanden</button>
 </div>
 <script>
-  (function(){
-    if(localStorage.getItem('privacy-ack'))return;
-    var b=document.getElementById('privacy-bar');
-    requestAnimationFrame(function(){requestAnimationFrame(function(){b.classList.add('pb-visible');});});
-    document.getElementById('pb-dismiss').addEventListener('click',function(){
-      b.classList.remove('pb-visible');
-      localStorage.setItem('privacy-ack','1');
-    });
-  })();
+(function(){
+  var p=location.pathname+(location.search||'');
+  function track(){fetch('https://praxis-staerke-backend-production.up.railway.app/api/track',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:p,referrer:document.referrer||''}),keepalive:true}).catch(function(){});}
+  if(localStorage.getItem('privacy-ack')){track();return;}
+  var b=document.getElementById('privacy-bar');
+  requestAnimationFrame(function(){requestAnimationFrame(function(){b.classList.add('pb-visible');});});
+  document.getElementById('pb-dismiss').addEventListener('click',function(){
+    b.classList.remove('pb-visible');
+    localStorage.setItem('privacy-ack','1');
+    track();
+  });
+})();
 </script>
-  <script>
-    (function(){
-      var p=location.pathname+(location.search||'');
-      fetch('https://praxis-staerke-backend-production.up.railway.app/api/track',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:p,referrer:document.referrer||''}),keepalive:true}).catch(function(){});
-    })();
-  </script>
 </body>
 </html>
