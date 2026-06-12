@@ -1,5 +1,5 @@
 User-agent: *
 Allow: /
 Disallow: /admin.html
-
+Disallow: /analytics.html
 Sitemap: https://praxis-staerke-staack.vercel.app/sitemap.xml

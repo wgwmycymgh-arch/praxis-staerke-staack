@@ -2,258 +2,195 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-Content-Type-Options" content="nosniff">
-  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+  <script>document.documentElement.classList.add('js')</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Aktuelle Nachrichten und Hinweise der Hausarztpraxis Stärke & Staack.">
   <title>Aktuelles — Hausarztpraxis Stärke &amp; Staack</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --bg: #f4f0e5; --surface: #ffffff; --surface-2: #f9f7f2;
-      --primary: #0f2d1c; --primary-mid: #1a4d2e; --primary-lite: rgba(15,45,28,0.07);
-      --accent: #b8843a; --accent-lite: rgba(184,132,58,0.12);
-      --text: #1a1710; --text-mid: #4a4840; --text-dim: #877f73;
-      --border: rgba(15,45,28,0.10); --nav-h: 76px;
-      --radius: 18px; --radius-sm: 10px;
-      --shadow-sm: 0 2px 16px rgba(15,45,28,0.07);
-    }
-    html { scroll-behavior: smooth; }
-    body { background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; line-height: 1.6; overflow-x: hidden; }
-
-    .nav { position: fixed; top: 0; left: 0; right: 0; height: var(--nav-h); background: rgba(244,240,229,0.92); backdrop-filter: blur(20px) saturate(1.5); box-shadow: 0 1px 0 rgba(15,45,28,0.08); border-bottom: 1px solid var(--border); z-index: 400; }
-    .nav-inner { max-width: 1280px; margin: 0 auto; padding: 0 40px; height: 100%; display: flex; align-items: center; gap: 32px; }
-    .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-    .logo-mark { width: 42px; height: 42px; border-radius: 10px; background: var(--primary); display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: #f4f0e5; }
-    .logo-text span { display: block; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-dim); font-weight: 500; }
-    .logo-text strong { display: block; font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 600; color: var(--primary); }
-    .nav-links { display: none; gap: 28px; flex: 1; }
-    .nav-links a { color: var(--text-mid); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.25s; }
-    .nav-links a:hover, .nav-links a.active { color: var(--primary); }
-    .nav-cta { display: none; padding: 10px 22px; background: var(--primary); color: #f4f0e5; font-weight: 600; font-size: 13px; text-decoration: none; border-radius: var(--radius-sm); }
-    .nav-toggle { display: flex; align-items: center; justify-content: center; margin-left: auto; background: none; border: none; font-size: 22px; cursor: pointer; color: var(--primary); padding: 4px; }
-    .nav-mobile { display: flex; position: fixed; top: var(--nav-h); left: 0; right: 0; background: rgba(244,240,229,0.97); backdrop-filter: blur(20px); padding: 24px 32px; flex-direction: column; gap: 20px; border-bottom: 1px solid var(--border); z-index: 399; visibility: hidden; opacity: 0; transform: translateY(-8px); transition: opacity 0.22s cubic-bezier(0.22,1,0.36,1), transform 0.22s cubic-bezier(0.22,1,0.36,1), visibility 0s 0.22s; }
-    .nav-mobile.open { visibility: visible; opacity: 1; transform: translateY(0); transition: opacity 0.22s cubic-bezier(0.22,1,0.36,1), transform 0.22s cubic-bezier(0.22,1,0.36,1), visibility 0s; }
-    .nav-mobile a { color: var(--text); text-decoration: none; font-size: 16px; font-weight: 500; padding: 10px 0; border-bottom: 1px solid var(--border); }
-    .nav-mobile a:last-child { border-bottom: none; }
-    @media(min-width:769px){.nav-links{display:flex;}.nav-cta{display:inline-block;}.nav-toggle{display:none;}}
-    @media(max-width:768px){ .nav-inner{padding:0 20px;} }
-
-    .page-hero { padding: calc(var(--nav-h) + 64px) 0 64px; background: linear-gradient(160deg, var(--primary) 0%, #1e5c36 100%); position: relative; overflow: hidden; }
-    .page-hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 80% 60% at 90% 50%, rgba(184,132,58,0.18), transparent); }
-    .page-hero .container { position: relative; z-index: 1; }
-    .page-hero .section-label { color: rgba(184,132,58,0.9); }
-    .page-hero .section-label::before { background: rgba(184,132,58,0.9); }
-    .page-hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(40px,5vw,68px); font-weight: 300; color: #f4f0e5; margin-top: 12px; }
-    .page-hero h1 em { font-style: italic; color: #e8c87a; }
-    .page-hero p { font-size: 17px; color: rgba(244,240,229,0.65); margin-top: 14px; max-width: 500px; }
-
-    .container { max-width: 860px; margin: 0 auto; padding: 0 40px; }
-    @media(max-width:600px){ .container{padding:0 20px;} }
-    .section-label { display: inline-flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
-    .section-label::before { content: ''; width: 24px; height: 1px; background: var(--accent); }
-
-    .posts-section { padding: 72px 0 100px; }
-    .posts-list { display: flex; flex-direction: column; gap: 24px; }
-    .post-card {
-      background: var(--surface); border-radius: var(--radius);
-      border: 1px solid var(--border);
-      padding: 32px 36px;
-      box-shadow: var(--shadow-sm);
-    }
-    .post-type {
-      display: inline-block; font-size: 10px; font-weight: 600;
-      letter-spacing: 0.18em; text-transform: uppercase;
-      padding: 4px 12px; border-radius: 100px; margin-bottom: 14px;
-    }
-    .post-type.urlaub { background: rgba(184,132,58,0.12); color: var(--accent); }
-    .post-type.info { background: rgba(15,45,28,0.07); color: var(--primary-mid); }
-    .post-type.neuigkeit { background: rgba(26,77,46,0.1); color: var(--primary-mid); }
-    .post-card h2 { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 600; color: var(--primary); margin-bottom: 10px; }
-    .post-card p { font-size: 15px; color: var(--text-mid); line-height: 1.8; }
-    .post-date { font-size: 12px; color: var(--text-dim); margin-top: 18px; letter-spacing: 0.06em; }
-
-    .empty-state { text-align: center; padding: 80px 0; }
-    .empty-state p { font-size: 17px; color: var(--text-dim); }
-
-    .loading-state { text-align: center; padding: 80px 0; color: var(--text-dim); font-size: 15px; }
-
-    .footer-mini { background: #0a1f13; padding: 28px 40px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
-    .footer-mini p { font-size: 13px; color: rgba(244,240,229,0.3); }
-    .footer-mini a { font-size: 13px; color: rgba(244,240,229,0.4); text-decoration: none; margin-left: 20px; }
-    .footer-mini a:hover { color: var(--accent); }
-    @media(max-width:768px) {
-      .footer-mini { padding: 20px; flex-direction: column; text-align: center; }
-      .footer-mini a { margin-left: 0; margin-top: 8px; }
-    }
-  </style>
+  <meta name="description" content="Aktuelle Nachrichten und Hinweise der Hausarztpraxis Stärke & Staack.">
+  <link rel="canonical" href="https://praxis-staerke-staack.vercel.app/aktuelles.html">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="de_DE">
-  <meta property="og:site_name" content="Hausarztpraxis Stärke &amp; Staack">
   <meta property="og:url" content="https://praxis-staerke-staack.vercel.app/aktuelles.html">
-  <meta property="og:title" content="Aktuelles — Hausarztpraxis Stärke &amp; Staack">
-  <meta property="og:description" content="Aktuelle Nachrichten und Hinweise der Hausarztpraxis Stärke &amp; Staack.">
-  <style>
-    #privacy-bar{position:fixed;bottom:0;left:0;right:0;background:var(--primary,#0f2d1c);color:rgba(244,240,229,0.85);padding:14px 32px;display:flex;align-items:center;justify-content:space-between;gap:16px;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;z-index:9999;transform:translateY(100%);opacity:0;transition:transform 0.4s cubic-bezier(0.16,1,0.3,1),opacity 0.4s;}
-    #privacy-bar.pb-visible{transform:translateY(0);opacity:1;}
-    @media(prefers-reduced-motion:reduce){#privacy-bar{transition:opacity 0.2s;transform:translateY(0);}}
-    #privacy-bar a{color:rgba(184,132,58,0.9);text-decoration:none;}
-    #privacy-bar a:hover{text-decoration:underline;}
-    #pb-dismiss{background:rgba(244,240,229,0.15);border:1px solid rgba(244,240,229,0.25);color:rgba(244,240,229,0.9);padding:6px 16px;border-radius:6px;cursor:pointer;font-size:13px;font-family:inherit;white-space:nowrap;flex-shrink:0;}
-    #pb-dismiss:hover{background:rgba(244,240,229,0.25);}
-    @media(max-width:600px){#privacy-bar{flex-direction:column;align-items:flex-start;padding:14px 20px;gap:12px;}}
-    .skip-nav{position:absolute;top:-100%;left:0;padding:12px 20px;background:var(--primary,#0f2d1c);color:#f4f0e5;font-size:14px;font-weight:600;z-index:9999;text-decoration:none;transition:top 0.2s;}
-    .skip-nav:focus{top:0;}
-  </style>
+  <meta property="og:title" content="Aktuelles — Hausarztpraxis Stärke & Staack">
+  <meta property="og:description" content="Aktuelle Nachrichten und Hinweise der Hausarztpraxis Stärke & Staack.">
+  <link rel="icon" type="image/png" href="images/logo-icon-gruen.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
-<a href="#main-content" class="skip-nav">Zum Inhalt springen</a>
+<body class="has-dark-hero">
+  <a class="skip-link" href="#main">Zum Inhalt springen</a>
+  <div class="scroll-progress" aria-hidden="true"></div>
 
-  <nav class="nav" aria-label="Hauptnavigation">
-    <div class="nav-inner">
-      <a href="index.html" class="nav-logo">
-        <div class="logo-mark"><img src="bilder-higgsfield/logo-icon-schwarz.png" width="30" height="30" alt="" aria-hidden="true" style="filter:invert(1);mix-blend-mode:screen;object-fit:contain;display:block;"></div>
-        <div class="logo-text"><span>Hausarztpraxis</span><strong>Stärke &amp; Staack</strong></div>
+  <header class="nav is-scrolled">
+    <div class="container nav__inner">
+      <a class="nav__brand" href="index.html">
+        <img src="images/logo-icon-transparent.png" alt="" width="38" height="38">
+        <span class="nav__brand-text">Stärke &amp; Staack<small>Hausarztpraxis</small></span>
       </a>
-      <div class="nav-links">
-        <a href="index.html">Start</a>
-        <a href="leistungen.html">Leistungen</a>
-        <a href="team.html">Team</a>
-        <a href="aktuelles.html" class="active">Aktuelles</a>
-        <a href="kontakt.html">Kontakt</a>
+      <nav aria-label="Hauptnavigation">
+        <ul class="nav__links">
+          <li><a class="nav__link" href="index.html">Start</a></li>
+          <li><a class="nav__link" href="leistungen.html">Leistungen</a></li>
+          <li><a class="nav__link" href="team.html">Team</a></li>
+          <li><a class="nav__link" href="aktuelles.html" aria-current="page">Aktuelles</a></li>
+          <li><a class="nav__link" href="kontakt.html">Kontakt</a></li>
+        </ul>
+      </nav>
+      <div class="nav__cta">
+        <a class="btn" href="kontakt.html"><span>Termin vereinbaren</span></a>
       </div>
-      <a href="kontakt.html" class="nav-cta">Termin vereinbaren</a>
-      <button class="nav-toggle" id="navToggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="navMobile">&#9776;</button>
+      <button class="nav__toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Menü öffnen">
+        <span></span><span></span><span></span>
+      </button>
     </div>
-  </nav>
-  <div class="nav-mobile" id="navMobile" role="navigation" aria-label="Mobile-Navigation">
-    <a href="index.html">Start</a>
-    <a href="leistungen.html">Leistungen</a>
-    <a href="team.html">Team</a>
-    <a href="aktuelles.html" class="active">Aktuelles</a>
-    <a href="kontakt.html">Kontakt &amp; Termin</a>
-    <a href="impressum.html">Impressum</a>
-  </div>
-
-  <main id="main-content">
-
-    <div class="page-hero">
-      <div class="container">
-        <div class="section-label">Neuigkeiten</div>
-        <h1>Aktuelles aus <em>der Praxis</em></h1>
-        <p>Urlaub, Änderungen, wichtige Hinweise — hier informieren wir Sie über alles Aktuelle.</p>
-      </div>
+    <div class="nav__mobile" id="mobile-menu">
+      <ul>
+        <li><a href="index.html">Start</a></li>
+        <li><a href="leistungen.html">Leistungen</a></li>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="aktuelles.html" aria-current="page">Aktuelles</a></li>
+        <li><a href="kontakt.html">Kontakt &amp; Termin</a></li>
+        <li><a href="impressum.html">Impressum</a></li>
+      </ul>
+      <a class="btn" href="kontakt.html"><span>Termin vereinbaren</span></a>
     </div>
+  </header>
 
-    <section class="posts-section">
+  <main id="main">
+    <section class="page-hero">
       <div class="container">
-        <div id="loadingState" class="loading-state">Beiträge werden geladen …</div>
-        <noscript><p style="padding:24px;font-size:16px;">Für aktuelle Nachrichten JavaScript aktivieren oder uns direkt kontaktieren: <a href="tel:03917348410">0391 7348410</a></p></noscript>
-        <div id="postsList" class="posts-list" style="display:none;"></div>
-        <div class="empty-state" id="emptyState" style="display:none;">
-          <p>Derzeit keine Nachrichten. Schauen Sie bald wieder vorbei.</p>
-        </div>
+        <p class="eyebrow reveal">Neuigkeiten</p>
+        <h1 class="reveal" style="--reveal-delay:80ms">Aktuelles aus <em>der Praxis</em></h1>
+        <p class="lead reveal" style="--reveal-delay:160ms">Urlaub, Änderungen, wichtige Hinweise — hier informieren wir Sie über alles Aktuelle.</p>
       </div>
     </section>
 
+    <section class="section">
+      <div class="container" style="max-width:52rem">
+        <div id="posts">
+          <p class="posts-state" id="posts-loading">Beiträge werden geladen …</p>
+        </div>
+        <noscript>
+          <p class="posts-state">Für aktuelle Nachrichten JavaScript aktivieren oder uns direkt kontaktieren: <a href="tel:03917348410">0391 7348410</a></p>
+        </noscript>
+
+        <div class="photo-placeholder reveal" style="margin-top:var(--space-lg)" role="img" aria-label="Platzhalter für ein Foto aus der Praxis">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.1-3.1a2 2 0 0 0-2.8 0L6 21"/></svg>
+          <strong>Hier kommt ein echtes Praxisfoto hin</strong>
+          <span>Motiv-Vorschlag: Team bei der Arbeit oder Wartezimmer</span>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <div class="footer-mini">
-    <p>&copy; 2026 Hausarztpraxis Stärke &amp; Staack</p>
-    <div>
-      <a href="impressum.html">Impressum</a>
-      <a href="datenschutz.html">Datenschutz</a>
-      <a href="index.html">Startseite</a>
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <h3>Stärke &amp; Staack</h3>
+          <p class="footer__tagline">Persönliche Medizin mit moderner Diagnostik.</p>
+        </div>
+        <nav aria-label="Footer Navigation">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="index.html">Startseite</a></li>
+            <li><a href="leistungen.html">Leistungen</a></li>
+            <li><a href="team.html">Team</a></li>
+            <li><a href="kontakt.html">Kontakt</a></li>
+          </ul>
+        </nav>
+        <div>
+          <h4>Rechtliches</h4>
+          <ul>
+            <li><a href="impressum.html">Impressum</a></li>
+            <li><a href="datenschutz.html">Datenschutz</a></li>
+            <li>Notfall: <a href="tel:116117">116 117</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Kontakt</h4>
+          <address>
+            Gr. Diesdorfer Str. 186, 39110 Magdeburg<br>
+            <a href="tel:03917348410">0391 7348410</a>
+          </address>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>© 2026 Hausarztpraxis Stärke &amp; Staack</p>
+        <p><a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a></p>
+      </div>
     </div>
+  </footer>
+
+  <div class="privacy-bar" id="privacy-bar" role="status">
+    <p>Diese Website erhebt anonyme Besucherstatistiken — cookiefrei &amp; DSGVO-konform. <a href="datenschutz.html" style="color:var(--bronze-light)">Mehr erfahren</a></p>
+    <button type="button">Verstanden</button>
   </div>
 
+  <script src="js/main.js"></script>
   <script>
-    const navToggle = document.getElementById('navToggle');
-    const navMobile = document.getElementById('navMobile');
-    navToggle.addEventListener('click', () => {
-      const open = navMobile.classList.toggle('open');
-      navToggle.setAttribute('aria-expanded', open);
-    });
+    (function () {
+      var container = document.getElementById('posts');
+      var TYPES = {
+        urlaub: { label: 'Urlaub / Schließung', cls: 'post-card--urlaub', tag: 'tag--bronze' },
+        info: { label: 'Info', cls: '', tag: '' },
+        neuigkeit: { label: 'Neuigkeit', cls: 'post-card--neuigkeit', tag: '' }
+      };
 
-    const BACKEND_URL = 'https://praxis-staerke-backend-production.up.railway.app';
-    const TYPE_LABELS = { urlaub: 'Urlaub / Schließung', info: 'Info', neuigkeit: 'Neuigkeit' };
-
-    async function loadPosts() {
-      try {
-        const res = await fetch(`${BACKEND_URL}/api/posts`);
-        if (!res.ok) throw new Error('Fehler beim Laden');
-        const { posts } = await res.json();
-        renderPosts(posts);
-      } catch {
-        document.getElementById('loadingState').style.display = 'none';
-        document.getElementById('emptyState').style.display = 'block';
-      }
-    }
-
-    function renderPosts(posts) {
-      document.getElementById('loadingState').style.display = 'none';
-      const list = document.getElementById('postsList');
-      const empty = document.getElementById('emptyState');
-
-      if (!posts || posts.length === 0) {
-        empty.style.display = 'block';
-        return;
+      function formatDate(iso) {
+        try {
+          return new Date(iso).toLocaleDateString('de-DE', { day: '2-digit', month: 'long', year: 'numeric' });
+        } catch (e) { return ''; }
       }
 
-      list.style.display = 'flex';
-      posts.forEach(post => {
-        const safeType = TYPE_LABELS[post.type] ? post.type : 'info';
-        const card = document.createElement('div');
-        card.className = 'post-card';
+      function render(posts) {
+        container.innerHTML = '';
+        if (!posts.length) {
+          container.innerHTML = '<p class="posts-state">Derzeit keine Nachrichten. Schauen Sie bald wieder vorbei.</p>';
+          return;
+        }
+        posts.forEach(function (post, i) {
+          var t = TYPES[post.type] || TYPES.info;
+          var card = document.createElement('article');
+          card.className = 'post-card reveal is-visible ' + t.cls;
+          card.style.setProperty('--reveal-delay', (i * 90) + 'ms');
 
-        const badge = document.createElement('span');
-        badge.className = 'post-type ' + safeType;
-        badge.textContent = TYPE_LABELS[safeType];
-        card.appendChild(badge);
+          var meta = document.createElement('div');
+          meta.className = 'post-card__meta';
+          var badge = document.createElement('span');
+          badge.className = 'tag ' + t.tag;
+          badge.textContent = t.label;
+          var date = document.createElement('span');
+          date.className = 'post-card__date';
+          date.textContent = formatDate(post.created_at || post.createdAt || post.date);
+          meta.appendChild(badge);
+          meta.appendChild(date);
 
-        const titleEl = document.createElement('h3');
-        titleEl.textContent = post.title;
-        card.appendChild(titleEl);
+          var h = document.createElement('h2');
+          h.textContent = post.title || '';
+          var p = document.createElement('p');
+          p.textContent = post.content || '';
 
-        const contentEl = document.createElement('p');
-        post.content.split('\n').forEach((line, i, arr) => {
-          contentEl.appendChild(document.createTextNode(line));
-          if (i < arr.length - 1) contentEl.appendChild(document.createElement('br'));
+          card.appendChild(meta);
+          card.appendChild(h);
+          card.appendChild(p);
+          container.appendChild(card);
         });
-        card.appendChild(contentEl);
+      }
 
-        const dateEl = document.createElement('p');
-        dateEl.className = 'post-date';
-        const d = new Date(post.date);
-        dateEl.textContent = d.toLocaleDateString('de-DE', { day: '2-digit', month: 'long', year: 'numeric' });
-        card.appendChild(dateEl);
-
-        list.appendChild(card);
-      });
-    }
-
-    document.addEventListener('DOMContentLoaded', loadPosts);
+      fetch(window.PRAXIS.API_BASE + '/api/posts')
+        .then(function (res) {
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          return res.json();
+        })
+        .then(function (data) {
+          render(Array.isArray(data) ? data : (data.posts || []));
+        })
+        .catch(function () {
+          container.innerHTML = '<p class="posts-state">Derzeit keine Nachrichten. Schauen Sie bald wieder vorbei.</p>';
+        });
+    })();
   </script>
-<div id="privacy-bar">
-  <span>Diese Website erhebt anonyme Besucherstatistiken — cookiefrei &amp; DSGVO-konform. <a href="datenschutz.html">Mehr erfahren</a></span>
-  <button id="pb-dismiss">Verstanden</button>
-</div>
-<script>
-(function(){
-  var p=location.pathname+(location.search||'');
-  function track(){fetch('https://praxis-staerke-backend-production.up.railway.app/api/track',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:p,referrer:document.referrer||''}),keepalive:true}).catch(function(){});}
-  if(localStorage.getItem('privacy-ack')){track();return;}
-  var b=document.getElementById('privacy-bar');
-  requestAnimationFrame(function(){requestAnimationFrame(function(){b.classList.add('pb-visible');});});
-  document.getElementById('pb-dismiss').addEventListener('click',function(){
-    b.classList.remove('pb-visible');
-    localStorage.setItem('privacy-ack','1');
-    track();
-  });
-})();
-</script>
 </body>
 </html>

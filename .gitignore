@@ -5,23 +5,15 @@ Thumbs.db
 # Dependencies
 node_modules/
 
-# Environment & Secrets — NIEMALS committen
+# Environment & Secrets
 .env
-.env.local
-.env.development
-.env.production
-.env.staging
-*.env
 .env.*
-
-# API Keys & Credentials
+*.env
 secrets.json
 credentials.json
 tokens.json
 service-account.json
-*-service-account.json
-config.secret.js
-config.secret.json
+config.secret.*
 *.secret.*
 
 # Certificates & Keys
@@ -34,7 +26,7 @@ config.secret.json
 id_rsa
 id_ed25519
 
-# Build & Deploy
+# Build
 .vercel
 dist/
 build/
@@ -44,6 +36,3 @@ out/
 # Logs
 *.log
 npm-debug.log*
-
-# Claude Code internals
-.claude/

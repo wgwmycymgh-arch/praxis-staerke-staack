@@ -2,563 +2,241 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-Content-Type-Options" content="nosniff">
-  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+  <script>document.documentElement.classList.add('js')</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Leistungen der Hausarztpraxis Stärke & Staack — Vorsorge, Diagnostik, Labor, Impfungen und mehr.">
   <title>Leistungen — Hausarztpraxis Stärke &amp; Staack</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --bg: #f4f0e5; --surface: #ffffff; --surface-2: #f9f7f2;
-      --primary: #0f2d1c; --primary-mid: #1a4d2e; --primary-lite: rgba(15,45,28,0.07);
-      --accent: #b8843a; --accent-lite: rgba(184,132,58,0.12);
-      --text: #0f0e0b; --text-mid: #2a2825; --text-dim: #4a4440;
-      --border: rgba(15,45,28,0.10); --nav-h: 76px;
-      --radius: 18px; --radius-sm: 10px;
-      --shadow-sm: 0 2px 16px rgba(15,45,28,0.07);
-      --shadow-md: 0 8px 40px rgba(15,45,28,0.10);
-      --shadow-lg: 0 20px 80px rgba(15,45,28,0.14);
-    }
-    html { scroll-behavior: smooth; }
-    body { background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; line-height: 1.6; overflow-x: hidden; }
-
-    /* Shared NAV */
-    .nav { position: fixed; top: 0; left: 0; right: 0; height: var(--nav-h); z-index: 400; background: rgba(244,240,229,0.92); backdrop-filter: blur(20px) saturate(1.5); box-shadow: 0 1px 0 rgba(15,45,28,0.08); border-bottom: 1px solid var(--border); }
-    .nav-inner { max-width: 1280px; margin: 0 auto; padding: 0 40px; height: 100%; display: flex; align-items: center; gap: 32px; }
-    .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; flex: 0 0 auto; }
-    .logo-mark { width: 42px; height: 42px; border-radius: 10px; background: var(--primary); display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-size: 15px; font-weight: 600; color: #f4f0e5; letter-spacing: 0.05em; flex-shrink: 0; transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s; }
-    .nav-logo:hover .logo-mark { transform: scale(1.06) rotate(-2deg); box-shadow: 0 6px 20px rgba(15,45,28,0.3); }
-    .logo-text { line-height: 1.2; }
-    .logo-text span { display: block; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-dim); font-weight: 500; }
-    .logo-text strong { display: block; font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 600; color: var(--primary); }
-    .nav-links { display: none; gap: 28px; flex: 1; }
-    .nav-links a { color: var(--text-mid); text-decoration: none; font-size: 14px; font-weight: 500; position: relative; transition: color 0.25s; }
-    .nav-links a::after { content: ''; position: absolute; bottom: -3px; left: 0; width: 0; height: 1.5px; background: linear-gradient(90deg, var(--primary-mid), var(--accent)); transition: width 0.3s cubic-bezier(0.22,1,0.36,1); }
-    .nav-links a:hover { color: var(--primary); }
-    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
-    .nav-links a.active { color: var(--primary); }
-    .nav-cta { display: none; padding: 10px 22px; background: var(--primary); color: #f4f0e5; font-weight: 600; font-size: 13px; letter-spacing: 0.04em; text-decoration: none; border-radius: var(--radius-sm); transition: transform 0.25s, box-shadow 0.25s, background 0.25s; white-space: nowrap; }
-    .nav-cta:hover { background: var(--primary-mid); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(15,45,28,0.25); }
-    .nav-toggle { display: flex; align-items: center; justify-content: center; margin-left: auto; background: none; border: none; font-size: 22px; cursor: pointer; color: var(--primary); }
-    .nav-mobile { display: flex; position: fixed; top: var(--nav-h); left: 0; right: 0; background: rgba(244,240,229,0.97); backdrop-filter: blur(20px); padding: 24px 32px; flex-direction: column; gap: 20px; border-bottom: 1px solid var(--border); z-index: 399; visibility: hidden; opacity: 0; transform: translateY(-8px); transition: opacity 0.22s cubic-bezier(0.22,1,0.36,1), transform 0.22s cubic-bezier(0.22,1,0.36,1), visibility 0s 0.22s; }
-    .nav-mobile.open { visibility: visible; opacity: 1; transform: translateY(0); transition: opacity 0.22s cubic-bezier(0.22,1,0.36,1), transform 0.22s cubic-bezier(0.22,1,0.36,1), visibility 0s; }
-    .nav-mobile a { color: var(--text); text-decoration: none; font-size: 16px; font-weight: 500; }
-    @media(min-width:769px){.nav-links{display:flex;}.nav-cta{display:inline-block;}.nav-toggle{display:none;}}
-    @media(max-width:768px){.nav-inner{padding:0 20px;}}
-
-    /* PAGE HERO */
-    .page-hero {
-      padding-top: calc(var(--nav-h) + 80px); padding-bottom: 80px;
-      background: linear-gradient(160deg, var(--primary) 0%, #1e5c36 100%);
-      position: relative; overflow: hidden;
-    }
-    .page-hero::before {
-      content: ''; position: absolute; inset: 0;
-      background: radial-gradient(ellipse 80% 60% at 90% 50%, rgba(184,132,58,0.18), transparent);
-    }
-    .page-hero .container { position: relative; z-index: 1; }
-    .page-hero .section-label { color: rgba(184,132,58,0.9); }
-    .page-hero .section-label::before { background: rgba(184,132,58,0.9); }
-    .page-hero h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(42px,6vw,76px); font-weight: 300; line-height: 1.1;
-      color: #f4f0e5; margin-top: 12px; text-wrap: balance; max-width: 680px;
-    }
-    .page-hero h1 em { font-style: italic; color: #e8c87a; }
-    .page-hero p { font-size: 18px; color: rgba(244,240,229,0.68); margin-top: 20px; max-width: 520px; line-height: 1.7; }
-
-    /* SHARED */
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
-    @media(max-width:768px){ .container{padding:0 20px;} }
-    section { padding: 96px 0; }
-    .section-label { display: inline-flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
-    .section-label::before { content: ''; width: 24px; height: 1px; background: var(--accent); }
-    h2.section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(32px,4vw,52px); font-weight: 600; line-height: 1.12; color: var(--primary); text-wrap: balance; }
-    h2.section-title em { font-style: italic; font-weight: 300; color: var(--text-mid); }
-    .reveal { opacity: 0; transform: translateY(28px) scale(0.99); transition: opacity 0.75s cubic-bezier(0.16,1,0.3,1), transform 0.75s cubic-bezier(0.16,1,0.3,1); }
-    .reveal.visible { opacity:1; transform:translateY(0) scale(1); }
-    .delay-1{transition-delay:.1s;} .delay-2{transition-delay:.2s;} .delay-3{transition-delay:.3s;} .delay-4{transition-delay:.4s;}
-    @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none;}}
-    .skip-nav{position:absolute;top:-100%;left:0;padding:12px 20px;background:var(--primary);color:#f4f0e5;font-size:14px;font-weight:600;z-index:9999;text-decoration:none;transition:top 0.2s;}
-    .skip-nav:focus{top:0;}
-
-    /* LEISTUNGEN GRID */
-    .leistungen-section {
-      position: relative;
-      background-color: #0d1a10;
-      padding: 0;
-    }
-    .leistungen-bg {
-      position: sticky;
-      top: 0;
-      height: 100vh;
-      margin-bottom: -100vh;
-      background:
-        linear-gradient(rgba(8,18,12,0.18), rgba(8,18,12,0.18)),
-        url('bilder-higgsfield/Flurboden.png') center / cover no-repeat;
-      pointer-events: none;
-      z-index: 0;
-    }
-    .leistungen-section > .container {
-      position: relative;
-      z-index: 1;
-      padding-top: 100px;
-      padding-bottom: 100px;
-    }
-    @media(max-width:768px) {
-      .leistungen-section > .container { padding-top: 60px; padding-bottom: 60px; }
-    }
-    .leistungen-intro {
-      max-width: 640px; margin-bottom: 72px;
-      background: rgba(244,240,229,0.65);
-      border-radius: var(--radius);
-      padding: 40px;
-    }
-    .leistungen-intro p { font-size: 17px; color: var(--text-mid); line-height: 1.8; margin-top: 20px; }
-    .leistungen-grid {
-      display: grid; grid-template-columns: repeat(2,1fr);
-      gap: 14px; background: transparent;
-      border-radius: 0; overflow: visible;
-    }
-    .leistung-item {
-      background: rgba(244,240,229,0.65);
-      border-radius: var(--radius-sm);
-      padding: 40px;
-      display: flex; gap: 24px; align-items: flex-start;
-      transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
-      position: relative; overflow: hidden;
-      box-shadow: 0 2px 18px rgba(8,18,12,0.14);
-    }
-    .leistung-item::before {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(135deg, var(--primary-lite), var(--accent-lite));
-      opacity: 0; transition: opacity 0.4s;
-    }
-    .leistung-item:hover {
-      background: rgba(244,240,229,0.80);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 32px rgba(8,18,12,0.20);
-    }
-    .leistung-item:hover::before { opacity: 1; }
-    .leistung-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 48px; font-weight: 300; color: var(--border);
-      line-height: 1; flex-shrink: 0; min-width: 48px;
-      transition: color 0.3s;
-    }
-    .leistung-item:hover .leistung-num { color: var(--accent); }
-    .leistung-content { position: relative; z-index: 1; }
-    .leistung-content h3 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 22px; font-weight: 600; color: var(--primary);
-      margin-bottom: 10px;
-    }
-    .leistung-content p { font-size: 14px; color: var(--text-dim); line-height: 1.75; }
-    .leistung-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
-    .leistung-tag {
-      background: var(--primary-lite); color: var(--primary);
-      padding: 4px 10px; border-radius: 100px;
-      font-size: 11px; font-weight: 600; letter-spacing: 0.06em;
-    }
-    @media(max-width:768px){
-      .leistungen-grid{grid-template-columns:1fr; gap:10px;}
-      .leistung-item{padding:28px;}
-      .leistungen-intro{padding:28px;}
-      .leistung-item--flip { min-height: 440px; }
-      .flip-inner { min-height: 440px; }
-      .flip-front { padding: 28px; }
-    }
-    .leistung-item--flip {
-      grid-column: 1 / -1;
-      padding: 0;
-      min-height: 340px;
-      cursor: pointer;
-      background: transparent;
-      overflow: visible;
-    }
-    .leistung-item--flip::before { display: none; }
-    .leistung-item--flip:hover { background: transparent; }
-    .flip-inner {
-      position: relative; width: 100%; height: 100%; min-height: 340px;
-      -webkit-transform-style: preserve-3d;
-      transform-style: preserve-3d;
-      -webkit-transform: perspective(1200px) rotateY(0deg);
-      transform: perspective(1200px) rotateY(0deg);
-      transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .leistung-item--flip.flipped .flip-inner {
-      -webkit-transform: perspective(1200px) rotateY(180deg);
-      transform: perspective(1200px) rotateY(180deg);
-    }
-    .flip-front, .flip-back {
-      position: absolute; inset: 0;
-      -webkit-backface-visibility: hidden;
-      backface-visibility: hidden;
-    }
-    .flip-front {
-      background: rgba(244,240,229,0.65);
-      display: flex; gap: 24px; align-items: flex-start; padding: 40px;
-      border-radius: var(--radius-sm);
-      overflow: hidden;
-      -webkit-transform: translateZ(2px);
-      transform: translateZ(2px);
-    }
-    .flip-back {
-      -webkit-transform: rotateY(180deg) translateZ(2px);
-      transform: rotateY(180deg) translateZ(2px);
-      background: var(--surface);
-      display: flex; align-items: center; justify-content: center;
-      overflow: hidden;
-      border-radius: var(--radius-sm);
-      cursor: pointer;
-    }
-    .flip-back img {
-      width: 100%; height: 100%;
-      object-fit: contain; object-position: center; display: block;
-    }
-    .flip-back-close {
-      position: absolute; top: 16px; right: 18px;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
-      color: var(--text-dim); background: var(--surface);
-      border: 1px solid var(--border); border-radius: 100px;
-      padding: 5px 14px; cursor: pointer;
-      transition: background 0.2s, color 0.2s;
-    }
-    .flip-back-close:hover { background: var(--primary); color: #fff; }
-    .flip-btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      margin-top: 20px;
-      padding: 10px 20px;
-      background: transparent;
-      border: 1.5px solid var(--accent);
-      border-radius: 100px;
-      color: var(--accent);
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 12px; font-weight: 600; letter-spacing: 0.1em;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: background 0.25s, color 0.25s, box-shadow 0.25s, transform 0.2s;
-    }
-    .flip-btn svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.8; }
-    .flip-btn:hover {
-      background: var(--accent); color: #fff;
-      box-shadow: 0 4px 18px rgba(184,132,58,0.28);
-      transform: translateY(-1px);
-    }
-
-    /* HOURS */
-    .hours-section { background: var(--surface-2); }
-    .hours-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
-    .hours-table { border-collapse: collapse; width: 100%; }
-    .hours-table tr { border-bottom: 1px solid var(--border); }
-    .hours-table tr:last-child { border-bottom: none; }
-    .hours-table td { padding: 14px 0; font-size: 15px; }
-    .hours-table td:first-child { color: var(--text-mid); font-weight: 500; width: 120px; }
-    .hours-table td:last-child { color: var(--primary); font-weight: 500; }
-    .hours-closed { color: var(--text-dim) !important; font-style: italic; }
-    .hours-notice {
-      margin-top: 24px; padding: 20px 24px;
-      background: rgba(184,132,58,0.08); border-left: 3px solid var(--accent);
-      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-    }
-    .hours-notice p { font-size: 14px; color: var(--text-mid); line-height: 1.7; }
-    .hours-notice strong { color: var(--primary); }
-    .hours-right h3 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 28px; font-weight: 600; color: var(--primary); margin-bottom: 20px;
-    }
-    .contact-info-item {
-      display: flex; gap: 14px; align-items: center; margin-bottom: 16px;
-    }
-    .contact-info-item .icon {
-      width: 44px; height: 44px; border-radius: 10px;
-      background: var(--primary-lite); display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-    }
-    .contact-info-item .icon svg { width: 20px; height: 20px; stroke: var(--primary); stroke-width: 1.5; fill: none; }
-    .contact-info-item span { font-size: 15px; color: var(--text-mid); }
-    .contact-info-item strong { display: block; font-size: 16px; color: var(--primary); }
-    .btn-full { display: block; width: 100%; padding: 14px; background: var(--primary); color: #f4f0e5; text-align: center; text-decoration: none; border-radius: var(--radius-sm); font-weight: 600; font-size: 14px; margin-top: 24px; transition: transform 0.25s, box-shadow 0.25s; }
-    .btn-full:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(15,45,28,0.22); }
-    @media(max-width:768px){ .hours-grid{grid-template-columns:1fr;} }
-
-    /* FOOTER */
-    .footer { background: #0a1f13; padding: 72px 0 0; }
-    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 48px; padding-bottom: 64px; border-bottom: 1px solid rgba(244,240,229,0.08); }
-    .footer-brand .logo-text strong { color: #f4f0e5; font-size: 18px; }
-    .footer-brand .logo-text span { color: rgba(244,240,229,0.4); }
-    .footer-tagline { font-size: 14px; color: rgba(244,240,229,0.5); line-height: 1.7; margin-top: 16px; }
-    .footer-col h4 { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(244,240,229,0.35); font-weight: 600; margin-bottom: 20px; }
-    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-    .footer-col ul a { color: rgba(244,240,229,0.6); text-decoration: none; font-size: 14px; transition: color 0.25s; }
-    .footer-col ul a:hover { color: var(--accent); }
-    .footer-bottom { padding: 24px 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
-    .footer-bottom p { font-size: 13px; color: rgba(244,240,229,0.3); }
-    .footer-legal { display: flex; gap: 24px; }
-    .footer-legal a { font-size: 13px; color: rgba(244,240,229,0.35); text-decoration: none; transition: color 0.25s; }
-    .footer-legal a:hover { color: var(--accent); }
-    @media(max-width:960px){ .footer-grid{grid-template-columns:1fr 1fr; gap:36px;} }
-    @media(max-width:560px){ .footer-grid{grid-template-columns:1fr;} }
-
-    /* ── MOBILE ──────────────────────────────────── */
-    @media(max-width:768px) {
-      section { padding: 64px 0; }
-      .page-hero { padding-top: calc(var(--nav-h) + 48px); padding-bottom: 48px; }
-      .page-hero h1 { font-size: clamp(32px,8vw,52px); }
-      .page-hero p { font-size: 16px; }
-      .nav-mobile a { padding: 10px 0; min-height: 44px; display: flex; align-items: center; }
-      .footer-bottom { flex-direction: column; text-align: center; }
-      .footer-legal { justify-content: center; }
-    }
-    @media(hover:none) {
-      .service-card:hover { transform: none; box-shadow: none; }
-    }
-    @media(max-width:480px) {
-      .page-hero h1 { font-size: clamp(28px,8vw,40px); }
-    }
-  </style>
+  <meta name="description" content="Leistungen der Hausarztpraxis Stärke & Staack — Vorsorge, Diagnostik, Labor, Impfungen und mehr.">
+  <link rel="canonical" href="https://praxis-staerke-staack.vercel.app/leistungen.html">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="de_DE">
-  <meta property="og:site_name" content="Hausarztpraxis Stärke &amp; Staack">
   <meta property="og:url" content="https://praxis-staerke-staack.vercel.app/leistungen.html">
-  <meta property="og:title" content="Leistungen — Hausarztpraxis Stärke &amp; Staack">
-  <meta property="og:description" content="Leistungen der Hausarztpraxis Stärke &amp; Staack — Vorsorge, Diagnostik, Labor, Impfungen und mehr.">
+  <meta property="og:title" content="Leistungen — Hausarztpraxis Stärke & Staack">
+  <meta property="og:description" content="Leistungen der Hausarztpraxis Stärke & Staack — Vorsorge, Diagnostik, Labor, Impfungen und mehr.">
+  <link rel="icon" type="image/png" href="images/logo-icon-gruen.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
   <style>
-    #privacy-bar{position:fixed;bottom:0;left:0;right:0;background:var(--primary,#0f2d1c);color:rgba(244,240,229,0.85);padding:14px 32px;display:flex;align-items:center;justify-content:space-between;gap:16px;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;z-index:9999;transform:translateY(100%);opacity:0;transition:transform 0.4s cubic-bezier(0.16,1,0.3,1),opacity 0.4s;}
-    #privacy-bar.pb-visible{transform:translateY(0);opacity:1;}
-    @media(prefers-reduced-motion:reduce){#privacy-bar{transition:opacity 0.2s;transform:translateY(0);}}
-    #privacy-bar a{color:rgba(184,132,58,0.9);text-decoration:none;}
-    #privacy-bar a:hover{text-decoration:underline;}
-    #pb-dismiss{background:rgba(244,240,229,0.15);border:1px solid rgba(244,240,229,0.25);color:rgba(244,240,229,0.9);padding:6px 16px;border-radius:6px;cursor:pointer;font-size:13px;font-family:inherit;white-space:nowrap;flex-shrink:0;}
-    #pb-dismiss:hover{background:rgba(244,240,229,0.25);}
-    @media(max-width:600px){#privacy-bar{flex-direction:column;align-items:flex-start;padding:14px 20px;gap:12px;}}
+    .bia-card { cursor: pointer; }
+    .bia-card .flipcard-photo {
+      position: absolute; inset: 0;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s var(--ease-soft);
+      background: var(--ink);
+    }
+    .bia-card.show-photo .flipcard-photo { opacity: 1; pointer-events: auto; }
+    .bia-card .flipcard-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .bia-card .flipcard-photo button {
+      position: absolute; top: 0.9rem; right: 0.9rem;
+      background: var(--ink); color: #fff; border: none;
+      font-size: var(--text-xs); font-weight: 600; letter-spacing: 0.08em;
+      padding: 0.55rem 1rem; border-radius: var(--radius);
+    }
   </style>
 </head>
-<body>
-<a href="#main-content" class="skip-nav">Zum Inhalt springen</a>
-  <!-- NAV -->
-  <nav class="nav" id="nav" aria-label="Hauptnavigation">
-    <div class="nav-inner">
-      <a href="index.html" class="nav-logo">
-        <div class="logo-mark"><img src="bilder-higgsfield/logo-icon-schwarz.png" width="30" height="30" alt="" aria-hidden="true" style="filter:invert(1);mix-blend-mode:screen;object-fit:contain;display:block;"></div>
-        <div class="logo-text">
-          <span>Hausarztpraxis</span>
-          <strong>Stärke &amp; Staack</strong>
-        </div>
+<body class="has-dark-hero">
+  <a class="skip-link" href="#main">Zum Inhalt springen</a>
+  <div class="scroll-progress" aria-hidden="true"></div>
+
+  <header class="nav is-scrolled">
+    <div class="container nav__inner">
+      <a class="nav__brand" href="index.html">
+        <img src="images/logo-icon-transparent.png" alt="" width="38" height="38">
+        <span class="nav__brand-text">Stärke &amp; Staack<small>Hausarztpraxis</small></span>
       </a>
-      <div class="nav-links">
-        <a href="index.html">Start</a>
-        <a href="leistungen.html" class="active">Leistungen</a>
-        <a href="team.html">Team</a>
-        <a href="aktuelles.html">Aktuelles</a>
-        <a href="kontakt.html">Kontakt</a>
+      <nav aria-label="Hauptnavigation">
+        <ul class="nav__links">
+          <li><a class="nav__link" href="index.html">Start</a></li>
+          <li><a class="nav__link" href="leistungen.html" aria-current="page">Leistungen</a></li>
+          <li><a class="nav__link" href="team.html">Team</a></li>
+          <li><a class="nav__link" href="aktuelles.html">Aktuelles</a></li>
+          <li><a class="nav__link" href="kontakt.html">Kontakt</a></li>
+        </ul>
+      </nav>
+      <div class="nav__cta">
+        <a class="btn" href="kontakt.html"><span>Termin vereinbaren</span></a>
       </div>
-      <a href="kontakt.html" class="nav-cta">Termin vereinbaren</a>
-      <button class="nav-toggle" id="navToggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="navMobile">&#9776;</button>
+      <button class="nav__toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Menü öffnen">
+        <span></span><span></span><span></span>
+      </button>
     </div>
-  </nav>
-  <div class="nav-mobile" id="navMobile" role="navigation" aria-label="Mobile-Navigation">
-    <a href="index.html">Start</a>
-    <a href="leistungen.html">Leistungen</a>
-    <a href="team.html">Team</a>
-    <a href="kontakt.html">Kontakt &amp; Termin</a>
-    <a href="impressum.html">Impressum</a>
-  </div>
-
-  <main id="main-content">
-
-  <!-- PAGE HERO -->
-  <div class="page-hero">
-    <div class="container">
-      <div class="section-label">Unser Angebot</div>
-      <h1>Unsere <em>Leistungen</em> für Sie</h1>
-      <p>Von der Vorsorge bis zur Akutversorgung — wir bieten das vollständige Spektrum der hausärztlichen Medizin.</p>
+    <div class="nav__mobile" id="mobile-menu">
+      <ul>
+        <li><a href="index.html">Start</a></li>
+        <li><a href="leistungen.html" aria-current="page">Leistungen</a></li>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="aktuelles.html">Aktuelles</a></li>
+        <li><a href="kontakt.html">Kontakt &amp; Termin</a></li>
+        <li><a href="impressum.html">Impressum</a></li>
+      </ul>
+      <a class="btn" href="kontakt.html"><span>Termin vereinbaren</span></a>
     </div>
-  </div>
+  </header>
 
-  <!-- LEISTUNGEN -->
-  <section class="leistungen-section">
-    <div class="leistungen-bg" aria-hidden="true"></div>
-    <div class="container">
-      <div class="leistungen-intro reveal">
-        <div class="section-label">Medizinisches Spektrum</div>
-        <h2 class="section-title">Alles aus <em>einer Hand</em></h2>
-        <p>Als Ihre Hausarztpraxis sind wir erste Anlaufstelle — egal ob Routine, Vorsorge oder akute Erkrankung. Wir koordinieren Ihre gesamte medizinische Versorgung.</p>
+  <main id="main">
+    <section class="page-hero">
+      <div class="container">
+        <p class="eyebrow reveal">Unser Angebot</p>
+        <h1 class="reveal" style="--reveal-delay:80ms">Unsere <em>Leistungen</em> für Sie</h1>
+        <p class="lead reveal" style="--reveal-delay:160ms">Von der Vorsorge bis zur Akutversorgung — wir bieten das vollständige Spektrum der hausärztlichen Medizin.</p>
       </div>
-      <div class="leistungen-grid">
-        <div class="leistung-item reveal delay-1">
-          <span class="leistung-num">01</span>
-          <div class="leistung-content">
+      <span class="page-hero__index" aria-hidden="true">11</span>
+    </section>
+
+    <section class="section svc-section">
+      <div class="svc-section__bg" aria-hidden="true"></div>
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">Medizinisches Spektrum</p>
+          <h2 style="margin-top:1.25rem">Alles aus <em>einer Hand</em></h2>
+          <p class="lead" style="margin-top:1.25rem">Als Ihre Hausarztpraxis sind wir erste Anlaufstelle — egal ob Routine, Vorsorge oder akute Erkrankung. Wir koordinieren Ihre gesamte medizinische Versorgung.</p>
+        </div>
+
+        <div class="svc-grid">
+          <article class="svc-card reveal">
+            <span class="svc-card__num" aria-hidden="true">01</span>
             <h3>Hausärztliche Grundversorgung</h3>
             <p>Behandlung akuter Beschwerden, medizinische Beratung, Krankschreibungen, Überweisungen und langfristige Patientenbegleitung.</p>
-            <div class="leistung-tags"><span class="leistung-tag">Kassenleistung</span><span class="leistung-tag">Grundversorgung</span></div>
-          </div>
-        </div>
-        <div class="leistung-item reveal delay-2">
-          <span class="leistung-num">02</span>
-          <div class="leistung-content">
-            <h3>Vorsorge & Check-up</h3>
+            <div class="svc-card__tags"><span class="tag">Kassenleistung</span><span class="tag">Grundversorgung</span></div>
+          </article>
+          <article class="svc-card reveal" style="--reveal-delay:60ms">
+            <span class="svc-card__num" aria-hidden="true">02</span>
+            <h3>Vorsorge &amp; Check-up</h3>
             <p>Gesundheits-Check-up ab 35, Hautkrebsvorsorge, Krebsfrüherkennungen und Jugendgesundheitsuntersuchung (J1/J2).</p>
-            <div class="leistung-tags"><span class="leistung-tag">Kassenleistung</span><span class="leistung-tag">Präventiv</span></div>
-          </div>
-        </div>
-        <div class="leistung-item reveal delay-1">
-          <span class="leistung-num">03</span>
-          <div class="leistung-content">
+            <div class="svc-card__tags"><span class="tag">Kassenleistung</span><span class="tag">Präventiv</span></div>
+          </article>
+          <article class="svc-card reveal" style="--reveal-delay:120ms">
+            <span class="svc-card__num" aria-hidden="true">03</span>
             <h3>DMP — Disease-Management-Programme</h3>
-            <p>Strukturierte Begleitprogramme für chronisch Kranke, z. B. DMP Diabetes mellitus Typ 2 und DMP Koronare Herzkrankheit.</p>
-            <div class="leistung-tags"><span class="leistung-tag">Chronisch</span><span class="leistung-tag">Kassenleistung</span></div>
-          </div>
-        </div>
-        <div class="leistung-item reveal delay-2">
-          <span class="leistung-num">04</span>
-          <div class="leistung-content">
+            <p>Strukturierte Begleitprogramme für chronisch Kranke, z.&nbsp;B. DMP Diabetes mellitus Typ 2 und DMP Koronare Herzkrankheit.</p>
+            <div class="svc-card__tags"><span class="tag">Chronisch</span><span class="tag">Kassenleistung</span></div>
+          </article>
+          <article class="svc-card reveal" style="--reveal-delay:180ms">
+            <span class="svc-card__num" aria-hidden="true">04</span>
             <h3>Impfungen</h3>
             <p>Alle STIKO-empfohlenen Impfungen: Grippe, COVID, Tetanus, Pneumokokken, Gürtelrose und mehr. Individuelle Impfberatung auf Wunsch.</p>
-            <div class="leistung-tags"><span class="leistung-tag">STIKO</span><span class="leistung-tag">Kassenleistung</span></div>
-          </div>
-        </div>
-        <div class="leistung-item reveal delay-1">
-          <span class="leistung-num">05</span>
-          <div class="leistung-content">
+            <div class="svc-card__tags"><span class="tag">STIKO</span><span class="tag">Kassenleistung</span></div>
+          </article>
+          <article class="svc-card reveal">
+            <span class="svc-card__num" aria-hidden="true">05</span>
             <h3>Psychosomatische Grundversorgung</h3>
             <p>Begleitung bei psychosomatischen Beschwerden, Burnout, Erschöpfung und leichten Depressionen — niedrigschwellig und ohne lange Wartezeiten.</p>
-            <div class="leistung-tags"><span class="leistung-tag">Kassenleistung</span><span class="leistung-tag">Begleitung</span></div>
-          </div>
-        </div>
-        <div class="leistung-item reveal delay-2">
-          <span class="leistung-num">06</span>
-          <div class="leistung-content">
-            <h3>EKG & Langzeit-EKG</h3>
+            <div class="svc-card__tags"><span class="tag">Kassenleistung</span><span class="tag">Begleitung</span></div>
+          </article>
+          <article class="svc-card reveal" style="--reveal-delay:60ms">
+            <span class="svc-card__num" aria-hidden="true">06</span>
+            <h3>EKG &amp; Langzeit-EKG</h3>
             <p>Ruhe-EKG und 24-Stunden-Holter-EKG zur Abklärung von Herzrhythmusstörungen. Auch Langzeit-Blutdruckmessung (24h) verfügbar.</p>
-            <div class="leistung-tags"><span class="leistung-tag">Diagnostik</span><span class="leistung-tag">Herz</span></div>
-          </div>
-        </div>
-        <div class="leistung-item reveal delay-1">
-          <span class="leistung-num">07</span>
-          <div class="leistung-content">
+            <div class="svc-card__tags"><span class="tag">Diagnostik</span><span class="tag">Herz</span></div>
+          </article>
+          <article class="svc-card reveal" style="--reveal-delay:120ms">
+            <span class="svc-card__num" aria-hidden="true">07</span>
             <h3>Ultraschall (Sonographie)</h3>
             <p>Ultraschall des Bauchraums, der Schilddrüse, Bauchaortenaneurysma-Screening. Schnell, strahlungsfrei, direkt in der Praxis.</p>
-            <div class="leistung-tags"><span class="leistung-tag">Bildgebung</span><span class="leistung-tag">Strahlenfrei</span></div>
-          </div>
-        </div>
-        <div class="leistung-item reveal delay-2">
-          <span class="leistung-num">08</span>
-          <div class="leistung-content">
-            <h3>Lungenfunktion & Pulsoximetrie</h3>
+            <div class="svc-card__tags"><span class="tag">Bildgebung</span><span class="tag">Strahlenfrei</span></div>
+          </article>
+          <article class="svc-card reveal" style="--reveal-delay:180ms">
+            <span class="svc-card__num" aria-hidden="true">08</span>
+            <h3>Lungenfunktion &amp; Pulsoximetrie</h3>
             <p>Spirometrie zur Diagnose von Asthma und COPD. Pulsoximetrie zur Messung der Sauerstoffsättigung. ABI-Messung zur Erkennung von Durchblutungsstörungen.</p>
-            <div class="leistung-tags"><span class="leistung-tag">Diagnostik</span><span class="leistung-tag">Lunge</span></div>
-          </div>
-        </div>
-        <div class="leistung-item reveal delay-1">
-          <span class="leistung-num">09</span>
-          <div class="leistung-content">
+            <div class="svc-card__tags"><span class="tag">Diagnostik</span><span class="tag">Lunge</span></div>
+          </article>
+          <article class="svc-card reveal">
+            <span class="svc-card__num" aria-hidden="true">09</span>
             <h3>Ernährungsmedizin</h3>
             <p>Ernährungsmedizinische Beratung und Therapie (§43 SGB V, Kassenzuschuss möglich). Schwerpunkt: Mikronährstoffmedizin, individuelle Labordiagnostik und gewichtsbezogene Behandlung.</p>
-            <div class="leistung-tags"><span class="leistung-tag">Schwerpunkt</span><span class="leistung-tag">§43 SGB V</span></div>
-          </div>
-        </div>
-        <div class="leistung-item reveal delay-2">
-          <span class="leistung-num">10</span>
-          <div class="leistung-content">
+            <div class="svc-card__tags"><span class="tag tag--bronze">Schwerpunkt</span><span class="tag">§43 SGB V</span></div>
+          </article>
+          <article class="svc-card reveal" style="--reveal-delay:60ms">
+            <span class="svc-card__num" aria-hidden="true">10</span>
             <h3>Sportmedizin</h3>
             <p>Sportmedizinische Untersuchungen und Beratung. Tauglichkeitsuntersuchungen, Belastungstests und individuelle sportmedizinische Empfehlungen für Freizeit- und Leistungssportler.</p>
-            <div class="leistung-tags"><span class="leistung-tag">Schwerpunkt</span><span class="leistung-tag">IGeL</span></div>
-          </div>
-        </div>
-        <div class="leistung-item leistung-item--flip reveal delay-1" id="bia-card">
-          <div class="flip-inner">
-            <div class="flip-front">
-              <span class="leistung-num">11</span>
-              <div class="leistung-content">
-                <h3>Bioimpedanzanalyse (BIA)</h3>
-                <p>Präzise Körperzusammensetzungsanalyse: Messung von Muskelmasse, Körperfett, Wasserhaushalt und Stoffwechselrate. Ideal für Gewichtsmanagement, Ernährungstherapie und sportliche Optimierung.</p>
-                <div class="leistung-tags"><span class="leistung-tag">Diagnostik</span><span class="leistung-tag">IGeL</span></div>
-                <button class="flip-btn" onclick="this.closest('.leistung-item--flip').classList.add('flipped')">
-                  <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                  Foto ansehen
-                </button>
-              </div>
+            <div class="svc-card__tags"><span class="tag tag--bronze">Schwerpunkt</span><span class="tag">IGeL</span></div>
+          </article>
+          <article class="svc-card reveal bia-card" style="--reveal-delay:120ms" id="bia-card">
+            <span class="svc-card__num" aria-hidden="true">11</span>
+            <h3>Bioimpedanzanalyse (BIA)</h3>
+            <p>Präzise Körperzusammensetzungsanalyse: Messung von Muskelmasse, Körperfett, Wasserhaushalt und Stoffwechselrate. Ideal für Gewichtsmanagement, Ernährungstherapie und sportliche Optimierung.</p>
+            <div class="svc-card__tags"><span class="tag">Diagnostik</span><span class="tag">IGeL</span></div>
+            <button class="text-link" type="button" id="bia-show" aria-expanded="false" style="background:none;border:none;border-bottom:1px solid var(--line-strong);align-self:flex-start">Foto ansehen</button>
+            <div class="flipcard-photo" aria-hidden="true">
+              <img src="images/biafoto.jpg" alt="Bioimpedanzanalyse-Gerät in der Praxis" loading="lazy" width="800" height="1000">
+              <button type="button" id="bia-hide">✕ Zurück</button>
             </div>
-            <div class="flip-back">
-              <img src="biafoto.jpg" alt="Bioimpedanzanalyse" loading="lazy">
-              <button class="flip-back-close" onclick="this.closest('.leistung-item--flip').classList.remove('flipped')">✕ Zurück</button>
-            </div>
-          </div>
+          </article>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- HOURS -->
-  <section class="hours-section">
-    <div class="container">
-      <div class="hours-grid">
-        <div class="reveal">
-          <div class="section-label">Öffnungszeiten</div>
-          <h2 class="section-title">Wann wir für Sie <em>da sind</em></h2>
-          <br>
-          <table class="hours-table">
-            <tr><td>Montag</td><td>08:00 – 12:00 · 16:00 – 18:00</td></tr>
-            <tr><td>Dienstag</td><td>08:00 – 12:00</td></tr>
-            <tr><td>Mittwoch</td><td>08:00 – 12:00</td></tr>
-            <tr><td>Donnerstag</td><td>08:00 – 12:00</td></tr>
-            <tr><td>Freitag</td><td>08:00 – 12:00</td></tr>
-            <tr><td>Sa, So</td><td class="hours-closed">Geschlossen</td></tr>
-          </table>
-          <div class="hours-notice">
-            <p><strong>Akutsprechstunde:</strong> Täglich 08:00 – 09:00 Uhr ohne Voranmeldung.<br>
-            Außerhalb der Sprechzeiten: Ärztlicher Bereitschaftsdienst <strong>116 117</strong></p>
+    <section class="section" style="background:var(--surface-2);border-top:1px solid var(--line)">
+      <div class="container">
+        <div class="grid-2" style="align-items:start">
+          <div>
+            <p class="eyebrow reveal">Öffnungszeiten</p>
+            <h2 class="reveal" style="--reveal-delay:80ms">Wann wir für Sie <em>da sind</em></h2>
+            <table class="hours-table reveal" style="--reveal-delay:160ms;margin-top:2rem">
+              <tbody>
+                <tr data-day="1"><th scope="row">Montag</th><td>08:00 – 12:00 · 16:00 – 18:00</td></tr>
+                <tr data-day="2"><th scope="row">Dienstag</th><td>08:00 – 12:00</td></tr>
+                <tr data-day="3"><th scope="row">Mittwoch</th><td>08:00 – 12:00</td></tr>
+                <tr data-day="4"><th scope="row">Donnerstag</th><td>08:00 – 12:00</td></tr>
+                <tr data-day="5"><th scope="row">Freitag</th><td>08:00 – 12:00</td></tr>
+                <tr data-day="0"><th scope="row">Sa, So</th><td>Geschlossen</td></tr>
+              </tbody>
+            </table>
+            <div class="notice reveal" style="--reveal-delay:240ms;margin-top:2rem">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l2.5 2.5"/></svg>
+              <p><strong>Akutsprechstunde:</strong> Täglich 08:00 – 09:00 Uhr ohne Voranmeldung.<br>Außerhalb der Sprechzeiten: Ärztlicher Bereitschaftsdienst <strong>116 117</strong></p>
+            </div>
+          </div>
+          <div>
+            <h3 class="reveal" style="font-size:1.5rem;margin-bottom:1rem">Termin vereinbaren</h3>
+            <div class="info-block reveal" style="--reveal-delay:80ms">
+              <span class="info-block__icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
+              <div>
+                <a class="big" href="tel:03917348410">0391 7348410</a>
+                <p>Mo–Fr 08:00–12:00 · Mo auch 16:00–18:00</p>
+              </div>
+            </div>
+            <div class="info-block reveal" style="--reveal-delay:160ms">
+              <span class="info-block__icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg></span>
+              <div>
+                <a class="big" href="mailto:praxis-staerke@t-online.de" style="font-size:1.2rem">praxis-staerke@t-online.de</a>
+                <p>Rezepte &amp; Terminanfragen</p>
+              </div>
+            </div>
+            <div class="info-block reveal" style="--reveal-delay:240ms">
+              <span class="info-block__icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span>
+              <div>
+                <p style="font-family:var(--serif);font-size:1.2rem;color:var(--ink)">Gr. Diesdorfer Str. 186, 39110 Magdeburg</p>
+                <p>Praxisadresse</p>
+              </div>
+            </div>
+            <p class="reveal" style="--reveal-delay:320ms;margin-top:2rem">
+              <a class="btn" href="kontakt.html"><span>Zum Kontaktformular</span><svg class="arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            </p>
           </div>
         </div>
-        <div class="reveal delay-2">
-          <div class="hours-right">
-            <h3>Termin vereinbaren</h3>
-            <div class="contact-info-item">
-              <div class="icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.18 6.18l1.99-1.84a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
-              <div>
-                <strong>0391 7348410</strong>
-                <span>Mo–Fr 08:00–12:00 · Mo auch 16:00–18:00</span>
-              </div>
-            </div>
-            <div class="contact-info-item">
-              <div class="icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
-              <div>
-                <strong><a href="mailto:praxis-staerke@t-online.de" style="color:#1a6fd4;text-decoration:underline;">praxis-staerke@t-online.de</a></strong>
-                <span>Rezepte &amp; Terminanfragen</span>
-              </div>
-            </div>
-            <div class="contact-info-item">
-              <div class="icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
-              <div>
-                <strong>Gr. Diesdorfer Str. 186, 39110 Magdeburg</strong>
-                <span>Praxisadresse</span>
-              </div>
-            </div>
-            <a href="kontakt.html" class="btn-full">Zum Kontaktformular →</a>
-          </div>
+
+        <div class="photo-placeholder reveal" style="margin-top:var(--space-lg)" role="img" aria-label="Platzhalter für ein Foto aus der Praxis">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.1-3.1a2 2 0 0 0-2.8 0L6 21"/></svg>
+          <strong>Hier kommt ein echtes Praxisfoto hin</strong>
+          <span>Motiv-Vorschlag: Empfang &amp; Anmeldung</span>
         </div>
       </div>
-    </div>
-  </section>
-
+    </section>
   </main>
 
-  <!-- FOOTER -->
   <footer class="footer">
     <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <div class="logo-mark"><img src="bilder-higgsfield/logo-icon-schwarz.png" width="30" height="30" alt="" aria-hidden="true" style="filter:invert(1);mix-blend-mode:screen;object-fit:contain;display:block;"></div>
-          <div class="logo-text"><span>Hausarztpraxis</span><strong>Stärke &amp; Staack</strong></div>
-          <p class="footer-tagline">Persönliche Medizin mit moderner Diagnostik.</p>
+      <div class="footer__grid">
+        <div>
+          <h3>Stärke &amp; Staack</h3>
+          <p class="footer__tagline">Persönliche Medizin mit moderner Diagnostik.</p>
         </div>
-        <div class="footer-col">
+        <nav aria-label="Footer Navigation">
           <h4>Navigation</h4>
           <ul>
             <li><a href="index.html">Start</a></li>
@@ -567,74 +245,61 @@
             <li><a href="aktuelles.html">Aktuelles</a></li>
             <li><a href="kontakt.html">Kontakt</a></li>
           </ul>
-        </div>
-        <div class="footer-col">
+        </nav>
+        <div>
           <h4>Rechtliches</h4>
           <ul>
             <li><a href="impressum.html">Impressum</a></li>
             <li><a href="datenschutz.html">Datenschutz</a></li>
-            <li><a href="tel:116117">Notfall: 116 117</a></li>
+            <li>Notfall: <a href="tel:116117">116 117</a></li>
           </ul>
         </div>
-        <div class="footer-col">
+        <div>
           <h4>Kontakt</h4>
-          <p style="font-size:14px;color:rgba(244,240,229,0.5);">Gr. Diesdorfer Str. 186, 39110 Magdeburg<br>0391 7348410 · <a href="mailto:praxis-staerke@t-online.de" style="color:#1a6fd4;text-decoration:underline;">praxis-staerke@t-online.de</a></p>
+          <address>
+            Gr. Diesdorfer Str. 186, 39110 Magdeburg<br>
+            <a href="tel:03917348410">0391 7348410</a><br>
+            <a href="mailto:praxis-staerke@t-online.de">praxis-staerke@t-online.de</a>
+          </address>
         </div>
       </div>
-      <div class="footer-bottom">
-        <p>&copy; 2026 Hausarztpraxis Stärke &amp; Staack</p>
-        <div class="footer-legal">
-          <a href="impressum.html">Impressum</a>
-          <a href="datenschutz.html">Datenschutz</a>
-        </div>
+      <div class="footer__bottom">
+        <p>© 2026 Hausarztpraxis Stärke &amp; Staack</p>
+        <p><a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a></p>
       </div>
     </div>
   </footer>
 
+  <div class="privacy-bar" id="privacy-bar" role="status">
+    <p>Diese Website erhebt anonyme Besucherstatistiken — cookiefrei &amp; DSGVO-konform. <a href="datenschutz.html" style="color:var(--bronze-light)">Mehr erfahren</a></p>
+    <button type="button">Verstanden</button>
+  </div>
+
+  <script src="js/main.js"></script>
   <script>
-    const navToggle = document.getElementById('navToggle');
-    const navMobile = document.getElementById('navMobile');
-    navToggle.addEventListener('click', () => {
-      const open = navMobile.classList.toggle('open');
-      navToggle.setAttribute('aria-expanded', open);
-    });
-    const obs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
-    }, {threshold:0.12});
-    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-  </script>
-<div id="privacy-bar">
-  <span>Diese Website erhebt anonyme Besucherstatistiken — cookiefrei &amp; DSGVO-konform. <a href="datenschutz.html">Mehr erfahren</a></span>
-  <button id="pb-dismiss">Verstanden</button>
-</div>
-<script>
-(function(){
-  var p=location.pathname+(location.search||'');
-  function track(){fetch('https://praxis-staerke-backend-production.up.railway.app/api/track',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:p,referrer:document.referrer||''}),keepalive:true}).catch(function(){});}
-  if(localStorage.getItem('privacy-ack')){track();return;}
-  var b=document.getElementById('privacy-bar');
-  requestAnimationFrame(function(){requestAnimationFrame(function(){b.classList.add('pb-visible');});});
-  document.getElementById('pb-dismiss').addEventListener('click',function(){
-    b.classList.remove('pb-visible');
-    localStorage.setItem('privacy-ack','1');
-    track();
-  });
-})();
-</script>
-  <script>
-    document.querySelectorAll('.leistung-item--flip').forEach(function(card) {
-      var front = card.querySelector('.flip-front');
-      var inner = card.querySelector('.flip-inner');
-      if (!front || !inner) return;
-      front.style.position = 'static';
-      front.style.transform = 'none';
-      var h = front.scrollHeight;
-      front.style.position = '';
-      front.style.transform = '';
-      var min = Math.max(h + 16, 340);
-      inner.style.minHeight = min + 'px';
-      card.style.minHeight = min + 'px';
-    });
+    (function () {
+      var card = document.getElementById('bia-card');
+      var show = document.getElementById('bia-show');
+      var hide = document.getElementById('bia-hide');
+      var photo = card.querySelector('.flipcard-photo');
+      show.addEventListener('click', function () {
+        card.classList.add('show-photo');
+        show.setAttribute('aria-expanded', 'true');
+        photo.setAttribute('aria-hidden', 'false');
+      });
+      hide.addEventListener('click', function (e) {
+        e.stopPropagation();
+        card.classList.remove('show-photo');
+        show.setAttribute('aria-expanded', 'false');
+        photo.setAttribute('aria-hidden', 'true');
+      });
+
+      var today = String(new Date().getDay());
+      document.querySelectorAll('.hours-table tr').forEach(function (tr) {
+        var d = tr.getAttribute('data-day');
+        if (d === today || (d === '0' && (today === '0' || today === '6'))) tr.classList.add('is-today');
+      });
+    })();
   </script>
 </body>
 </html>

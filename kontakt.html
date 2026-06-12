@@ -2,431 +2,267 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-Content-Type-Options" content="nosniff">
-  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+  <script>document.documentElement.classList.add('js')</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Kontakt & Termin — Hausarztpraxis Stärke & Staack. Schreiben Sie uns oder rufen Sie an.">
   <title>Kontakt — Hausarztpraxis Stärke &amp; Staack</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --bg: #f4f0e5; --surface: #ffffff; --surface-2: #f9f7f2;
-      --primary: #0f2d1c; --primary-mid: #1a4d2e; --primary-lite: rgba(15,45,28,0.07);
-      --accent: #b8843a; --accent-lite: rgba(184,132,58,0.12);
-      --text: #1a1710; --text-mid: #4a4840; --text-dim: #877f73;
-      --border: rgba(15,45,28,0.10); --nav-h: 76px;
-      --radius: 18px; --radius-sm: 10px;
-      --shadow-sm: 0 2px 16px rgba(15,45,28,0.07);
-      --shadow-md: 0 8px 40px rgba(15,45,28,0.10);
-      --shadow-lg: 0 20px 80px rgba(15,45,28,0.14);
-    }
-    html { scroll-behavior: smooth; }
-    body { background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; line-height: 1.6; overflow-x: hidden; }
-
-    .nav { position: fixed; top: 0; left: 0; right: 0; height: var(--nav-h); z-index: 400; background: rgba(244,240,229,0.92); backdrop-filter: blur(20px) saturate(1.5); box-shadow: 0 1px 0 rgba(15,45,28,0.08); border-bottom: 1px solid var(--border); }
-    .nav-inner { max-width: 1280px; margin: 0 auto; padding: 0 40px; height: 100%; display: flex; align-items: center; gap: 32px; }
-    .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; flex: 0 0 auto; }
-    .logo-mark { width: 42px; height: 42px; border-radius: 10px; background: var(--primary); display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-size: 15px; font-weight: 600; color: #f4f0e5; letter-spacing: 0.05em; flex-shrink: 0; transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s; }
-    .nav-logo:hover .logo-mark { transform: scale(1.06) rotate(-2deg); box-shadow: 0 6px 20px rgba(15,45,28,0.3); }
-    .logo-text { line-height: 1.2; }
-    .logo-text span { display: block; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-dim); font-weight: 500; }
-    .logo-text strong { display: block; font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 600; color: var(--primary); }
-    .nav-links { display: none; gap: 28px; flex: 1; }
-    .nav-links a { color: var(--text-mid); text-decoration: none; font-size: 14px; font-weight: 500; position: relative; transition: color 0.25s; }
-    .nav-links a::after { content: ''; position: absolute; bottom: -3px; left: 0; width: 0; height: 1.5px; background: linear-gradient(90deg, var(--primary-mid), var(--accent)); transition: width 0.3s cubic-bezier(0.22,1,0.36,1); }
-    .nav-links a:hover { color: var(--primary); }
-    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
-    .nav-links a.active { color: var(--primary); }
-    .nav-cta { display: none; padding: 10px 22px; background: var(--primary); color: #f4f0e5; font-weight: 600; font-size: 13px; letter-spacing: 0.04em; text-decoration: none; border-radius: var(--radius-sm); transition: transform 0.25s, box-shadow 0.25s, background 0.25s; white-space: nowrap; }
-    .nav-cta:hover { background: var(--primary-mid); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(15,45,28,0.25); }
-    .nav-toggle { display: flex; align-items: center; justify-content: center; margin-left: auto; background: none; border: none; font-size: 22px; cursor: pointer; color: var(--primary); }
-    .nav-mobile { display: flex; position: fixed; top: var(--nav-h); left: 0; right: 0; background: rgba(244,240,229,0.97); backdrop-filter: blur(20px); padding: 24px 32px; flex-direction: column; gap: 20px; border-bottom: 1px solid var(--border); z-index: 399; visibility: hidden; opacity: 0; transform: translateY(-8px); transition: opacity 0.22s cubic-bezier(0.22,1,0.36,1), transform 0.22s cubic-bezier(0.22,1,0.36,1), visibility 0s 0.22s; }
-    .nav-mobile.open { visibility: visible; opacity: 1; transform: translateY(0); transition: opacity 0.22s cubic-bezier(0.22,1,0.36,1), transform 0.22s cubic-bezier(0.22,1,0.36,1), visibility 0s; }
-    .nav-mobile a { color: var(--text); text-decoration: none; font-size: 16px; font-weight: 500; }
-    @media(min-width:769px){.nav-links{display:flex;}.nav-cta{display:inline-block;}.nav-toggle{display:none;}}
-    @media(max-width:768px){.nav-inner{padding:0 20px;}}
-
-    .page-hero { padding-top: calc(var(--nav-h) + 80px); padding-bottom: 80px; background: linear-gradient(160deg, var(--primary) 0%, #1e5c36 100%); position: relative; overflow: hidden; }
-    .page-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 90% 50%, rgba(184,132,58,0.18), transparent); }
-    .page-hero .container { position: relative; z-index: 1; }
-    .page-hero .section-label { color: rgba(184,132,58,0.9); }
-    .page-hero .section-label::before { background: rgba(184,132,58,0.9); }
-    .page-hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(42px,6vw,76px); font-weight: 300; line-height: 1.1; color: #f4f0e5; margin-top: 12px; }
-    .page-hero h1 em { font-style: italic; color: #e8c87a; }
-    .page-hero p { font-size: 18px; color: rgba(244,240,229,0.68); margin-top: 20px; max-width: 520px; line-height: 1.7; }
-
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
-    @media(max-width:768px){ .container{padding:0 20px;} }
-    section { padding: 96px 0; }
-    .section-label { display: inline-flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
-    .section-label::before { content: ''; width: 24px; height: 1px; background: var(--accent); }
-    h2.section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(32px,4vw,52px); font-weight: 600; line-height: 1.12; color: var(--primary); text-wrap: balance; }
-    h2.section-title em { font-style: italic; font-weight: 300; color: var(--text-mid); }
-    .reveal { opacity: 0; transform: translateY(28px) scale(0.99); transition: opacity 0.75s cubic-bezier(0.16,1,0.3,1), transform 0.75s cubic-bezier(0.16,1,0.3,1); }
-    .reveal.visible { opacity:1; transform:translateY(0) scale(1); }
-    .delay-1{transition-delay:.1s;} .delay-2{transition-delay:.2s;} .delay-3{transition-delay:.3s;}
-    @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none;}}
-    .skip-nav{position:absolute;top:-100%;left:0;padding:12px 20px;background:var(--primary);color:#f4f0e5;font-size:14px;font-weight:600;z-index:9999;text-decoration:none;transition:top 0.2s;}
-    .skip-nav:focus{top:0;}
-
-    /* CONTACT LAYOUT */
-    .contact-grid {
-      display: grid; grid-template-columns: 1fr 1.4fr; gap: 64px; align-items: start;
-    }
-    @media(max-width:900px){ .contact-grid{grid-template-columns:1fr;} }
-
-    /* CONTACT INFO */
-    .contact-info h3 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 36px; font-weight: 600; color: var(--primary); margin-bottom: 8px;
-    }
-    .contact-info > p { font-size: 16px; color: var(--text-dim); line-height: 1.7; margin-bottom: 40px; }
-    .info-block {
-      display: flex; gap: 16px; align-items: flex-start;
-      margin-bottom: 24px; padding: 20px; border-radius: var(--radius-sm);
-      background: var(--surface); border: 1px solid var(--border);
-      transition: box-shadow 0.3s, transform 0.3s;
-    }
-    .info-block:hover { box-shadow: var(--shadow-sm); transform: translateY(-2px); }
-    .info-icon {
-      width: 46px; height: 46px; border-radius: 10px;
-      background: var(--primary); display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-    }
-    .info-icon svg { width: 20px; height: 20px; stroke: #f4f0e5; stroke-width: 1.5; fill: none; }
-    .info-text { flex: 1; }
-    .info-text h4 { font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
-    .info-text p, .info-text a { font-size: 15px; color: var(--text-mid); text-decoration: none; line-height: 1.6; }
-    .info-text a:hover { color: var(--primary); }
-    .hours-mini { margin-top: 8px; }
-    .hours-mini-row { display: flex; justify-content: space-between; font-size: 13px; color: var(--text-dim); padding: 4px 0; border-bottom: 1px solid var(--border); }
-    .hours-mini-row:last-child { border-bottom: none; }
-    .hours-mini-row .day { font-weight: 500; color: var(--text-mid); min-width: 90px; }
-
-    /* EMERGENCY BOX */
-    .emergency-box {
-      margin-top: 32px; padding: 20px 24px;
-      background: var(--primary); border-radius: var(--radius-sm);
-      display: flex; gap: 12px; align-items: center;
-    }
-    .emergency-box svg { width: 22px; height: 22px; stroke: #f4f0e5; stroke-width: 2; fill: none; flex-shrink: 0; }
-    .emergency-box p { font-size: 14px; color: rgba(244,240,229,0.8); line-height: 1.5; }
-    .emergency-box a { color: #e8c87a; font-weight: 700; text-decoration: none; }
-
-    /* CONTACT FORM */
-    .form-card {
-      background: var(--surface); border-radius: var(--radius);
-      padding: 48px; border: 1px solid var(--border);
-      box-shadow: var(--shadow-md);
-    }
-    .form-card h3 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 32px; font-weight: 600; color: var(--primary); margin-bottom: 8px;
-    }
-    .form-card > p { font-size: 15px; color: var(--text-dim); margin-bottom: 36px; line-height: 1.6; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-    @media(max-width:560px){ .form-row{grid-template-columns:1fr;} }
-    .form-group { margin-bottom: 20px; }
-    .form-group label {
-      display: block; font-size: 12px; font-weight: 600;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      color: var(--text-mid); margin-bottom: 8px;
-    }
-    .form-control {
-      width: 100%; padding: 14px 18px;
-      background: var(--bg); border: 1.5px solid var(--border);
-      border-radius: var(--radius-sm); color: var(--text);
-      font-family: 'Plus Jakarta Sans', sans-serif; font-size: 15px;
-      transition: border-color 0.25s, box-shadow 0.25s, background 0.25s;
-      outline: none; resize: vertical;
-    }
-    .form-control:focus {
-      border-color: var(--primary-mid);
-      background: var(--surface);
-      box-shadow: 0 0 0 3px rgba(15,45,28,0.06);
-    }
-    .form-control::placeholder { color: var(--text-dim); }
-    textarea.form-control { min-height: 140px; }
-    .form-select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23877f73' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; }
-    .form-checkbox { display: flex; gap: 12px; align-items: flex-start; }
-    .form-checkbox input { width: 18px; height: 18px; margin-top: 2px; cursor: pointer; accent-color: var(--primary); flex-shrink: 0; }
-    .form-checkbox label { font-size: 13px !important; letter-spacing: 0 !important; text-transform: none !important; color: var(--text-dim) !important; line-height: 1.6; }
-    .form-checkbox label a { color: var(--accent); }
-    .btn-submit {
-      width: 100%; padding: 16px; margin-top: 8px;
-      background: var(--primary); color: #f4f0e5;
-      border: none; border-radius: var(--radius-sm);
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 15px; font-weight: 600; letter-spacing: 0.05em;
-      cursor: pointer; transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s, background 0.25s;
-      position: relative; overflow: hidden;
-    }
-    .btn-submit:hover { background: var(--primary-mid); transform: translateY(-3px); box-shadow: 0 14px 40px rgba(15,45,28,0.28); }
-    .btn-submit:active { transform: translateY(-1px); }
-    .btn-submit.loading { pointer-events: none; opacity: 0.75; }
-    .form-success {
-      display: none; text-align: center; padding: 40px 20px;
-    }
-    .form-success.show { display: block; }
-    .form-success .success-icon {
-      width: 64px; height: 64px; border-radius: 50%;
-      background: rgba(15,45,28,0.08);
-      display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 20px;
-    }
-    .form-success .success-icon svg { width: 30px; height: 30px; stroke: var(--primary); stroke-width: 2; fill: none; }
-    .form-success h4 { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 600; color: var(--primary); margin-bottom: 8px; }
-    .form-success p { font-size: 15px; color: var(--text-dim); line-height: 1.7; }
-
-    /* MAP PLACEHOLDER */
-    .map-section { background: var(--surface); padding: 80px 0 0; }
-    .map-placeholder {
-      width: 100%; height: 360px; background: var(--surface-2);
-      border-radius: var(--radius); border: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: center;
-      flex-direction: column; gap: 12px; margin-top: 40px;
-    }
-    .map-placeholder svg { width: 40px; height: 40px; stroke: var(--text-dim); stroke-width: 1.5; fill: none; }
-    .map-placeholder p { font-size: 15px; color: var(--text-dim); }
-    .map-placeholder small { font-size: 12px; color: var(--accent); }
-
-    .footer { background: #0a1f13; padding: 72px 0 0; }
-    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 48px; padding-bottom: 64px; border-bottom: 1px solid rgba(244,240,229,0.08); }
-    .footer-brand .logo-text strong { color: #f4f0e5; font-size: 18px; }
-    .footer-brand .logo-text span { color: rgba(244,240,229,0.4); }
-    .footer-tagline { font-size: 14px; color: rgba(244,240,229,0.5); line-height: 1.7; margin-top: 16px; }
-    .footer-col h4 { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(244,240,229,0.35); font-weight: 600; margin-bottom: 20px; }
-    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-    .footer-col ul a { color: rgba(244,240,229,0.6); text-decoration: none; font-size: 14px; transition: color 0.25s; }
-    .footer-col ul a:hover { color: var(--accent); }
-    .footer-bottom { padding: 24px 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
-    .footer-bottom p { font-size: 13px; color: rgba(244,240,229,0.3); }
-    .footer-legal { display: flex; gap: 24px; }
-    .footer-legal a { font-size: 13px; color: rgba(244,240,229,0.35); text-decoration: none; transition: color 0.25s; }
-    .footer-legal a:hover { color: var(--accent); }
-    @media(max-width:960px){ .footer-grid{grid-template-columns:1fr 1fr; gap:36px;} }
-    @media(max-width:560px){ .footer-grid{grid-template-columns:1fr;} .form-card{padding:28px;} }
-
-    /* ── MOBILE ──────────────────────────────────── */
-    @media(max-width:768px) {
-      section { padding: 64px 0; }
-      .page-hero { padding-top: calc(var(--nav-h) + 48px); padding-bottom: 48px; }
-      .page-hero h1 { font-size: clamp(32px,8vw,52px); }
-      .page-hero p { font-size: 16px; }
-      .nav-mobile a { padding: 10px 0; min-height: 44px; display: flex; align-items: center; }
-      .footer-bottom { flex-direction: column; text-align: center; }
-      .footer-legal { justify-content: center; }
-      .btn-primary, .btn-accent, .btn-outline-light {
-        min-height: 52px; width: 100%; display: flex; align-items: center; justify-content: center;
-      }
-      .form-card { padding: 28px 20px; }
-    }
-    @media(max-width:480px) {
-      .page-hero h1 { font-size: clamp(28px,8vw,40px); }
-    }
-  </style>
+  <meta name="description" content="Kontakt & Termin — Hausarztpraxis Stärke & Staack. Schreiben Sie uns oder rufen Sie an.">
+  <link rel="canonical" href="https://praxis-staerke-staack.vercel.app/kontakt.html">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="de_DE">
-  <meta property="og:site_name" content="Hausarztpraxis Stärke &amp; Staack">
   <meta property="og:url" content="https://praxis-staerke-staack.vercel.app/kontakt.html">
-  <meta property="og:title" content="Kontakt — Hausarztpraxis Stärke &amp; Staack">
-  <meta property="og:description" content="Kontakt &amp; Termin — Hausarztpraxis Stärke &amp; Staack. Schreiben Sie uns oder rufen Sie an.">
+  <meta property="og:title" content="Kontakt — Hausarztpraxis Stärke & Staack">
+  <meta property="og:description" content="Kontakt & Termin — Hausarztpraxis Stärke & Staack. Schreiben Sie uns oder rufen Sie an.">
+  <link rel="icon" type="image/png" href="images/logo-icon-gruen.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
   <style>
-    #privacy-bar{position:fixed;bottom:0;left:0;right:0;background:var(--primary,#0f2d1c);color:rgba(244,240,229,0.85);padding:14px 32px;display:flex;align-items:center;justify-content:space-between;gap:16px;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;z-index:9999;transform:translateY(100%);opacity:0;transition:transform 0.4s cubic-bezier(0.16,1,0.3,1),opacity 0.4s;}
-    #privacy-bar.pb-visible{transform:translateY(0);opacity:1;}
-    @media(prefers-reduced-motion:reduce){#privacy-bar{transition:opacity 0.2s;transform:translateY(0);}}
-    #privacy-bar a{color:rgba(184,132,58,0.9);text-decoration:none;}
-    #privacy-bar a:hover{text-decoration:underline;}
-    #pb-dismiss{background:rgba(244,240,229,0.15);border:1px solid rgba(244,240,229,0.25);color:rgba(244,240,229,0.9);padding:6px 16px;border-radius:6px;cursor:pointer;font-size:13px;font-family:inherit;white-space:nowrap;flex-shrink:0;}
-    #pb-dismiss:hover{background:rgba(244,240,229,0.25);}
-    @media(max-width:600px){#privacy-bar{flex-direction:column;align-items:flex-start;padding:14px 20px;gap:12px;}}
+    .contact-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      gap: var(--space-lg);
+      align-items: start;
+    }
+    @media (max-width: 920px) { .contact-grid { grid-template-columns: 1fr; } }
+    .form-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: clamp(1.75rem, 3.5vw, 3rem);
+      box-shadow: var(--shadow-md);
+    }
+    .form-card h2 { font-size: var(--text-h3); margin-bottom: 0.5rem; }
+    .form-card > p { font-size: var(--text-sm); color: var(--text-mid); margin-bottom: 2rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+    @media (max-width: 560px) { .form-row { grid-template-columns: 1fr; } }
+    .form-feedback {
+      display: none;
+      margin-top: 1.25rem;
+      padding: 1rem 1.25rem;
+      border-radius: var(--radius);
+      font-size: var(--text-sm);
+    }
+    .form-feedback.is-error { display: block; background: rgba(168,53,43,0.08); border-left: 2px solid #a8352b; color: #7d211f; }
+    .form-success { text-align: center; padding: 3rem 1.5rem; display: none; }
+    .form-success.is-visible { display: block; }
+    .form-success__icon {
+      width: 4rem; height: 4rem;
+      margin: 0 auto 1.5rem;
+      border-radius: 50%;
+      background: var(--ink-soft);
+      display: grid; place-items: center;
+      color: var(--ink-mid);
+    }
+    .form-success h2 { margin-bottom: 0.75rem; }
   </style>
 </head>
-<body>
-<a href="#main-content" class="skip-nav">Zum Inhalt springen</a>
-  <nav class="nav" aria-label="Hauptnavigation">
-    <div class="nav-inner">
-      <a href="index.html" class="nav-logo">
-        <div class="logo-mark"><img src="bilder-higgsfield/logo-icon-schwarz.png" width="30" height="30" alt="" aria-hidden="true" style="filter:invert(1);mix-blend-mode:screen;object-fit:contain;display:block;"></div>
-        <div class="logo-text"><span>Hausarztpraxis</span><strong>Stärke &amp; Staack</strong></div>
+<body class="has-dark-hero">
+  <a class="skip-link" href="#main">Zum Inhalt springen</a>
+  <div class="scroll-progress" aria-hidden="true"></div>
+
+  <header class="nav is-scrolled">
+    <div class="container nav__inner">
+      <a class="nav__brand" href="index.html">
+        <img src="images/logo-icon-transparent.png" alt="" width="38" height="38">
+        <span class="nav__brand-text">Stärke &amp; Staack<small>Hausarztpraxis</small></span>
       </a>
-      <div class="nav-links">
-        <a href="index.html">Start</a>
-        <a href="leistungen.html">Leistungen</a>
-        <a href="team.html">Team</a>
-        <a href="aktuelles.html">Aktuelles</a>
-        <a href="kontakt.html" class="active">Kontakt</a>
+      <nav aria-label="Hauptnavigation">
+        <ul class="nav__links">
+          <li><a class="nav__link" href="index.html">Start</a></li>
+          <li><a class="nav__link" href="leistungen.html">Leistungen</a></li>
+          <li><a class="nav__link" href="team.html">Team</a></li>
+          <li><a class="nav__link" href="aktuelles.html">Aktuelles</a></li>
+          <li><a class="nav__link" href="kontakt.html" aria-current="page">Kontakt</a></li>
+        </ul>
+      </nav>
+      <div class="nav__cta">
+        <a class="btn" href="#kontaktformular"><span>Termin vereinbaren</span></a>
       </div>
-      <a href="kontakt.html" class="nav-cta">Termin vereinbaren</a>
-      <button class="nav-toggle" id="navToggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="navMobile">&#9776;</button>
+      <button class="nav__toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Menü öffnen">
+        <span></span><span></span><span></span>
+      </button>
     </div>
-  </nav>
-  <div class="nav-mobile" id="navMobile" role="navigation" aria-label="Mobile-Navigation">
-    <a href="index.html">Start</a>
-    <a href="leistungen.html">Leistungen</a>
-    <a href="team.html">Team</a>
-    <a href="kontakt.html">Kontakt &amp; Termin</a>
-    <a href="impressum.html">Impressum</a>
-  </div>
-
-  <main id="main-content">
-
-  <div class="page-hero">
-    <div class="container">
-      <div class="section-label">Wir sind für Sie da</div>
-      <h1>Kontakt &amp; <em>Termin</em></h1>
-      <p>Schreiben Sie uns, rufen Sie an oder nutzen Sie unser Formular — wir melden uns so schnell wie möglich.</p>
+    <div class="nav__mobile" id="mobile-menu">
+      <ul>
+        <li><a href="index.html">Start</a></li>
+        <li><a href="leistungen.html">Leistungen</a></li>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="aktuelles.html">Aktuelles</a></li>
+        <li><a href="kontakt.html" aria-current="page">Kontakt &amp; Termin</a></li>
+        <li><a href="impressum.html">Impressum</a></li>
+      </ul>
+      <a class="btn" href="#kontaktformular"><span>Termin vereinbaren</span></a>
     </div>
-  </div>
+  </header>
 
-  <section>
-    <div class="container">
-      <div class="contact-grid">
-        <!-- LEFT: Info -->
-        <div class="contact-info reveal">
-          <h3>So erreichen <br>Sie uns</h3>
-          <p>Wir freuen uns auf Ihre Anfrage. Für dringende Anliegen empfehlen wir den direkten Telefonanruf.</p>
+  <main id="main">
+    <section class="page-hero">
+      <div class="container">
+        <p class="eyebrow reveal">Wir sind für Sie da</p>
+        <h1 class="reveal" style="--reveal-delay:80ms">Kontakt &amp; <em>Termin</em></h1>
+        <p class="lead reveal" style="--reveal-delay:160ms">Schreiben Sie uns, rufen Sie an oder nutzen Sie unser Formular — wir melden uns so schnell wie möglich.</p>
+      </div>
+    </section>
 
-          <div class="info-block">
-            <div class="info-icon">
-              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.18 6.18l1.99-1.84a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-            </div>
-            <div class="info-text">
-              <h4>Telefon</h4>
-              <p><a href="tel:03917348410">0391 7348410</a></p>
-              <a href="mailto:praxis-staerke@t-online.de?subject=Anfrage%20%E2%80%93%20Hausarztpraxis%20St%C3%A4rke%20%26%20Staack" style="display:inline-flex;align-items:center;gap:6px;margin-top:10px;padding:8px 14px;background:var(--primary-lite);border:1px solid var(--border);border-radius:var(--radius-sm);font-size:13px;font-weight:600;color:var(--primary);text-decoration:none;transition:background 0.2s;">
-                <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                E-Mail schreiben →
-              </a>
+    <section class="section">
+      <div class="container contact-grid">
+        <div>
+          <h2 class="reveal">So erreichen <em>Sie uns</em></h2>
+          <p class="reveal" style="--reveal-delay:80ms;color:var(--text-mid);margin-top:1rem">Wir freuen uns auf Ihre Anfrage. Für dringende Anliegen empfehlen wir den direkten Telefonanruf.</p>
+
+          <div class="info-block reveal" style="--reveal-delay:140ms">
+            <span class="info-block__icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
+            <div>
+              <h3>Telefon</h3>
+              <a class="big" href="tel:03917348410">0391 7348410</a>
+              <p style="margin-top:0.5rem"><a class="text-link" href="mailto:praxis-staerke@t-online.de">E-Mail schreiben <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p>
             </div>
           </div>
 
-          <div class="info-block">
-            <div class="info-icon">
-              <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            </div>
-            <div class="info-text">
-              <h4>Adresse</h4>
-              <p>Gr. Diesdorfer Straße 186<br>39110 Magdeburg</p>
+          <div class="info-block reveal" style="--reveal-delay:200ms">
+            <span class="info-block__icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span>
+            <div>
+              <h3>Adresse</h3>
+              <address>Gr. Diesdorfer Straße 186<br>39110 Magdeburg</address>
             </div>
           </div>
 
-          <div class="info-block">
-            <div class="info-icon">
-              <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-            </div>
-            <div class="info-text">
-              <h4>Öffnungszeiten</h4>
-              <div class="hours-mini">
-                <div class="hours-mini-row"><span class="day">Montag</span><span>08:00 – 12:00 · 16:00 – 18:00</span></div>
-                <div class="hours-mini-row"><span class="day">Dienstag</span><span>08:00 – 12:00</span></div>
-                <div class="hours-mini-row"><span class="day">Mittwoch</span><span>08:00 – 12:00</span></div>
-                <div class="hours-mini-row"><span class="day">Donnerstag</span><span>08:00 – 12:00</span></div>
-                <div class="hours-mini-row"><span class="day">Freitag</span><span>08:00 – 12:00</span></div>
-              </div>
+          <div class="info-block reveal" style="--reveal-delay:260ms">
+            <span class="info-block__icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span>
+            <div>
+              <h3>Öffnungszeiten</h3>
+              <p>Montag: 08:00 – 12:00 · 16:00 – 18:00<br>
+              Dienstag: 08:00 – 12:00<br>
+              Mittwoch: 08:00 – 12:00<br>
+              Donnerstag: 08:00 – 12:00<br>
+              Freitag: 08:00 – 12:00</p>
             </div>
           </div>
 
-          <div class="emergency-box">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-            <p>Notfall außerhalb der Sprechzeiten?<br>
-            Ärztlicher Bereitschaftsdienst: <a href="tel:116117">116 117</a> &nbsp;·&nbsp; Notruf: <a href="tel:112">112</a></p>
+          <div class="notice reveal" style="--reveal-delay:320ms;margin-top:1.75rem">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/></svg>
+            <p><strong>Notfall außerhalb der Sprechzeiten?</strong><br>Ärztlicher Bereitschaftsdienst: <strong>116 117</strong> · Notruf: <strong>112</strong></p>
           </div>
         </div>
 
-        <!-- RIGHT: FORM -->
-        <div class="reveal delay-2">
-          <div class="form-card">
-            <h3>Schreiben Sie uns</h3>
+        <div class="form-card reveal" style="--reveal-delay:160ms" id="kontaktformular">
+          <form id="contact-form" novalidate>
+            <h2>Schreiben Sie <em>uns</em></h2>
             <p>Füllen Sie das Formular aus — wir melden uns innerhalb eines Werktags bei Ihnen.</p>
 
-            <form id="contactForm">
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="vorname">Vorname *</label>
-                  <input type="text" id="vorname" name="vorname" class="form-control" placeholder="Max" required maxlength="100">
-                </div>
-                <div class="form-group">
-                  <label for="nachname">Nachname *</label>
-                  <input type="text" id="nachname" name="nachname" class="form-control" placeholder="Mustermann" required maxlength="100">
-                </div>
+            <div class="form-row">
+              <div class="field">
+                <label for="vorname">Vorname <span class="req" aria-hidden="true">*</span></label>
+                <input type="text" id="vorname" name="vorname" maxlength="100" autocomplete="given-name" required>
+                <p class="field__error">Bitte Vornamen angeben.</p>
               </div>
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="telefon">Telefon</label>
-                  <input type="tel" id="telefon" name="telefon" class="form-control" placeholder="0123 456789" maxlength="30">
-                </div>
-                <div class="form-group">
-                  <label for="email">E-Mail *</label>
-                  <input type="email" id="email" name="email" class="form-control" placeholder="max@beispiel.de" required maxlength="254">
-                </div>
+              <div class="field">
+                <label for="nachname">Nachname <span class="req" aria-hidden="true">*</span></label>
+                <input type="text" id="nachname" name="nachname" maxlength="100" autocomplete="family-name" required>
+                <p class="field__error">Bitte Nachnamen angeben.</p>
               </div>
-              <div class="form-group">
-                <label for="anliegen">Anliegen</label>
-                <select id="anliegen" name="anliegen" class="form-control form-select">
-                  <option value="">Bitte wählen...</option>
-                  <option>Termin vor Ort vereinbaren</option>
-                  <option>Termin Video-Sprechstunde buchen</option>
-                  <option>Beratung: Prävention, Ernährung &amp; Mikronährstoffe</option>
-                  <option>Rezepte / Überweisung / Verordnung</option>
-                  <option>Impfberatung</option>
-                  <option>Sonstiges</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="nachricht">Nachricht *</label>
-                <textarea id="nachricht" name="nachricht" class="form-control" placeholder="Beschreiben Sie Ihr Anliegen kurz..." required maxlength="2000"></textarea>
-              </div>
-              <div class="form-group">
-                <div class="form-checkbox">
-                  <input type="checkbox" id="datenschutz" name="datenschutz" required>
-                  <label for="datenschutz">Ich habe die <a href="datenschutz.html" target="_blank">Datenschutzerklärung</a> gelesen und erkläre mich mit der Verarbeitung meiner Daten einverstanden. *</label>
-                </div>
-              </div>
-              <button type="submit" class="btn-submit" id="submitBtn">
-                Nachricht senden →
-              </button>
-            </form>
-
-            <div class="form-success" id="formSuccess">
-              <div class="success-icon">
-                <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-              </div>
-              <h4>Nachricht gesendet!</h4>
-              <p>Vielen Dank für Ihre Anfrage. Wir melden uns so schnell wie möglich bei Ihnen — in der Regel innerhalb eines Werktags.</p>
             </div>
+
+            <div class="form-row">
+              <div class="field">
+                <label for="telefon">Telefon</label>
+                <input type="tel" id="telefon" name="telefon" maxlength="30" autocomplete="tel">
+              </div>
+              <div class="field">
+                <label for="email">E-Mail <span class="req" aria-hidden="true">*</span></label>
+                <input type="email" id="email" name="email" maxlength="254" autocomplete="email" required>
+                <p class="field__error">Bitte gültige E-Mail-Adresse angeben.</p>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="anliegen">Anliegen</label>
+              <select id="anliegen" name="anliegen">
+                <option value="">Bitte wählen...</option>
+                <option>Termin vor Ort vereinbaren</option>
+                <option>Termin Video-Sprechstunde buchen</option>
+                <option>Beratung: Prävention, Ernährung &amp; Mikronährstoffe</option>
+                <option>Rezepte / Überweisung / Verordnung</option>
+                <option>Impfberatung</option>
+                <option>Sonstiges</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="nachricht">Nachricht <span class="req" aria-hidden="true">*</span></label>
+              <textarea id="nachricht" name="nachricht" maxlength="2000" required></textarea>
+              <p class="field__error">Bitte Nachricht eingeben.</p>
+            </div>
+
+            <div class="field">
+              <label class="checkbox-row" for="datenschutz" style="text-transform:none;letter-spacing:0;font-weight:400">
+                <input type="checkbox" id="datenschutz" name="datenschutz" required>
+                <span>Ich habe die <a href="datenschutz.html" target="_blank" rel="noopener">Datenschutzerklärung</a> gelesen und erkläre mich mit der Verarbeitung meiner Daten einverstanden. <span class="req" aria-hidden="true">*</span></span>
+              </label>
+              <p class="field__error">Bitte Datenschutzerklärung bestätigen.</p>
+            </div>
+
+            <button class="btn" type="submit" id="submit-btn">
+              <span>Nachricht senden</span>
+              <svg class="arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+            <div class="form-feedback" id="form-feedback" role="alert"></div>
+          </form>
+
+          <div class="form-success" id="form-success" role="status">
+            <span class="form-success__icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg></span>
+            <h2>Nachricht gesendet!</h2>
+            <p style="color:var(--text-mid)">Vielen Dank für Ihre Anfrage. Wir melden uns so schnell wie möglich bei Ihnen — in der Regel innerhalb eines Werktags.</p>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- MAP -->
-  <section class="map-section">
-    <div class="container">
-      <div class="section-label reveal">Anfahrt</div>
-      <h2 class="section-title reveal delay-1">So finden Sie <em>uns</em></h2>
-      <div class="map-placeholder reveal delay-2">
-        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        <p>Gr. Diesdorfer Straße 186, 39110 Magdeburg</p>
+    <section class="section" style="padding-top:0">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow reveal">Anfahrt</p>
+          <h2 class="reveal" style="--reveal-delay:80ms">So finden Sie <em>uns</em></h2>
+        </div>
+        <div class="route-grid">
+          <figure class="media-frame reveal" style="--reveal-delay:120ms">
+            <img src="images/praxis-team-alt.jpg" alt="Hauseingang der Hausarztpraxis Stärke & Staack, Gr. Diesdorfer Straße 186" loading="lazy" width="2000" height="860">
+          </figure>
+          <div class="route-card reveal" style="--reveal-delay:220ms">
+            <h3>Wegbeschreibung</h3>
+            <ul>
+              <li>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                <span><strong>Gr. Diesdorfer Straße 186</strong>, 39110 Magdeburg — Eingang im Haus, <strong>1. Etage links</strong></span>
+              </li>
+              <li>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="14" rx="2"/><path d="M4 11h16M8 21l2-4M16 21l-2-4"/><circle cx="8.5" cy="14" r="0.5"/><circle cx="15.5" cy="14" r="0.5"/></svg>
+                <span><strong>Straßenbahn:</strong> Haltestelle nur ca. 100 m entfernt</span>
+              </li>
+              <li>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9 17V7h4a3 3 0 0 1 0 6H9"/></svg>
+                <span><strong>Parkplätze</strong> direkt vor der Tür</span>
+              </li>
+              <li>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="2"/><path d="M12 7v5l-3 5M12 12l3 5M7 9.5C8.5 8.5 10 8 12 8s3.5.5 5 1.5"/></svg>
+                <span><strong>Barrierefreier Zugang</strong> zur Praxis</span>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
-
+    </section>
   </main>
 
-  <footer class="footer" style="margin-top:80px;">
+  <footer class="footer">
     <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <div class="logo-mark"><img src="bilder-higgsfield/logo-icon-schwarz.png" width="30" height="30" alt="" aria-hidden="true" style="filter:invert(1);mix-blend-mode:screen;object-fit:contain;display:block;"></div>
-          <div class="logo-text"><span>Hausarztpraxis</span><strong>Stärke &amp; Staack</strong></div>
-          <p class="footer-tagline">Persönliche Medizin mit moderner Diagnostik.</p>
+      <div class="footer__grid">
+        <div>
+          <h3>Stärke &amp; Staack</h3>
+          <p class="footer__tagline">Persönliche Medizin mit moderner Diagnostik.</p>
         </div>
-        <div class="footer-col">
+        <nav aria-label="Footer Navigation">
           <h4>Navigation</h4>
           <ul>
             <li><a href="index.html">Start</a></li>
@@ -435,121 +271,96 @@
             <li><a href="aktuelles.html">Aktuelles</a></li>
             <li><a href="kontakt.html">Kontakt</a></li>
           </ul>
-        </div>
-        <div class="footer-col">
+        </nav>
+        <div>
           <h4>Rechtliches</h4>
           <ul>
             <li><a href="impressum.html">Impressum</a></li>
             <li><a href="datenschutz.html">Datenschutz</a></li>
-            <li><a href="tel:116117">Notfall: 116 117</a></li>
+            <li>Notfall: <a href="tel:116117">116 117</a></li>
           </ul>
         </div>
-        <div class="footer-col">
+        <div>
           <h4>Kontakt</h4>
-          <p style="font-size:14px;color:rgba(244,240,229,0.5);">Gr. Diesdorfer Str. 186, 39110 Magdeburg<br>0391 7348410</p>
+          <address>
+            Gr. Diesdorfer Str. 186, 39110 Magdeburg<br>
+            <a href="tel:03917348410">0391 7348410</a>
+          </address>
         </div>
       </div>
-      <div class="footer-bottom">
-        <p>&copy; 2026 Hausarztpraxis Stärke &amp; Staack</p>
-        <div class="footer-legal">
-          <a href="impressum.html">Impressum</a>
-          <a href="datenschutz.html">Datenschutz</a>
-        </div>
+      <div class="footer__bottom">
+        <p>© 2026 Hausarztpraxis Stärke &amp; Staack</p>
+        <p><a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a></p>
       </div>
     </div>
   </footer>
 
+  <div class="privacy-bar" id="privacy-bar" role="status">
+    <p>Diese Website erhebt anonyme Besucherstatistiken — cookiefrei &amp; DSGVO-konform. <a href="datenschutz.html" style="color:var(--bronze-light)">Mehr erfahren</a></p>
+    <button type="button">Verstanden</button>
+  </div>
+
+  <script src="js/main.js"></script>
   <script>
-    const navToggle = document.getElementById('navToggle');
-    const navMobile = document.getElementById('navMobile');
-    navToggle.addEventListener('click', () => {
-      const open = navMobile.classList.toggle('open');
-      navToggle.setAttribute('aria-expanded', open);
-    });
-    const obs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
-    }, {threshold:0.1});
-    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+    (function () {
+      var form = document.getElementById('contact-form');
+      var feedback = document.getElementById('form-feedback');
+      var success = document.getElementById('form-success');
+      var submitBtn = document.getElementById('submit-btn');
 
-    // FORM SUBMISSION → Railway backend → Airtable
-    const BACKEND_URL = 'https://praxis-staerke-backend-production.up.railway.app';
-
-    document.getElementById('contactForm').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const btn = document.getElementById('submitBtn');
-      btn.classList.add('loading');
-      btn.textContent = 'Wird gesendet...';
-      btn.disabled = true;
-
-      const vorname    = document.getElementById('vorname').value;
-      const nachname   = document.getElementById('nachname').value;
-      const email      = document.getElementById('email').value;
-      const telefon    = document.getElementById('telefon').value;
-      const anliegen   = document.getElementById('anliegen').value;
-      const nachricht  = document.getElementById('nachricht').value;
-      const datenschutz = document.getElementById('datenschutz').checked;
-
-      try {
-        const res = await fetch(`${BACKEND_URL}/api/contact`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ vorname, nachname, email, telefon, anliegen, nachricht, datenschutz }),
-        });
-
-        const data = await res.json();
-
-        if (!res.ok) throw new Error(data.error || 'Unbekannter Fehler');
-
-        document.getElementById('contactForm').style.display = 'none';
-        document.getElementById('formSuccess').classList.add('show');
-      } catch (err) {
-        btn.classList.remove('loading');
-        btn.textContent = 'Nachricht senden';
-        btn.disabled = false;
-
-        document.getElementById('email').setAttribute('aria-invalid', 'true');
-
-        let errorEl = document.getElementById('formError');
-        if (!errorEl) {
-          errorEl = document.createElement('p');
-          errorEl.id = 'formError';
-          errorEl.setAttribute('role', 'alert');
-          errorEl.style.cssText = 'color:#c0392b;margin-top:12px;font-size:14px;';
-          btn.parentElement.appendChild(errorEl);
-        }
-        errorEl.textContent = err.message.includes('Zu viele')
-          ? err.message
-          : 'Fehler beim Senden. Bitte versuche es erneut oder ruf uns an.';
+      function setError(input, hasError) {
+        input.closest('.field').classList.toggle('field--error', hasError);
       }
-    });
 
-    // Input focus animations
-    document.querySelectorAll('.form-control').forEach(input => {
-      input.addEventListener('focus', () => {
-        input.parentElement.style.transform = 'scale(1.005)';
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        feedback.className = 'form-feedback';
+        feedback.textContent = '';
+
+        var vorname = form.vorname.value.trim();
+        var nachname = form.nachname.value.trim();
+        var email = form.email.value.trim();
+        var telefon = form.telefon.value.trim();
+        var anliegen = form.anliegen.value;
+        var nachricht = form.nachricht.value.trim();
+        var datenschutz = form.datenschutz.checked;
+
+        var valid = true;
+        setError(form.vorname, !vorname); valid = valid && !!vorname;
+        setError(form.nachname, !nachname); valid = valid && !!nachname;
+        var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        setError(form.email, !emailOk); valid = valid && emailOk;
+        setError(form.nachricht, !nachricht); valid = valid && !!nachricht;
+        setError(form.datenschutz, !datenschutz); valid = valid && datenschutz;
+        if (!valid) {
+          var firstError = form.querySelector('.field--error input, .field--error textarea');
+          if (firstError) firstError.focus();
+          return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.querySelector('span').textContent = 'Wird gesendet …';
+
+        try {
+          var res = await fetch(window.PRAXIS.API_BASE + '/api/contact', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ vorname: vorname, nachname: nachname, email: email, telefon: telefon, anliegen: anliegen, nachricht: nachricht, datenschutz: datenschutz })
+          });
+          var data = await res.json().catch(function () { return {}; });
+          if (!res.ok) throw new Error(data.error || 'Unbekannter Fehler');
+
+          form.style.display = 'none';
+          success.classList.add('is-visible');
+          success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } catch (err) {
+          feedback.classList.add('is-error');
+          feedback.textContent = 'Fehler beim Senden: ' + err.message + ' — bitte versuchen Sie es erneut oder rufen Sie uns an: 0391 7348410';
+          submitBtn.disabled = false;
+          submitBtn.querySelector('span').textContent = 'Nachricht senden';
+        }
       });
-      input.addEventListener('blur', () => {
-        input.parentElement.style.transform = '';
-      });
-    });
+    })();
   </script>
-<div id="privacy-bar">
-  <span>Diese Website erhebt anonyme Besucherstatistiken — cookiefrei &amp; DSGVO-konform. <a href="datenschutz.html">Mehr erfahren</a></span>
-  <button id="pb-dismiss">Verstanden</button>
-</div>
-<script>
-(function(){
-  var p=location.pathname+(location.search||'');
-  function track(){fetch('https://praxis-staerke-backend-production.up.railway.app/api/track',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({page:p,referrer:document.referrer||''}),keepalive:true}).catch(function(){});}
-  if(localStorage.getItem('privacy-ack')){track();return;}
-  var b=document.getElementById('privacy-bar');
-  requestAnimationFrame(function(){requestAnimationFrame(function(){b.classList.add('pb-visible');});});
-  document.getElementById('pb-dismiss').addEventListener('click',function(){
-    b.classList.remove('pb-visible');
-    localStorage.setItem('privacy-ack','1');
-    track();
-  });
-})();
-</script>
 </body>
 </html>
