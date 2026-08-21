@@ -145,9 +145,12 @@
       min-height: 4.5rem;
       padding: 1.1rem 1.5rem;
       border-bottom: 1px solid var(--line);
-      transition: background 200ms var(--ease-out), padding-left 200ms var(--ease-out);
+      transition: background 200ms var(--ease-out);
     }
     .row:last-child { border-bottom: none; }
+    /* Verschiebung laeuft ueber transform statt padding: padding animieren
+       zwingt jeden Frame zu einem Layout-Durchlauf. */
+    .row .num, .row .body { transition: transform 200ms var(--ease-out); }
     .row .num {
       font-family: var(--serif);
       font-size: 1.05rem;
@@ -159,7 +162,9 @@
     .row .title { display: block; font-weight: 600; font-size: 1rem; letter-spacing: -0.005em; }
     .row .sub { display: block; font-size: 0.85rem; color: var(--text-dim); margin-top: 0.1rem; }
     .row .chev { color: var(--bronze); flex-shrink: 0; transition: transform 200ms var(--ease-out); }
-    a.row:hover { background: #faf8f3; padding-left: 1.75rem; }
+    a.row:hover { background: #faf8f3; }
+    a.row:hover .num,
+    a.row:hover .body { transform: translateX(6px); }
     a.row:hover .chev { transform: translateX(3px); }
     a.row:active { background: #f4f0e5; }
 
@@ -205,7 +210,7 @@
 
     @media (prefers-reduced-motion: reduce) {
       .stagger > *, .pulse path { animation: none; opacity: 1; transform: none; stroke-dashoffset: 0; }
-      .row, .row .chev { transition: none; }
+      .row, .row .num, .row .body, .row .chev { transition: none; }
     }
 
     /* Auf breiten Schirmen bleibt es die Karte, die es auf dem Handy ist. */
