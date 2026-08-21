@@ -3,9 +3,12 @@ import crypto from 'node:crypto';
 // HMAC beider Seiten erzwingt gleiche Länge, damit timingSafeEqual nicht wirft
 // und die Schlüssellänge nicht über die Laufzeit verraten wird.
 export function isValidAdminKey(key) {
-  const expected = process.env.ADMIN_KEY || '';
+  // Getrimmt, weil ein beim Kopieren mitgeschlepptes Leerzeichen in der
+  // Vercel-Variable sonst zu dauerhaftem "Falscher Schlüssel" führt — bei
+  // korrekt eingegebenem Schlüssel. Der Client trimmt die Eingabe ebenfalls.
+  const expected = (process.env.ADMIN_KEY || '').trim();
   if (!expected) return false;
-  const given = typeof key === 'string' ? key : '';
+  const given = typeof key === 'string' ? key.trim() : '';
   const ha = crypto.createHmac('sha256', 'praxis-key-check').update(given).digest();
   const hb = crypto.createHmac('sha256', 'praxis-key-check').update(expected).digest();
   return crypto.timingSafeEqual(ha, hb);
