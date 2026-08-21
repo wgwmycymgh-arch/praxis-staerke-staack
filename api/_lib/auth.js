@@ -11,8 +11,19 @@ export function isValidAdminKey(key) {
   return crypto.timingSafeEqual(ha, hb);
 }
 
+function header(req, name) {
+  const v = req.headers[name];
+  return typeof v === 'string' && v ? v.split(',')[0].trim() : '';
+}
+
+// Nur Header nehmen, die Vercels Proxy selbst setzt und dabei überschreibt.
+// x-forwarded-for ist absichtlich NICHT dabei: die darf jeder Client frei
+// mitschicken. Wer sie pro Anfrage variiert, bekommt sonst jedes Mal einen
+// frischen Rate-Limit-Zähler und kann den Admin-Schlüssel unbegrenzt
+// durchprobieren — die Sperre in guardAdmin() wäre wirkungslos.
 export function clientIp(req) {
-  const fwd = req.headers['x-forwarded-for'];
-  if (typeof fwd === 'string' && fwd) return fwd.split(',')[0].trim();
-  return req.socket?.remoteAddress || 'unknown';
+  return header(req, 'x-vercel-forwarded-for')
+    || header(req, 'x-real-ip')
+    || req.socket?.remoteAddress
+    || 'unknown';
 }
