@@ -1,5 +1,6 @@
 -- Praxis Stärke & Staack — Schema für das neue Supabase-Projekt.
--- Einmalig im Supabase SQL Editor ausführen (Region eu-central-1 / Frankfurt).
+-- Einmalig im Supabase SQL Editor ausführen.
+-- Region: eu-west-1 (Irland) — so steht es in der Datenschutzerklärung.
 
 create table posts (
   id uuid primary key default gen_random_uuid(),
@@ -27,6 +28,8 @@ create table rate_limits (
   window_start timestamptz not null default now()
 );
 
+create index rate_limits_window_start_idx on rate_limits (window_start);
+
 -- Kein anon/authenticated Zugriff. Nur der service_role Key aus den Vercel
 -- Env-Vars kommt durch, und der verlässt niemals den Server.
 alter table posts enable row level security;
@@ -43,7 +46,6 @@ set search_path = public
 as $$
 declare
   v_count integer;
-  v_expired boolean;
 begin
   insert into rate_limits as rl (key, count, window_start)
   values (p_key, 1, now())
@@ -62,5 +64,20 @@ begin
 end;
 $$;
 
--- Aufräumen alter Zähler, damit die Tabelle nicht unbegrenzt wächst.
-create index rate_limits_window_start_idx on rate_limits (window_start);
+-- Jede fremde IP legt eine Zeile an, die nach Ablauf ihres Fensters nutzlos
+-- ist. Ohne Aufräumen wächst die Tabelle unbegrenzt. Wird vom täglichen Cron
+-- über /api/ping mitgerufen.
+create or replace function prune_rate_limits()
+returns integer
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  v_deleted integer;
+begin
+  delete from rate_limits where window_start < now() - interval '1 day';
+  get diagnostics v_deleted = row_count;
+  return v_deleted;
+end;
+$$;
