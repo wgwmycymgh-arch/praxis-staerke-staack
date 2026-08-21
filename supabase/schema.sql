@@ -1,8 +1,14 @@
--- Praxis Stärke & Staack — Schema für das neue Supabase-Projekt.
--- Einmalig im Supabase SQL Editor ausführen.
--- Region: eu-west-1 (Irland) — so steht es in der Datenschutzerklärung.
+-- Praxis Stärke & Staack — Datenbankschema.
+--
+-- Stand 21.08.2026: Das Projekt (Ref dqcrrtbamnpxavkfrfsz, eu-west-1) war von
+-- Supabase pausiert, NICHT gelöscht. Nach "Resume project" waren alle Daten
+-- wieder da. posts und anfragen bestehen also seit dem ersten Deployment;
+-- neu hinzugekommen sind nur rate_limits und die beiden Funktionen.
+--
+-- Die Datei ist idempotent: gefahrlos erneut ausführbar und gleichzeitig die
+-- vollständige Vorlage, falls das Projekt jemals neu aufgebaut werden muss.
 
-create table posts (
+create table if not exists posts (
   id uuid primary key default gen_random_uuid(),
   type text not null check (type in ('neuigkeit', 'urlaub', 'info')),
   title text not null,
@@ -10,7 +16,7 @@ create table posts (
   date timestamptz not null default now()
 );
 
-create table anfragen (
+create table if not exists anfragen (
   id uuid primary key default gen_random_uuid(),
   vorname text not null,
   nachname text not null,
@@ -22,13 +28,13 @@ create table anfragen (
   created_at timestamptz not null default now()
 );
 
-create table rate_limits (
+create table if not exists rate_limits (
   key text primary key,
   count integer not null default 0,
   window_start timestamptz not null default now()
 );
 
-create index rate_limits_window_start_idx on rate_limits (window_start);
+create index if not exists rate_limits_window_start_idx on rate_limits (window_start);
 
 -- Kein anon/authenticated Zugriff. Nur der service_role Key aus den Vercel
 -- Env-Vars kommt durch, und der verlässt niemals den Server.
@@ -38,6 +44,8 @@ alter table rate_limits enable row level security;
 
 -- Zählt Requests pro Bucket+IP atomar in einer Anweisung. Ohne das würde
 -- zwischen SELECT und UPDATE ein paralleler Request durchrutschen.
+-- Verifiziert am 21.08.2026 gegen die echte DB: drei Aufrufe gegen p_max = 2
+-- ergeben [true, true, false].
 create or replace function check_rate_limit(p_key text, p_max integer, p_window_seconds integer)
 returns boolean
 language plpgsql
@@ -81,3 +89,8 @@ begin
   return v_deleted;
 end;
 $$;
+
+-- OFFEN: Die Tabelle pageviews (1460 Zeilen) stammt vom entfernten Tracking.
+-- Die Datenschutzerklärung sagt jetzt ausdrücklich, dass keine Webanalyse
+-- stattfindet — die Altbestände widersprechen dem. Ob die Tabelle verworfen
+-- wird, entscheidet Carl; hier steht bewusst kein ausführbares Statement.
