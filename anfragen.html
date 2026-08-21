@@ -119,7 +119,7 @@
   <script>
     (function () {
       'use strict';
-      var BACKEND = 'https://praxis-staerke-staack-production.up.railway.app';
+      var BACKEND = '';
       var STATUS = ['Neu', 'In Arbeit', 'Erledigt'];
       var STATUS_CLASS = { 'Neu': 's-neu', 'In Arbeit': 's-arbeit', 'Erledigt': 's-erledigt' };
       var adminKey = null;
@@ -155,15 +155,22 @@
         btn.disabled = true;
         loginError.classList.remove('is-visible');
         try {
-          var res = await fetch(BACKEND + '/api/auth', { method: 'POST', headers: { 'X-Admin-Key': val } });
+          var res;
+          try {
+            res = await fetch(BACKEND + '/api/auth', { method: 'POST', headers: { 'X-Admin-Key': val } });
+          } catch (netErr) {
+            throw new Error('Server nicht erreichbar. Der Schlüssel ist wahrscheinlich korrekt — bitte Carl informieren.');
+          }
           if (res.ok) {
             sessionStorage.setItem('ak', val);
             adminKey = val;
             showAdmin();
           } else if (res.status === 429) {
             throw new Error('Zu viele Versuche. Bitte 15 Minuten warten.');
-          } else {
+          } else if (res.status === 401) {
             throw new Error('Falscher Schlüssel. Bitte erneut versuchen.');
+          } else {
+            throw new Error('Serverfehler (' + res.status + '). Bitte Carl informieren.');
           }
         } catch (err) {
           loginError.textContent = err.message || 'Verbindungsfehler.';

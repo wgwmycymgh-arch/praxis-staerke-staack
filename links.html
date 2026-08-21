@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, follow">
+  <title>Praxis online — Hausarztpraxis Stärke &amp; Staack</title>
+  <meta name="description" content="Alle Wege zur Hausarztpraxis Stärke & Staack in Magdeburg: anrufen, Termin vereinbaren, Leistungen, Anfahrt.">
+  <link rel="icon" type="image/png" href="images/logo-icon-gruen.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* Bewusst eigenständig statt css/styles.css: die Seite ist das Ziel eines
+       QR-Codes und wird oft über schlechtes Mobilfunknetz im Wartezimmer
+       geöffnet. Tokens sind 1:1 aus dem Designsystem übernommen. */
+    :root {
+      --ink: #0f2d1c;
+      --ink-mid: #1a4d2e;
+      --green-deep: #0a1f13;
+      --bronze: #b8843a;
+      --bronze-light: #d8a45c;
+      --paper: #f4f0e5;
+      --surface: #ffffff;
+      --cream: #f4f0e5;
+      --text: #1a1710;
+      --text-mid: #4a4840;
+      --text-dim: #6f6759;
+      --line: rgba(15, 45, 28, 0.12);
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --radius: 2px;
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      font-family: var(--sans);
+      /* Bewusst über dem Website-Standard: die Praxis ist hausärztlich,
+         ein spürbarer Teil der Patienten ist über 70. */
+      font-size: 1.0625rem;
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--paper);
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    img { max-width: 100%; height: auto; display: block; }
+    a { color: inherit; text-decoration: none; }
+    :focus-visible { outline: 2px solid var(--bronze); outline-offset: 3px; }
+
+    .wrap { width: 100%; max-width: 30rem; margin-inline: auto; flex: 1; }
+
+    /* ---------- Briefkopf ---------- */
+    .head {
+      background: var(--green-deep);
+      color: var(--cream);
+      padding: 2.75rem 1.5rem 2.25rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Papierkorn, damit die Fläche nicht wie ein flacher Farbblock wirkt */
+    .head::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(rgba(244,240,229,0.06) 1px, transparent 1px);
+      background-size: 4px 4px;
+      pointer-events: none;
+    }
+    .head img { width: 3rem; margin: 0 auto 1.25rem; filter: brightness(0) invert(1); opacity: 0.92; }
+    .head .kicker {
+      font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 0.24em; text-transform: uppercase;
+      color: var(--bronze-light);
+      margin-bottom: 0.6rem;
+    }
+    .head h1 {
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: clamp(2.1rem, 11vw, 2.9rem);
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+    }
+    .head h1 em { font-style: normal; color: var(--bronze-light); }
+    .head address {
+      font-style: normal;
+      font-size: 0.875rem;
+      color: rgba(244, 240, 229, 0.62);
+      margin-top: 0.9rem;
+      line-height: 1.5;
+    }
+
+    /* ---------- EKG-Hairline ---------- */
+    .pulse { display: block; width: 100%; height: 40px; background: var(--green-deep); }
+    .pulse path {
+      fill: none;
+      stroke: var(--bronze);
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 420;
+      stroke-dashoffset: 420;
+      animation: draw 1.9s var(--ease-out) 0.15s forwards;
+    }
+    @keyframes draw { to { stroke-dashoffset: 0; } }
+
+    /* ---------- Anruf: die eine dominante Handlung ---------- */
+    .call {
+      display: block;
+      background: var(--ink);
+      color: var(--cream);
+      padding: 1.6rem 1.5rem;
+      text-align: center;
+      border-bottom: 1px solid rgba(244, 240, 229, 0.14);
+    }
+    .call .label {
+      display: block;
+      font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--bronze-light);
+      margin-bottom: 0.35rem;
+    }
+    .call .number {
+      display: block;
+      font-family: var(--serif);
+      font-size: clamp(2rem, 10vw, 2.6rem);
+      font-weight: 600;
+      line-height: 1.05;
+      letter-spacing: 0.01em;
+    }
+    .call .hint { display: block; font-size: 0.8rem; color: rgba(244, 240, 229, 0.55); margin-top: 0.4rem; }
+    .call:active { background: var(--ink-mid); }
+
+    /* ---------- Verzeichnis ---------- */
+    .list { background: var(--surface); }
+    .row {
+      display: flex;
+      align-items: center;
+      gap: 1.1rem;
+      /* 4.5rem hält jeden Treffer weit über der 44px-Mindestgröße */
+      min-height: 4.5rem;
+      padding: 1.1rem 1.5rem;
+      border-bottom: 1px solid var(--line);
+      transition: background 200ms var(--ease-out), padding-left 200ms var(--ease-out);
+    }
+    .row:last-child { border-bottom: none; }
+    .row .num {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      color: var(--bronze);
+      min-width: 1.6rem;
+      font-variant-numeric: tabular-nums;
+    }
+    .row .body { flex: 1; min-width: 0; }
+    .row .title { display: block; font-weight: 600; font-size: 1rem; letter-spacing: -0.005em; }
+    .row .sub { display: block; font-size: 0.85rem; color: var(--text-dim); margin-top: 0.1rem; }
+    .row .chev { color: var(--bronze); flex-shrink: 0; transition: transform 200ms var(--ease-out); }
+    a.row:hover { background: #faf8f3; padding-left: 1.75rem; }
+    a.row:hover .chev { transform: translateX(3px); }
+    a.row:active { background: #f4f0e5; }
+
+    .row--soon { opacity: 0.55; }
+    .row--soon .badge {
+      font-size: 0.65rem; font-weight: 600;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--text-dim);
+      border: 1px solid var(--line);
+      border-radius: 99px;
+      padding: 0.25rem 0.6rem;
+      flex-shrink: 0;
+    }
+
+    /* ---------- Notfall ---------- */
+    .emergency {
+      background: var(--paper);
+      padding: 1.4rem 1.5rem;
+      border-top: 1px solid var(--line);
+      font-size: 0.875rem;
+      color: var(--text-mid);
+      line-height: 1.7;
+    }
+    .emergency strong { color: var(--ink); font-weight: 600; }
+    .emergency a { color: var(--bronze); font-weight: 600; border-bottom: 1px solid rgba(184,132,58,0.35); }
+
+    .foot {
+      text-align: center;
+      padding: 1.75rem 1.5rem 2.5rem;
+      font-size: 0.8rem;
+      color: var(--text-dim);
+    }
+    .foot a { border-bottom: 1px solid var(--line); }
+    .foot .sep { opacity: 0.4; margin-inline: 0.5rem; }
+
+    /* ---------- Einblenden ---------- */
+    .stagger > * {
+      opacity: 0;
+      transform: translateY(10px);
+      animation: rise 620ms var(--ease-out) forwards;
+    }
+    @keyframes rise { to { opacity: 1; transform: none; } }
+
+    @media (prefers-reduced-motion: reduce) {
+      .stagger > *, .pulse path { animation: none; opacity: 1; transform: none; stroke-dashoffset: 0; }
+      .row, .row .chev { transition: none; }
+    }
+
+    /* Auf breiten Schirmen bleibt es die Karte, die es auf dem Handy ist. */
+    @media (min-width: 40rem) {
+      body { background: var(--green-deep); padding-block: 3rem; }
+      .wrap {
+        box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+        border-radius: var(--radius);
+        overflow: hidden;
+      }
+      .foot { background: var(--surface); }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="head">
+      <img src="images/logo-icon-transparent.png" alt="" width="48" height="48">
+      <p class="kicker">Hausarztpraxis</p>
+      <h1>Stärke <em>&amp;</em> Staack</h1>
+      <address>Gr. Diesdorfer Straße 186<br>39110 Magdeburg</address>
+    </header>
+
+    <svg class="pulse" viewBox="0 0 400 40" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 20 H150 l10 -13 l9 26 l8 -20 l7 7 H400"></path>
+    </svg>
+
+    <main class="stagger">
+      <a class="call" href="tel:03917348410" style="animation-delay:120ms">
+        <span class="label">Praxis anrufen</span>
+        <span class="number">0391 7348410</span>
+        <span class="hint">Mo – Fr · Termine &amp; Rezepte</span>
+      </a>
+
+      <nav class="list" aria-label="Praxis online" style="animation-delay:220ms">
+        <a class="row" href="/">
+          <span class="num">01</span>
+          <span class="body">
+            <span class="title">Website</span>
+            <span class="sub">Praxis, Sprechzeiten, Team</span>
+          </span>
+          <svg class="chev" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+
+        <a class="row" href="/kontakt">
+          <span class="num">02</span>
+          <span class="body">
+            <span class="title">Termin &amp; Kontakt</span>
+            <span class="sub">Anfrage online stellen</span>
+          </span>
+          <svg class="chev" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+
+        <a class="row" href="/leistungen">
+          <span class="num">03</span>
+          <span class="body">
+            <span class="title">Leistungen</span>
+            <span class="sub">Vorsorge, Diagnostik, IGeL</span>
+          </span>
+          <svg class="chev" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+
+        <a class="row" href="/aktuelles">
+          <span class="num">04</span>
+          <span class="body">
+            <span class="title">Aktuelles</span>
+            <span class="sub">Urlaub, Vertretung, Hinweise</span>
+          </span>
+          <svg class="chev" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+
+        <a class="row" href="https://www.google.com/maps/search/?api=1&amp;query=Gr.+Diesdorfer+Stra%C3%9Fe+186%2C+39110+Magdeburg" target="_blank" rel="noopener noreferrer">
+          <span class="num">05</span>
+          <span class="body">
+            <span class="title">Anfahrt</span>
+            <span class="sub">Route in Google Maps öffnen</span>
+          </span>
+          <svg class="chev" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+
+        <!-- Platzhalter: sobald der Account existiert, wird diese Zeile zu einem
+             <a class="row" href="…"> — der gedruckte QR-Code bleibt gültig. -->
+        <div class="row row--soon">
+          <span class="num">06</span>
+          <span class="body">
+            <span class="title">Instagram</span>
+            <span class="sub">Einblicke aus der Praxis</span>
+          </span>
+          <span class="badge">Bald</span>
+        </div>
+      </nav>
+
+      <div class="emergency" style="animation-delay:320ms">
+        <p><strong>Außerhalb der Sprechzeiten:</strong> Ärztlicher Bereitschaftsdienst <a href="tel:116117">116 117</a> · Im Notfall <a href="tel:112">112</a></p>
+      </div>
+    </main>
+
+    <footer class="foot">
+      <a href="/impressum">Impressum</a><span class="sep">·</span><a href="/datenschutz">Datenschutz</a>
+    </footer>
+  </div>
+</body>
+</html>

@@ -2,7 +2,8 @@
 (function () {
   'use strict';
 
-  var API_BASE = 'https://praxis-staerke-staack-production.up.railway.app';
+  /* Leer = same-origin. Das Backend laeuft als Vercel Functions unter /api. */
+  var API_BASE = '';
   var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ---------- Navigation ---------- */
@@ -65,33 +66,6 @@
     revealEls.forEach(function (el) { io.observe(el); });
   } else {
     revealEls.forEach(function (el) { el.classList.add('is-visible'); });
-  }
-
-  /* ---------- Privacy-Hinweis + anonymes Tracking ---------- */
-  var bar = document.getElementById('privacy-bar');
-
-  function track() {
-    try {
-      fetch(API_BASE + '/api/track', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          page: location.pathname + location.search,
-          referrer: document.referrer
-        })
-      }).catch(function () {});
-    } catch (e) { /* Tracking darf nie die Seite stören */ }
-  }
-
-  if (localStorage.getItem('privacy-ack') === '1') {
-    track();
-  } else if (bar) {
-    setTimeout(function () { bar.classList.add('is-visible'); }, 1200);
-    bar.querySelector('button').addEventListener('click', function () {
-      localStorage.setItem('privacy-ack', '1');
-      bar.classList.remove('is-visible');
-      track();
-    });
   }
 
   /* ---------- Premium Motion Layer ---------- */

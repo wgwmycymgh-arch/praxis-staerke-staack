@@ -9,6 +9,13 @@ TresenV2.jpg
 tresenv3.jpg
 tresen5.jpg
 
+# Alter Express-Stand (durch api/ auf Vercel Functions abgelöst).
+# Wurde vorher als statische Datei ausgeliefert — server.js war öffentlich lesbar.
+backend/
+
+# Nur Referenz, gehört nicht ins Deployment
+supabase/
+
 # Git/Dev
 .git
 .gitignore

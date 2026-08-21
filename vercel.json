@@ -1,6 +1,9 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
+  "crons": [
+    { "path": "/api/ping", "schedule": "0 6 * * *" }
+  ],
   "redirects": [
     { "source": "/team", "has": [{ "type": "host", "value": "(www\\.)?franka-staerke\\.com" }], "destination": "https://praxis-staerke-staack.de/team", "permanent": true },
     { "source": "/aktuelles", "has": [{ "type": "host", "value": "(www\\.)?franka-staerke\\.com" }], "destination": "https://praxis-staerke-staack.de/aktuelles", "permanent": true },
@@ -33,7 +36,7 @@
         { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
         { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" },
         { "key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains" },
-        { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; connect-src 'self' https://praxis-staerke-staack-production.up.railway.app https://praxis-staerke-backend-production.up.railway.app; frame-src 'none'; object-src 'none'; base-uri 'self';" }
+        { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; connect-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self';" }
       ]
     }
   ]

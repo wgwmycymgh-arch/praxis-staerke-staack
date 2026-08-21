@@ -140,7 +140,7 @@
   <script>
     (function () {
       'use strict';
-      var BACKEND = 'https://praxis-staerke-staack-production.up.railway.app';
+      var BACKEND = '';
       var TYPE_LABELS = { urlaub: 'Urlaub / Schließung', info: 'Info', neuigkeit: 'Neuigkeit' };
       var adminKey = null;
 
@@ -169,15 +169,24 @@
         btn.disabled = true;
         loginError.classList.remove('is-visible');
         try {
-          var res = await fetch(BACKEND + '/api/auth', { method: 'POST', headers: { 'X-Admin-Key': val } });
+          var res;
+          try {
+            res = await fetch(BACKEND + '/api/auth', { method: 'POST', headers: { 'X-Admin-Key': val } });
+          } catch (netErr) {
+            // Netzwerkfehler darf nicht als falscher Schlüssel erscheinen —
+            // genau das hat die Fehlersuche beim Backend-Ausfall verschleppt.
+            throw new Error('Server nicht erreichbar. Der Schlüssel ist wahrscheinlich korrekt — bitte Carl informieren.');
+          }
           if (res.ok) {
             sessionStorage.setItem('ak', val);
             adminKey = val;
             showAdmin();
           } else if (res.status === 429) {
             throw new Error('Zu viele Versuche. Bitte 15 Minuten warten.');
-          } else {
+          } else if (res.status === 401) {
             throw new Error('Falscher Schlüssel. Bitte erneut versuchen.');
+          } else {
+            throw new Error('Serverfehler (' + res.status + '). Bitte Carl informieren.');
           }
         } catch (err) {
           loginError.textContent = err.message || 'Verbindungsfehler.';
@@ -218,7 +227,7 @@
             var date = document.createElement('p');
             date.className = 'date';
             try {
-              date.textContent = new Date(post.created_at).toLocaleDateString('de-DE', { day: '2-digit', month: 'long', year: 'numeric' });
+              date.textContent = new Date(post.date || post.created_at).toLocaleDateString('de-DE', { day: '2-digit', month: 'long', year: 'numeric' });
             } catch (e) {}
             info.appendChild(badge); info.appendChild(h); info.appendChild(prev); info.appendChild(date);
 
